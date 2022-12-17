@@ -1,0 +1,60 @@
+{
+  "name": "create-sidebase",
+  "version": "0.1.0-alpha.0",
+  "description": "Create a Nuxt 3 web application with the sidebase stack",
+  "scripts": {
+    "dev": "vite-node src/",
+    "start": "node dist/index.js",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "build": "rm -rf dist && tsup src/ --format cjs,esm --dts --dts-resolve",
+    "prepack": "npm run build"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sidebase/create-sidebase"
+  },
+  "bin": {
+    "create-sidebase": "./dist/index.js"
+  },
+  "keywords": [
+    "sidebase",
+    "create-sidebase",
+    "nuxt",
+    "typescript",
+    "prisma",
+    "fullstack"
+  ],
+  "author": "sidestream-tech <sidebase@sidestream.tech>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sidebase/sidebase/issues/new/choose"
+  },
+  "homepage": "https://github.com/sidebase/create-sidebase/tree/main/packages/nuxt-sidebase-parse",
+  "devDependencies": {
+    "@types/node": "^18.11.16",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "eslint": "^8.23.0",
+    "tsup": "^6.2.3",
+    "typescript": "^4.8.2",
+    "vite-node": "^0.25.8"
+  },
+  "dependencies": {
+    "chalk": "^5.2.0"
+  }
+}
