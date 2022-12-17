@@ -15,24 +15,26 @@ export const say = (message: string) => {
 
 export const sayWelcome = async () => {
   const version = await getVersion()
-  const styledVersion = chalk.green(`sidebase v${version}`)
-  const welcome = `Welcome to ${styledVersion}!`.padEnd(36, " ")
+  const welcome = `Welcome to ${chalk.green(`sidebase v${version}`)}!`
 
   // Artist of sheep: Bob Allison, taken from https://ascii.co.uk/art/sheep on 17.12.2022
-  const sheep = `
-                                             __  _
-                                         .-.'  \`; \`-._  __  _
-${diamond}                             (_,         .-:'  \`; \`-._
-${welcome}    ,'o"(        (_,           )
-                                      (__,-'      ,'o"(            )>
-                                         (       (__,-'            )
-                                          \`-'._.--._(             )
-                                             |||  |||\`-'._.--._.-'
-                                                        |||  |||
+  const banner = `
+        __  _
+    .-.'  \`; \`-._  __  _
+   (_,         .-:'  \`; \`-._
+ ,'o"(        (_,           )
+(__,-'      ,'o"(            )>
+   (       (__,-'            )
+    \`-'._.--._(             )
+       |||  |||\`-'._.--._.-'
+                  |||  |||
+${diamond}
+${welcome}
   `
-  console.log(sheep)
 
-  await sleep(500)
+  console.log(banner)
+
+  await sleep(750)
 
   say(`sidebase helps you to create fully typesafe Nuxt 3 app in seconds: ${chalk.blue("https://sidebase.io/sidebase")} \n`)
 
