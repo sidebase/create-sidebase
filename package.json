@@ -1,13 +1,13 @@
 {
   "name": "create-sidebase",
-  "version": "0.1.0-alpha.3",
+  "version": "0.1.0-alpha.7",
   "description": "Create a Nuxt 3 web application with the sidebase stack",
   "scripts": {
     "dev": "vite-node src/",
     "start": "npx",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
     "typecheck": "tsc --noEmit",
-    "build": "rm -rf dist && tsup src/ --format cjs,esm",
+    "build": "rm -rf dist && tsup src/ --format esm",
     "prepack": "npm run build"
   },
   "exports": {
@@ -26,7 +26,7 @@
     "url": "git+https://github.com/sidebase/create-sidebase"
   },
   "bin": {
-    "create-sidebase": "./dist/index.cjs"
+    "create-sidebase": "./dist/index.js"
   },
   "keywords": [
     "sidebase",

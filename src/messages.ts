@@ -10,22 +10,22 @@ export const say = (message: string) => {
 }
 
 export const sayWelcome = async () => {
-  const version = (await getVersion()) || "0.1.0"
-
-  const welcome = `Welcome to ${chalk.bgGreen("sidebase")} v${version}!`
+  const version = await getVersion()
+  const styledVersion = chalk.green(`v${version}`)
+  const welcome = `Welcome to ${chalk.bgGreen("sidebase")} ${styledVersion}!`.padEnd(36, " ")
 
 
   // Artist of sheep: Bob Allison, taken from https://ascii.co.uk/art/sheep on 17.12.2022
   const sheep = `
-                                       __  _
-${diamond}                           .-.'  \`; \`-._  __  _
-${welcome}       (_,         .-:'  \`; \`-._
-                                 ,'o"(        (_,           )
-                                (__,-'      ,'o"(            )>
-                                   (       (__,-'            )
-                                    \`-'._.--._(             )
-                                       |||  |||\`-'._.--._.-'
-                                                  |||  |||
+                                              __  _
+                                          .-.'  \`; \`-._  __  _
+${diamond}                                 (_,         .-:'  \`; \`-._
+${welcome}    ,'o"(        (_,           )
+                                      (__,-'      ,'o"(            )>
+                                         (       (__,-'            )
+                                          \`-'._.--._(             )
+                                             |||  |||\`-'._.--._.-'
+                                                        |||  |||
   `
   console.log(sheep)
 }
