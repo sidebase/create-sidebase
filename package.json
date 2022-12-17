@@ -1,7 +1,7 @@
 {
   "name": "create-sidebase",
-  "version": "0.1.0-alpha.7",
-  "description": "Create a Nuxt 3 web application with the sidebase stack",
+  "version": "0.1.0-alpha.9",
+  "description": "Create a Nuxt 3 web application with the sidebase stack, like create-t3-app for Nuxt!",
   "scripts": {
     "dev": "vite-node src/",
     "start": "npx",
@@ -23,7 +23,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sidebase/create-sidebase"
+    "url": "git+https://github.com/sidebase/sidebase"
   },
   "bin": {
     "create-sidebase": "./dist/index.js"
@@ -41,9 +41,10 @@
   "bugs": {
     "url": "https://github.com/sidebase/sidebase/issues/new/choose"
   },
-  "homepage": "https://github.com/sidebase/create-sidebase/tree/main/packages/nuxt-sidebase-parse",
+  "homepage": "https://github.com/sidebase/sidebase",
   "devDependencies": {
     "@types/node": "^18.11.16",
+    "@types/prompts": "^2.4.2",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
     "eslint": "^8.23.0",
@@ -52,6 +53,11 @@
     "vite-node": "^0.25.8"
   },
   "dependencies": {
-    "chalk": "^5.2.0"
+    "chalk": "^5.2.0",
+    "defu": "^6.1.1",
+    "giget": "^1.0.0",
+    "ora": "^6.1.2",
+    "pkg-types": "^1.0.1",
+    "prompts": "^2.4.2"
   }
 }

@@ -1,18 +1,39 @@
 #!/usr/bin/env node
-import { say, sayWelcome } from "./messages"
+import { downloadTemplate, addModules, initGit, addCi, npmInstall } from "./steps"
+import { sayGoodbye, saySetupIsRunning, sayWelcome } from "./messages"
+import { getUserPreferences } from "./prompts"
+import { wrapInSpinner } from "./utils/spinner"
 
-const sleep = (duration: number) => new Promise(r => setTimeout(r, duration))
 
 const main = async () => {
-  sayWelcome()
+  await sayWelcome()
 
-  await sleep(500)
+  const preferences = await getUserPreferences()
 
-  say("sidebase helps you to create fully typesafe Nuxt 3 app in seconds: https://sidebase.io/sidebase\n")
+  saySetupIsRunning(preferences)
 
-  await sleep(1000)
+  // 1. Download the Nuxt 3 template
+  const template = await wrapInSpinner("Downloading Nuxt 3 template", downloadTemplate, preferences)
 
-  say("Let's get started!")
+  // 2. Add modules
+  await addModules(preferences, template.dir)
+
+  // 3. Initialize git
+  if (preferences.runGitInit) {
+    await initGit(template.dir)
+  }
+
+  // 4. Add CI
+  if (preferences.addCi) {
+    await addCi(template.dir)
+  }
+
+  // 5. Run npm | pnpm | yarn install
+  if (preferences.runInstall) {
+    await npmInstall(template.dir)
+  }
+
+  sayGoodbye(preferences)
 }
 
 main().catch((err) => {
