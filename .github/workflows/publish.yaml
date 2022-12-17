@@ -17,11 +17,11 @@ jobs:
         with:
           node-version: 16.14.2
 
-      - run: npm install
+      - run: npm ci
 
-      - run: npm lint
+      - run: npm run lint
 
-      - run: npm typecheck
+      - run: npm run typecheck
 
       - uses: JS-DevTools/npm-publish@v1
         with:
