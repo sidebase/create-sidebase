@@ -4,7 +4,6 @@ import { get } from "node:https"
 // length: 8 characters, so sheep needs to be indented negative 8!
 const diamond = chalk.bold.gray("Diamond:")
 
-
 export const say = (message: string) => {
   console.log(diamond)
   console.log(message)
