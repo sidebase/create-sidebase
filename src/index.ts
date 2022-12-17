@@ -3,6 +3,7 @@ import { downloadTemplate, addModules, initGit, addCi, npmInstall } from "./step
 import { sayGoodbye, saySetupIsRunning, sayWelcome } from "./messages"
 import { getUserPreferences } from "./prompts"
 import { wrapInSpinner } from "./utils/spinner"
+import { getUserPkgManager } from "./utils/getUserPkgManager"
 
 
 const main = async () => {
@@ -13,24 +14,24 @@ const main = async () => {
   saySetupIsRunning(preferences)
 
   // 1. Download the Nuxt 3 template
-  const template = await wrapInSpinner("Downloading Nuxt 3 template", downloadTemplate, preferences)
+  const template = await wrapInSpinner("Adding Nuxt 3 template", downloadTemplate, preferences)
 
   // 2. Add modules
-  await addModules(preferences, template.dir)
+  await wrapInSpinner("Adding Nuxt modules", addModules, preferences, template.dir)
 
   // 3. Initialize git
   if (preferences.runGitInit) {
-    await initGit(template.dir)
+    await wrapInSpinner("Running `git init`", initGit, template.dir)
   }
 
   // 4. Add CI
   if (preferences.addCi) {
-    await addCi(template.dir)
+    await wrapInSpinner("Adding CI template", addCi, template.dir)
   }
 
-  // 5. Run npm | pnpm | yarn install
+  // 5. Run install
   if (preferences.runInstall) {
-    await npmInstall(template.dir)
+    await wrapInSpinner(`Running \`${getUserPkgManager()} install\``, npmInstall, template.dir)
   }
 
   sayGoodbye(preferences)

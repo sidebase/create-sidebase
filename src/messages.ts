@@ -38,13 +38,12 @@ ${welcome}    ,'o"(        (_,           )
 
   await sleep(1500)
 
-  say("Let's get started!\n")
+  say("Let's get started:")
 }
 
 export const saySetupIsRunning = (preferences: Preferences) => {
-  console.log("\n")
-  say(`Now setting up ${chalk.green(preferences.setProjectName)}`)
-  console.log("\n")
+  console.log()
+  say(`Now setting up ${chalk.green(preferences.setProjectName)}:`)
 }
 
 const sayCommand = (command: string, comment = "") => {
@@ -56,7 +55,7 @@ const sayCommand = (command: string, comment = "") => {
 }
 
 export const sayGoodbye = (preferences: Preferences) => {
-  console.log("\n")
+  console.log()
   console.log(diamond)
   console.log("✨ Project setup finished. Next steps are:")
 

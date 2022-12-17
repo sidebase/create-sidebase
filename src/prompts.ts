@@ -1,4 +1,5 @@
 import prompts, { type PromptObject } from "prompts"
+import { say } from "./messages"
 import { Dependency } from "./utils/addPackageDependency"
 import { getUserPkgManager } from "./utils/getUserPkgManager"
 
@@ -98,7 +99,7 @@ const PROMPT_QUESTIONS: PromptObject[] = [
 ]
 
 const onCancel = () => {
-  console.info("\n🐑 Aborting mission, bye bye \n")
+  say("Aborting mission - have a pleasent day 👋")
   process.exit()
 }
 
