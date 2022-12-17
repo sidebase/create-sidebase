@@ -1,4 +1,4 @@
-import { resolve } from "path"
+import { resolve } from "node:path"
 import { readPackageJSON, writePackageJSON } from "pkg-types"
 import { defu } from "defu"
 
