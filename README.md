@@ -19,7 +19,9 @@
 [![Follow us on Twitter](https://badgen.net/badge/icon/twitter?icon=twitter&label)](https://twitter.com/sidebase_io)
 [![Join our Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/9MUHR8WT9B)
 
-## sidebase
+## create-sidebase
+
+A CLI utility to create Nuxt 3 projects.
 
 <!-- Badges -->
 [npm-version-src]: https://img.shields.io/npm/v/create-sidebase/latest.svg
