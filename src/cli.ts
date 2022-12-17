@@ -1,3 +1,4 @@
+#!/bin/env node
 import { say, sayWelcome } from "./messages"
 
 const sleep = (duration: number) => new Promise(r => setTimeout(r, duration))
