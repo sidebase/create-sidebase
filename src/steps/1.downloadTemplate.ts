@@ -10,7 +10,7 @@ const KNOWN_TEMPLATES = {
   "cheviot": "community/sidebase"
 }
 
-// nuxt 3 + pnpm needs to shamefully hoist + we want to auto-install required peer dependencies
+// nuxt 3 + pnpm needs to shamefully hoist + we want to auto-install required peer dependencies (last one taken from: https://github.com/antfu/vitesse/blob/main/.npmrc)
 const pnpmFile = `
 shamefully-hoist=true
 strict-peer-dependencies=false
