@@ -6,12 +6,14 @@ import { getUserPkgManager } from "./utils/getUserPkgManager"
 export type SupportedDependencies = "tailwind" | "naiveui" | "prisma"
 
 declare interface ModuleConfig {
+  humanReadableName: string
   dependencies: Dependency[]
   nuxtModuleNames: string[]
   nuxtExtendsNames: string[]
 }
 export const moduleConfigs: Record<SupportedDependencies, ModuleConfig> = {
   "tailwind": {
+    humanReadableName: "Tailwind CSS",
     dependencies: [{
       name: "@nuxtjs/tailwindcss",
       version: "^6.1.3",
@@ -21,6 +23,7 @@ export const moduleConfigs: Record<SupportedDependencies, ModuleConfig> = {
     nuxtExtendsNames: []
   },
   "naiveui": {
+    humanReadableName: "Naive UI",
     dependencies: [{
       name: "@huntersofbook/naive-ui-nuxt",
       version: "^0.5.1",
@@ -30,6 +33,7 @@ export const moduleConfigs: Record<SupportedDependencies, ModuleConfig> = {
     nuxtExtendsNames: []
   },
   "prisma": {
+    humanReadableName: "Prisma ORM",
     dependencies: [
       {
         name: "prisma",
@@ -66,8 +70,8 @@ const PROMPT_QUESTIONS: PromptObject[] = [
     name: "setStack",
     message: "What stack would you like to use for your new project? More information: https://sidebase.io/sidebase/welcome/stacks",
     choices: [
-      { title: "Merino", description: "Allows fine-grained pick and choose for a selection of modules, libraries, ... to add to the core - an opinionated `create-nuxt-app`", value: "merino" },
-      { title: "Cheviot", description: "A batteries-included setup with a ORM, testing setup, a UI component library, Dockerfiles for deployment, code editor config files, a linting setup and more", value: "cheviot" },
+      { title: "Merino", description: "A modular stack that let's you choose configuration and modules, e.g.: Want Prisma ORM or not? Want Authentication or not? ... Merino is ideal if you want fine-grained control", value: "merino" },
+      { title: "Cheviot", description: "A batteries-included stack where most decisions were made for you. Cheviot is ideal if you want to just get going with an opinionated stack that works", value: "cheviot" },
     ],
     initial: 0
   },

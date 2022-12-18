@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { downloadTemplate, addModules, initGit, addCi, npmInstall } from "./steps"
+import { downloadTemplate, addModules, initGit, addCi, npmInstall, addReadme } from "./steps"
 import { sayGoodbye, sayQuickWelcome, saySetupIsRunning, sayWelcome } from "./messages"
 import { getUserPreferences } from "./prompts"
 import { wrapInSpinner } from "./utils/spinner"
@@ -41,6 +41,9 @@ const main = async () => {
   if (preferences.runInstall) {
     await wrapInSpinner(`Running \`${getUserPkgManager()} install\``, npmInstall, template.dir)
   }
+
+  // 6. Write readme
+  await wrapInSpinner("Adding README", addReadme, preferences, template.dir)
 
   sayGoodbye(preferences)
 }
