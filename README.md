@@ -10,7 +10,7 @@
   Get started with the <a target="_blank" href="https://sidebase.io/sidebase">sidebase</a> fully typed Nuxt 3 starter by running <code>npm create sidebase@latest</code>
 </p>
 
-![sidebase](https://raw.githubusercontent.com/sidebase/core/main/.github/sidebase.png)
+![sidebase](./.github/create-sidebase.png)
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
@@ -21,7 +21,9 @@
 
 ## create-sidebase
 
-A CLI utility to create Nuxt 3 projects.
+The productive way to build fullstack Nuxt 3 applications.
+
+sidebase is a web app development kit to build production ready fullstack apps quickly. We build sidebase to provide a modular, modern, fully-typed and best-practice approach to make your ideas a reality. Around a core of TypeScript and Nuxt 3 sidebase adds components like databases, CI, authentication, testing and more.
 
 <!-- Badges -->
 [npm-version-src]: https://img.shields.io/npm/v/create-sidebase/latest.svg
