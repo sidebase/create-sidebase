@@ -1,4 +1,4 @@
-import prompts, { Answers, PromptType, type PromptObject } from "prompts"
+import prompts, { PromptType, type PromptObject } from "prompts"
 import { say } from "./messages"
 import { Dependency } from "./utils/addPackageDependency"
 import { getUserPkgManager } from "./utils/getUserPkgManager"
