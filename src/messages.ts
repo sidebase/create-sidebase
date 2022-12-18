@@ -11,14 +11,8 @@ export const say = (message: string) => {
   console.log(message)
 }
 
-
-
-export const sayWelcome = async () => {
-  const version = await getVersion()
-  const welcome = `Welcome to ${chalk.green(`sidebase v${version}`)}!`
-
-  // Artist of sheep: Bob Allison, taken from https://ascii.co.uk/art/sheep on 17.12.2022
-  const banner = `
+// Artist of sheep: Bob Allison, taken from https://ascii.co.uk/art/sheep on 17.12.2022
+const makeBanner = (welcome: string) => `
         __  _
     .-.'  \`; \`-._  __  _
    (_,         .-:'  \`; \`-._
@@ -30,8 +24,12 @@ export const sayWelcome = async () => {
                   |||  |||
 ${diamond}
 ${welcome}
-  `
+`
 
+export const sayWelcome = async () => {
+  const version = await getVersion()
+  const welcome = `Welcome to ${chalk.green(`sidebase v${version}`)}!`
+  const banner = makeBanner(welcome)
   console.log(banner)
 
   await sleep(750)
@@ -41,6 +39,12 @@ ${welcome}
   await sleep(1500)
 
   say("Let's get started:")
+}
+
+export const sayQuickWelcome = async () => {
+  const welcome = `Welcome to ${chalk.green("sidebase")} (${chalk.blue("https://sidebase.io/sidebase")})! Thanks for choosing the warp route:`
+  const banner = makeBanner(welcome)
+  console.log(banner)
 }
 
 export const saySetupIsRunning = (preferences: Preferences) => {

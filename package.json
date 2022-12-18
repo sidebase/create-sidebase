@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "chalk": "^5.2.0",
+    "commander": "^9.4.1",
     "defu": "^6.1.1",
     "execa": "^6.1.0",
     "giget": "^1.0.0",

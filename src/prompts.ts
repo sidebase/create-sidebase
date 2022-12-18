@@ -62,6 +62,16 @@ const PROMPT_QUESTIONS: PromptObject[] = [
     initial: "my-sidebase-app"
   },
   {
+    type: "select",
+    name: "setStack",
+    message: "What stack would you like to use for your new project?",
+    choices: [
+      { title: "Merino", description: "Vanilla Nuxt 3 starter with the option to CI, modules and more in the next steps. See more: https://sidebase.io/sidebase/welcome/stacks", value: "vanilla" },
+      { title: "Cheviot", description: "Batteries-included with vitest, Prisma ORM, Naive UI, a ready-to-use sqlite DB setup, Dockerfiles, ... See more: https://sidebase.io/sidebase/welcome/stacks", value: "sidebase" },
+    ],
+    initial: 0
+  },
+  {
     type: "multiselect",
     "name": "addModules",
     message: "Which modules would you like to use?",

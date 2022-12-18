@@ -1,17 +1,25 @@
 #!/usr/bin/env node
 import { downloadTemplate, addModules, initGit, addCi, npmInstall } from "./steps"
-import { sayGoodbye, saySetupIsRunning, sayWelcome } from "./messages"
+import { sayGoodbye, sayQuickWelcome, saySetupIsRunning, sayWelcome } from "./messages"
 import { getUserPreferences } from "./prompts"
 import { wrapInSpinner } from "./utils/spinner"
 import { getUserPkgManager } from "./utils/getUserPkgManager"
+import { cliOptions } from "./utils/parseCliOptions"
 
 
 const main = async () => {
-  await sayWelcome()
+  const { quick } = cliOptions
+  if (!quick) {
+    await sayWelcome()
+  } else {
+    sayQuickWelcome()
+  }
 
   const preferences = await getUserPreferences()
 
-  saySetupIsRunning(preferences)
+  if (!quick) {
+    saySetupIsRunning(preferences)
+  }
 
   // 1. Download the Nuxt 3 template
   const template = await wrapInSpinner("Adding Nuxt 3 template", downloadTemplate, preferences)
