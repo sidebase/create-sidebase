@@ -1,4 +1,4 @@
-import prompts, { type PromptObject } from "prompts"
+import prompts, { Answers, PromptType, type PromptObject } from "prompts"
 import { say } from "./messages"
 import { Dependency } from "./utils/addPackageDependency"
 import { getUserPkgManager } from "./utils/getUserPkgManager"
@@ -52,8 +52,8 @@ export const moduleConfigs: Record<SupportedDependencies, ModuleConfig> = {
   }
 }
 
-// In the future we may add more like:
-// - docker
+const skipIfCheviotWasChosen = (typeIfNotMerino: PromptType) => (_: unknown, preferences: Record<string, string>) => preferences.setStack === "cheviot" ? null : typeIfNotMerino
+
 const PROMPT_QUESTIONS: PromptObject[] = [
   {
     type: "text",
@@ -64,15 +64,15 @@ const PROMPT_QUESTIONS: PromptObject[] = [
   {
     type: "select",
     name: "setStack",
-    message: "What stack would you like to use for your new project?",
+    message: "What stack would you like to use for your new project? More information: https://sidebase.io/sidebase/welcome/stacks",
     choices: [
-      { title: "Merino", description: "Vanilla Nuxt 3 starter with the option to CI, modules and more in the next steps. See more: https://sidebase.io/sidebase/welcome/stacks", value: "vanilla" },
-      { title: "Cheviot", description: "Batteries-included with vitest, Prisma ORM, Naive UI, a ready-to-use sqlite DB setup, Dockerfiles, ... See more: https://sidebase.io/sidebase/welcome/stacks", value: "sidebase" },
+      { title: "Merino", description: "Allows fine-grained pick and choose for a selection of modules, libraries, ... to add to the core - an opinionated `create-nuxt-app`", value: "merino" },
+      { title: "Cheviot", description: "A batteries-included setup with a ORM, testing setup, a UI component library, Dockerfiles for deployment, code editor config files, a linting setup and more", value: "cheviot" },
     ],
     initial: 0
   },
   {
-    type: "multiselect",
+    type: skipIfCheviotWasChosen("multiselect"),
     "name": "addModules",
     message: "Which modules would you like to use?",
     choices: [
@@ -88,7 +88,7 @@ const PROMPT_QUESTIONS: PromptObject[] = [
     initial: true,
   },
   {
-    type: "select",
+    type: skipIfCheviotWasChosen("select"),
     name: "addCi",
     message: "Initialize a default CI pipeline?",
     choices: [

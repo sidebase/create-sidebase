@@ -34,7 +34,7 @@ const main = async () => {
 
   // 4. Add CI
   if (preferences.addCi) {
-    await wrapInSpinner("Adding CI template", addCi, template.dir)
+    await wrapInSpinner("Adding CI template", addCi, preferences, template.dir)
   }
 
   // 5. Run install

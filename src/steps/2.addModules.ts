@@ -4,30 +4,33 @@ import { addPackageDependencies, Dependency } from "../utils/addPackageDependenc
 import { writeFile, mkdir } from "node:fs/promises"
 
 export default async (preferences: Preferences, templateDir: string) => {
+  const selectedModules: SupportedDependencies[] = preferences.addModules
+  if (!selectedModules || selectedModules.length === 0) {
+    return
+  }
+
   const resolver = getResolver(templateDir)
 
-  // 2. Add Modules
-  const selectedModules: SupportedDependencies[] = preferences.addModules
 
   let dependencies: Dependency[] = []
   let modulesForNuxt: string[] = []
   let extendsForNuxt: string[] = []
 
-  // 2.1 Tailwind
+  // 1.1 Tailwind
   if (selectedModules.includes("tailwind")) {
     dependencies = [...dependencies, ...moduleConfigs["tailwind"].dependencies]
     modulesForNuxt = modulesForNuxt.concat(moduleConfigs["tailwind"].nuxtModuleNames)
     extendsForNuxt = extendsForNuxt.concat(moduleConfigs["tailwind"].nuxtExtendsNames)
   }
 
-  // 2.2 Naive UI
+  // 1.2 Naive UI
   if (selectedModules.includes("naiveui")) {
     dependencies = [...dependencies, ...moduleConfigs["naiveui"].dependencies]
     modulesForNuxt = modulesForNuxt.concat(moduleConfigs["naiveui"].nuxtModuleNames)
     extendsForNuxt = extendsForNuxt.concat(moduleConfigs["naiveui"].nuxtExtendsNames)
   }
 
-  // 2.3 Prisma
+  // 1.3 Prisma
   if (selectedModules.includes("prisma")) {
     dependencies = [...dependencies, ...moduleConfigs["prisma"].dependencies]
     modulesForNuxt = modulesForNuxt.concat(moduleConfigs["prisma"].nuxtModuleNames)
@@ -39,7 +42,7 @@ export default async (preferences: Preferences, templateDir: string) => {
     dependencies
   })
 
-  // 3. Write nuxt config
+  // 2. Write nuxt config
   const modulesForNuxtFormatted = `[${modulesForNuxt.map(module => `"${module}"`).join(", ")}]`
   const extendsForNuxtFormatted = `[${extendsForNuxt.map(module => `"${module}"`).join(", ")}]`
   const nuxtConfig = `
@@ -51,7 +54,7 @@ export default defineNuxtConfig({
 `
   await writeFile(resolver("nuxt.config.ts"), nuxtConfig)
 
-  // 4. Extra module configuration
+  // 3. Extra module configuration
   const prismaFile = `
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema

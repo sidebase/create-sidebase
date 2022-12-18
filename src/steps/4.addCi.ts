@@ -1,5 +1,6 @@
 import { mkdir, writeFile } from "node:fs/promises"
 import { getResolver } from "../getResolver"
+import { Preferences } from "../prompts"
 
 const GITHUB_ACTIONS_TEMPLATE = `
 name: CI
@@ -30,7 +31,12 @@ jobs:
       # TODO: Add more steps here, like "npm run lint" or "npm run test" as you add the tooling for it
 `
 
-export default async (templateDir: string) => {
+export default async (preferences: Preferences, templateDir: string) => {
+  // Cheviot already has github actions by default
+  if (preferences.setStack === "cheviot") {
+    return
+  }
+
   const resolver = getResolver(templateDir)
 
   await mkdir(resolver(".github/workflows"), { recursive: true })

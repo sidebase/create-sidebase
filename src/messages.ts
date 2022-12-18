@@ -72,7 +72,7 @@ export const sayGoodbye = (preferences: Preferences) => {
     sayCommand(`${packageManager} install`, "Install project dependencies")
   }
 
-  if (preferences.addModules.includes("prisma")) {
+  if (preferences.addModules?.includes("prisma") || preferences.setStack === "cheviot") {
     sayCommand("npx prisma generate", "Initialize the Prisma client")
   }
 
