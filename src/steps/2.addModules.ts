@@ -64,7 +64,10 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  // NOTE: You probably want to change this to another database later on
+  provider = "sqlite"
+
+  // This value is read from the .env file.
   url      = env("DATABASE_URL")
 }
 
@@ -74,13 +77,8 @@ model Example {
 }
 `
   const prismaEnvFile = `
-# Environment variables declared in this file are automatically made available to Prisma.
-# See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
-
-# Prisma supports the native connection string format for PostgreSQL, MySQL, SQLite, SQL Server, MongoDB and CockroachDB.
-# See the documentation for all the connection string options: https://pris.ly/d/connection-strings
-
-DATABASE_URL="postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public"%
+# Prisma
+DATABASE_URL=file:./db.sqlite
   `
   if (selectedModules.includes("prisma")) {
     await mkdir(resolver("prisma"))

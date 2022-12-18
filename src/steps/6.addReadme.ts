@@ -43,7 +43,7 @@ ${selectedFeatures.join("\n")}
 ## How to get going?
 
 This is a straight-forward setup with minimal templating and scaffolding. The options you selected during the sidebase CLI setup are all here though. Good places to continue are:
-- [the sidebase documentation](https://sidebase.io/sidebase)
+- [the First Steps documentation](https://sidebase.io/sidebase/usage)
 - [our discord](https://discord.gg/auc8eCeGzx)
 
 In any case, you should probably replace this generic README with a more specific one: Start by describing what the purpose of this project is and maybe add a screenshot of your app to the README?
