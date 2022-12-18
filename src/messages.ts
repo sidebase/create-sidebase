@@ -4,7 +4,6 @@ import type { Preferences } from "./prompts"
 import { getUserPkgManager } from "./utils/getUserPkgManager"
 
 const diamond = chalk.bold.gray("🐑 Diamond:").padEnd(12, " ")  // Make `diamond` fixed sized -> emojis can habe surprising lengths
-const sleep = (duration: number) => new Promise(r => setTimeout(r, duration))
 
 export const say = (message: string) => {
   console.log(diamond)
