@@ -32,11 +32,7 @@ export const sayWelcome = async () => {
   const banner = makeBanner(welcome)
   console.log(banner)
 
-  await sleep(750)
-
   say(`sidebase helps you to create fully typesafe Nuxt 3 app in seconds: ${chalk.blue("https://sidebase.io/sidebase")} \n`)
-
-  await sleep(1500)
 
   say("Let's get started:")
 }
