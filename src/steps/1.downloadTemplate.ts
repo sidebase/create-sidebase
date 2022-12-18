@@ -10,6 +10,12 @@ const KNOWN_TEMPLATES = {
   "cheviot": "community/sidebase"
 }
 
+// nuxt 3 + pnpm needs to shamefully hoist + we want to auto-install required peer dependencies
+const pnpmFile = `
+shamefully-hoist=true
+strict-peer-dependencies=false
+`
+
 export default async (preferences: Preferences) => {
   const templateName = KNOWN_TEMPLATES[preferences.setStack as keyof typeof KNOWN_TEMPLATES]
 
@@ -28,10 +34,9 @@ export default async (preferences: Preferences) => {
 
   const resolver = getResolver(template.dir)
 
-  // Write .nuxtrc with `shamefully-hoist=true` for pnpm
   const usingPnpm = getUserPkgManager() == "pnpm"
   if (usingPnpm) {
-    await writeFile(resolver(".npmrc"), "shamefully-hoist=true")
+    await writeFile(resolver(".npmrc"), pnpmFile)
   }
 
   return template

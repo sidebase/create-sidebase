@@ -33,7 +33,7 @@ const main = async () => {
   }
 
   // 4. Add CI
-  if (preferences.addCi) {
+  if (preferences.addCi === "github") {
     await wrapInSpinner("Adding CI template", addCi, preferences, template.dir)
   }
 
