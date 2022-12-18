@@ -45,8 +45,7 @@ export default async (preferences: Preferences, templateDir: string) => {
   // 2. Write nuxt config
   const modulesForNuxtFormatted = `[${modulesForNuxt.map(module => `"${module}"`).join(", ")}]`
   const extendsForNuxtFormatted = `[${extendsForNuxt.map(module => `"${module}"`).join(", ")}]`
-  const nuxtConfig = `
-// https://nuxt.com/docs/api/configuration/nuxt-config
+  const nuxtConfig = `// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: ${modulesForNuxtFormatted},
   extends: ${extendsForNuxtFormatted},
@@ -76,10 +75,10 @@ model Example {
   details     String
 }
 `
-  const prismaEnvFile = `
-# Prisma
+  const prismaEnvFile = `# Prisma
 DATABASE_URL=file:./db.sqlite
-  `
+`
+
   if (selectedModules.includes("prisma")) {
     await mkdir(resolver("prisma"))
     await writeFile(resolver("prisma/schema.prisma"), prismaFile)
