@@ -11,7 +11,7 @@ const KNOWN_TEMPLATES = {
 }
 
 // nuxt 3 + pnpm needs to shamefully hoist + we want to auto-install required peer dependencies (last one taken from: https://github.com/antfu/vitesse/blob/main/.npmrc)
-const pnpmFile = `
+const npmrc = `
 shamefully-hoist=true
 strict-peer-dependencies=false
 `
@@ -36,7 +36,7 @@ export default async (preferences: Preferences) => {
 
   const usingPnpm = getUserPkgManager() == "pnpm"
   if (usingPnpm) {
-    await writeFile(resolver(".npmrc"), pnpmFile)
+    await writeFile(resolver(".npmrc"), npmrc)
   }
 
   return template
