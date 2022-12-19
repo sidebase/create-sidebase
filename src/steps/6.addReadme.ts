@@ -1,7 +1,8 @@
 import { writeFile } from "node:fs/promises"
 import { getResolver } from "../getResolver"
-import { moduleConfigs, Preferences } from "../prompts"
+import { Preferences } from "../prompts"
 import { getUserPkgManager } from "../utils/getUserPkgManager"
+import { moduleConfigs } from "./2.addModules/moduleConfigs"
 
 const makeReadme = (preferences: Preferences) =>  {
   const { setProjectName = "sidebase", setStack = undefined, addModules = [], addCi = "none" } = preferences
@@ -30,6 +31,16 @@ const makeReadme = (preferences: Preferences) =>  {
     ]
   }
 
+  const tasks = []
+  if (addModules.includes("prisma")) {
+    tasks.push("- [ ] DB: Edit your `prisma/prisma.schema` to your liking")
+    tasks.push("- [ ] DB: Run `npx prisma db push` to sync the schema to your database")
+  }
+
+  if (addModules.includes("auth")) {
+    tasks.push("- [ ] Auth: Configure your auth providers to the [NuxtAuthHandler](./server/api/auth/[...].ts)")
+    tasks.push("- [ ] Auth, optional: Enable global protection by setting `enableGlobalAppMiddleware: true` in [your nuxt.config.ts](./nuxt.config.ts). Delete the logal middleware in the [protected.vue](./pages/protected.vue) page if you do")
+  }
 
   const packageManager = getUserPkgManager()
 
@@ -42,11 +53,13 @@ ${selectedFeatures.join("\n")}
 
 ## How to get going?
 
-This is a straight-forward setup with minimal templating and scaffolding. The options you selected during the sidebase CLI setup are all here though. Good places to continue are:
+This is a straight-forward setup with minimal templating and scaffolding. The options you selected during the sidebase CLI setup are all here though. Good places to continue reading are:
 - [the First Steps documentation](https://sidebase.io/sidebase/usage)
 - [our discord](https://discord.gg/auc8eCeGzx)
 
-In any case, you should probably replace this generic README with a more specific one: Start by describing what the purpose of this project is and maybe add a screenshot of your app to the README?
+Some tasks you should probably do in the beginning are:
+- [ ] replace this generic README with a more specific one
+${tasks.join("\n")}
 
 ### Setup
 
