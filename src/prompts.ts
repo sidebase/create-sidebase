@@ -1,6 +1,6 @@
 import prompts, { PromptType, type PromptObject } from "prompts"
 import { say } from "./messages"
-import { SupportedDependencies } from "./steps/2.addModules/moduleConfigs"
+import { moduleConfigs } from "./steps/2.addModules/moduleConfigs"
 import { getUserPkgManager } from "./utils/getUserPkgManager"
 
 const skipIfCheviotWasChosen = (typeIfNotMerino: PromptType) => (_: unknown, preferences: Record<string, string>) => preferences.setStack === "cheviot" ? null : typeIfNotMerino
@@ -26,12 +26,7 @@ const PROMPT_QUESTIONS: PromptObject[] = [
     type: skipIfCheviotWasChosen("multiselect"),
     "name": "addModules",
     message: "Which modules would you like to use?",
-    choices: [
-      { title: "PrismaORM", description: "Next-generation Node.js and TypeScript ORM. See more: https://www.prisma.io/", value: "prisma"},
-      { title: "nuxt-auth", description: "Authentication via OAuth, Credentials and magic email flows. Wraps the popular NextAuth.js with 12k stars. See more: https://sidebase.io/nuxt-auth", value: "auth"},
-      { title: "Tailwind CSS", description: "A utility-first CSS framework packed with classes that can be composed to build any design, directly in your markup. See more: https://tailwindcss.com/", value: "tailwind" },
-      { title: "Naive UI", description: "A Vue 3 Component Library.Fairly Complete, Theme Customizable, Uses TypeScript, Fast. Kinda Interesting. See more: https://www.naiveui.com/", value: "naiveui" },
-    ] as { title: string; description: string; value: SupportedDependencies }[],
+    choices: Object.entries(moduleConfigs).map(([key, { humanReadableName, description }]) => ({ title: humanReadableName, description, value: key}))
   },
   {
     type: "confirm",

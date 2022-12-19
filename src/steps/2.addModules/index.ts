@@ -1,54 +1,74 @@
 import { getResolver } from "../../getResolver"
 import { Preferences  } from "../../prompts"
-import { File, moduleConfigs, SupportedDependencies } from "./moduleConfigs"
+import { File, moduleConfigs, Modules } from "./moduleConfigs"
 import { addPackageDependencies, Dependency } from "../../utils/addPackageDependency"
 import { writeFile, mkdir } from "node:fs/promises"
 import path from "node:path"
+import { NuxtConfig } from "@nuxt/schema"
+import defu from "defu"
+import { inspect } from "node:util"
 
 export default async (preferences: Preferences, templateDir: string) => {
-  const selectedModules: SupportedDependencies[] = preferences.addModules
+  const selectedModules: Modules[] = preferences.addModules
   if (!selectedModules || selectedModules.length === 0) {
     return
   }
 
   const resolver = getResolver(templateDir)
 
-
+  // 1. Gather module configuration for all selected modules
   let dependencies: Dependency[] = []
-  let modulesForNuxt: string[] = []
-  let extendsForNuxt: string[] = []
+  let nuxtConfigExtensions: NuxtConfig[] = []
   let files: File[] = []
 
   for (const selectedModule of selectedModules) {
     dependencies = [...dependencies, ...moduleConfigs[selectedModule].dependencies]
-    modulesForNuxt = modulesForNuxt.concat(moduleConfigs[selectedModule].nuxtModuleNames)
-    extendsForNuxt = extendsForNuxt.concat(moduleConfigs[selectedModule].nuxtExtendsNames)
+    nuxtConfigExtensions = nuxtConfigExtensions.concat(moduleConfigs[selectedModule].nuxtConfig)
     files = files.concat(moduleConfigs[selectedModule].files)
   }
 
-  // 1. Add required dependencies to `package.json`
+  // 2. Add required dependencies to `package.json`
   addPackageDependencies({
     projectDir: preferences.setProjectName,
     dependencies
   })
 
-  // 2. Add extra files for modules that need it
+  // 3. Add extra files for modules that need it
   for (const file of files) {
     const folder = path.dirname(file.path)
     await mkdir(resolver(folder), { recursive: true })
     await writeFile(resolver(file.path), file.content)
   }
 
-  // 3. Write nuxt config
-  const modulesForNuxtFormatted = `[${modulesForNuxt.map(module => `"${module}"`).join(", ")}]`
-  const extendsForNuxtFormatted = `[${extendsForNuxt.map(module => `"${module}"`).join(", ")}]`
-  const nuxtConfig = `// https://nuxt.com/docs/api/configuration/nuxt-config
-export default defineNuxtConfig({
-  modules: ${modulesForNuxtFormatted},
-  extends: ${extendsForNuxtFormatted},
-})
+  // 4. Write nuxt config
+  let nuxtConfig = {}
+  for (const nuxtConfigExtension of nuxtConfigExtensions) {
+    nuxtConfig = defu(nuxtConfig, nuxtConfigExtension)
+  }
+  const nuxtConfigFile = `// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig(${inspect(nuxtConfig, { compact: false })})
 `
-  await writeFile(resolver("nuxt.config.ts"), nuxtConfig)
+  await writeFile(resolver("nuxt.config.ts"), nuxtConfigFile)
+
+  // 5. Write app.vue to ensure that sub-example-pages of different modules will work
+  const nuxtAppVue = `<template>
+<div>
+  <NuxtPage />
+</div>
+</template>
+`
+  await writeFile(resolver("app.vue"), nuxtAppVue)
 
 
+  // 6. Write index.vue with a nice welcome message as well as links to sub-pages
+  const moduleIndexHtmlSnippets = selectedModules.map((module) => moduleConfigs[module].htmlForIndexVue).filter(html => typeof html !== "undefined")
+  const nuxtPagesIndexVue = `<template>
+  <div>
+    <h1 ${selectedModules.includes("tailwind") ? "class=\"text-4xl\"" : ""}>Welcome to your sidebase app!</h1>
+    ${moduleIndexHtmlSnippets.join("\n    ")}
+  </div>
+</template>
+`
+  await mkdir(resolver("pages"), { recursive: true })
+  await writeFile(resolver("pages/index.vue"), nuxtPagesIndexVue)
 }

@@ -1,7 +1,9 @@
+import { NuxtConfig } from "@nuxt/schema"
 import { Dependency } from "../../utils/addPackageDependency"
 
-export type SupportedDependencies = "tailwind" | "naiveui" | "prisma" | "auth"
-
+/**
+ * PRISMA FILE CONTENTS, from: `npx prisma init`
+ */
 const prismaFile = `// This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -27,6 +29,9 @@ const prismaEnvFile = `# Prisma
 DATABASE_URL=file:./db.sqlite
 `
 
+/**
+ * NUXT AUTH FILE CONTENTS, from: sidebase.io/nuxt-auth/
+ */
 const nuxtAuthServerFile = `import CredentialsProvider from 'next-auth/providers/credentials'
 import GithubProvider from 'next-auth/providers/github'
 import { NuxtAuthHandler } from '#auth'
@@ -78,25 +83,111 @@ export default NuxtAuthHandler({
 `
 
 const nuxtAuthExamplePage = `<template>
-  <div>I'm protected!</div>
+  <div>I'm protected! Session data: {{ data }}</div>
+  <button @click="signOut()">sign out</button>
 </template>
 
 <script setup lang="ts">
 definePageMeta({ middleware: 'auth' })
+
+const { data, signOut } = useSession()
 </script>
 `
 
-const nuxtAuthApp = `<template>
-<div>
-  <NuxtPage />
-</div>
-</template>
+/**
+ * NUXT tRPC FILE CONTENTS, from: https://trpc-nuxt.vercel.app/get-started/usage/simple
+ */
+const nuxtTrpcRootConfig = `/**
+ * This is your entry point to setup the root configuration for tRPC on the server.
+ * - \`initTRPC\` should only be used once per app.
+ * - We export only the functionality that we use so we can enforce which base procedures should be used
+ *
+ * Learn how to create protected base procedures and other things below:
+ * @see https://trpc.io/docs/v10/router
+ * @see https://trpc.io/docs/v10/procedures
+ */
+import { initTRPC } from '@trpc/server'
+
+const t = initTRPC.create()
+
+/**
+ * Unprotected procedure
+ **/
+export const publicProcedure = t.procedure;
+
+export const router = t.router;
+export const middleware = t.middleware;
 `
 
-const nuxtAuthIndexPage = `<template>
+const nuxtTrpcApiHandler = `/**
+ * This is the API-handler of your app that contains all your API routes.
+ * On a bigger app, you will probably want to split this file up into multiple files.
+ */
+import { createNuxtApiHandler } from 'trpc-nuxt'
+import { publicProcedure, router } from '~/server/trpc/trpc'
+import { z } from 'zod'
+
+export const appRouter = router({
+  hello: publicProcedure
+    // This is the input schema of your procedure
+    .input(
+      z.object({
+        text: z.string().nullish(),
+      }),
+    )
+    .query(({ input }) => {
+      // This is what you're returning to your client
+      return {
+        greeting: \`hello \${input?.text ?? "world"}\`,
+      }
+    }),
+})
+
+// export only the type definition of the API
+// None of the actual implementation is exposed to the client
+export type AppRouter = typeof appRouter;
+
+// export API handler
+export default createNuxtApiHandler({
+  router: appRouter,
+  createContext: () => ({}),
+})
+`
+
+const nuxtTrpcPlugin = `import { createTRPCNuxtClient, httpBatchLink } from "trpc-nuxt/client"
+import type { AppRouter } from "~/server/api/trpc/[trpc]"
+
+export default defineNuxtPlugin(() => {
+  /**
+   * createTRPCNuxtClient adds a \`useQuery\` composable
+   * built on top of \`useAsyncData\`.
+   */
+  const client = createTRPCNuxtClient<AppRouter>({
+    links: [
+      httpBatchLink({
+        url: "/api/trpc",
+      }),
+    ],
+  })
+
+  return {
+    provide: {
+      client,
+    },
+  }
+})
+`
+
+const nuxtTrpcExamplePage = `<script setup lang="ts">
+const { $client } = useNuxtApp()
+
+const hello = await $client.hello.useQuery({ text: 'client' })
+console.log(hello.data.value?.greeting)
+</script>
+
+<template>
   <div>
-    <h1>Welcome to your sidebase app!</h1>
-    <p>This is an example page you can remove or overwrite. <nuxt-link to="/protected">Checkout the protected page to test your authentication setup!</nuxt-link> This will only work properly if you configured your authentication providers in the \`NuxtAuthHandler\`.</p>
+    <p>tRPC Data: {{ hello.data.value?.greeting }}</p>
   </div>
 </template>
 `
@@ -108,38 +199,20 @@ export declare interface File {
 
 declare interface ModuleConfig {
   humanReadableName: string
+  description: string
   dependencies: Dependency[]
-  nuxtModuleNames: string[]
-  nuxtExtendsNames: string[]
+  nuxtConfig: NuxtConfig
   files: File[]
+  tasksPostInstall: string[]
+  htmlForIndexVue?: string
 }
 
 // TODO: Improve files approach: It will fail as soon as the content of a file depends on two dependencies at the same time!
-export const moduleConfigs: Record<SupportedDependencies, ModuleConfig> = {
-  "tailwind": {
-    humanReadableName: "Tailwind CSS",
-    dependencies: [{
-      name: "@nuxtjs/tailwindcss",
-      version: "^6.1.3",
-      isDev: true
-    }],
-    nuxtModuleNames: ["@nuxtjs/tailwindcss"],
-    nuxtExtendsNames: [],
-    files: []
-  },
-  "naiveui": {
-    humanReadableName: "Naive UI",
-    dependencies: [{
-      name: "@huntersofbook/naive-ui-nuxt",
-      version: "^0.5.1",
-      isDev: true
-    }],
-    nuxtModuleNames: ["@huntersofbook/naive-ui-nuxt"],
-    nuxtExtendsNames: [],
-    files: []
-  },
+export type Modules = "prisma" | "auth" | "trpc" | "tailwind" | "naiveui"
+export const moduleConfigs: Record<Modules, ModuleConfig> = {
   "prisma": {
     humanReadableName: "Prisma ORM",
+    description: "Next-generation Node.js and TypeScript ORM. See more: https://www.prisma.io/",
     dependencies: [
       {
         name: "prisma",
@@ -157,18 +230,24 @@ export const moduleConfigs: Record<SupportedDependencies, ModuleConfig> = {
         isDev: false
       }
     ],
-    nuxtModuleNames: [],
-    nuxtExtendsNames: ["@sidebase/nuxt-prisma"],
+    nuxtConfig: {
+      extends: ["@sidebase/nuxt-prisma"],
+    },
     files: [{
       path: ".env",
       content: prismaEnvFile
     }, {
       path: "prisma/schema.prisma",
       content: prismaFile
-    }]
+    }],
+    tasksPostInstall: [
+      "- [ ] Prisma: Edit your `prisma/prisma.schema` to your liking",
+      "- [ ] Prisma: Run `npx prisma db push` to sync the schema to your database after changing it"
+    ]
   },
   "auth": {
     humanReadableName: "nuxt-auth",
+    description: "Authentication via OAuth, Credentials and magic email flows. Wraps the popular NextAuth.js with 12k stars. See more: https://sidebase.io/nuxt-auth",
     dependencies: [
       {
         name: "@sidebase/nuxt-auth",
@@ -176,20 +255,94 @@ export const moduleConfigs: Record<SupportedDependencies, ModuleConfig> = {
         isDev: true
       },
     ],
-    nuxtModuleNames: ["@sidebase/nuxt-auth"],
-    nuxtExtendsNames: [],
+    nuxtConfig: {
+      modules: ["@sidebase/nuxt-auth"]
+    },
     files: [{
       path: "server/api/auth/[...].ts",
       content: nuxtAuthServerFile
     }, {
       path: "pages/protected.vue",
       content: nuxtAuthExamplePage
+    }],
+    tasksPostInstall: [
+      "- [ ] Auth: Configure your auth providers to the [NuxtAuthHandler](./server/api/auth/[...].ts)",
+      "- [ ] Auth, optional: Enable global protection by setting `enableGlobalAppMiddleware: true` in [your nuxt.config.ts](./nuxt.config.ts). Delete the logal middleware in the [protected.vue](./pages/protected.vue) page if you do"
+    ],
+    htmlForIndexVue: "<p>Checkout the page protected by `nuxt-auth` here: <nuxt-link to=\"/protected\" class=\"underline text-blue\">Click me to test the auth setup!</nuxt-link></p>"
+  },
+  "trpc": {
+    humanReadableName: "tRPC 10",
+    description: "Build end-to-end typesafe APIs in Nuxt applications. See more: https://trpc.io/",
+    dependencies: [{
+      name: "@trpc/server",
+      version: "^10.5.0",
+      isDev: false
     }, {
-      path: "app.vue",
-      content: nuxtAuthApp
+      name: "@trpc/client",
+      version: "^10.5.0",
+      isDev: false
     }, {
-      path: "pages/index.vue",
-      content: nuxtAuthIndexPage
-    }]
+      name: "trpc-nuxt",
+      version: "^0.4.4",
+      isDev: false
+    }, {
+      name: "zod",
+      version: "^3.20.2",
+      isDev: false
+    }],
+    nuxtConfig: {
+      build: {
+        transpile: ["trpc-nuxt/client"]
+      }
+    },
+    files: [
+      {
+        path: "server/trpc/trpc.ts",
+        content: nuxtTrpcRootConfig
+      },
+      {
+        path: "server/api/trpc/[trpc].ts",
+        content: nuxtTrpcApiHandler
+      },
+      {
+        path: "plugins/trpcClient.ts",
+        content: nuxtTrpcPlugin
+      },
+      {
+        path: "pages/trpc.vue",
+        content: nuxtTrpcExamplePage
+      },
+    ],
+    tasksPostInstall: [],
+    htmlForIndexVue: "<p>Checkout the tRPC demo page here: <nuxt-link to=\"/trpc\" class=\"underline text-blue\">Click me to test the tRPC setup!</nuxt-link></p>"
+  },
+  "tailwind": {
+    humanReadableName: "Tailwind CSS",
+    description: "A utility-first CSS framework packed with classes that can be composed to build any design, directly in your markup. See more: https://tailwindcss.com/",
+    dependencies: [{
+      name: "@nuxtjs/tailwindcss",
+      version: "^6.1.3",
+      isDev: true
+    }],
+    nuxtConfig: {
+      modules: ["@nuxtjs/tailwindcss"]
+    },
+    files: [],
+    tasksPostInstall: []
+  },
+  "naiveui": {
+    humanReadableName: "Naive UI",
+    description: "A Vue 3 Component Library.Fairly Complete, Theme Customizable, Uses TypeScript, Fast. Kinda Interesting. See more: https://www.naiveui.com/",
+    dependencies: [{
+      name: "@huntersofbook/naive-ui-nuxt",
+      version: "^0.5.1",
+      isDev: true
+    }],
+    nuxtConfig: {
+      modules: ["@huntersofbook/naive-ui-nuxt"],
+    },
+    files: [],
+    tasksPostInstall: []
   }
 }

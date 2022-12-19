@@ -2,7 +2,7 @@ import { writeFile } from "node:fs/promises"
 import { getResolver } from "../getResolver"
 import { Preferences } from "../prompts"
 import { getUserPkgManager } from "../utils/getUserPkgManager"
-import { moduleConfigs } from "./2.addModules/moduleConfigs"
+import { moduleConfigs, Modules } from "./2.addModules/moduleConfigs"
 
 const makeReadme = (preferences: Preferences) =>  {
   const { setProjectName = "sidebase", setStack = undefined, addModules = [], addCi = "none" } = preferences
@@ -31,17 +31,7 @@ const makeReadme = (preferences: Preferences) =>  {
     ]
   }
 
-  const tasks = []
-  if (addModules.includes("prisma")) {
-    tasks.push("- [ ] DB: Edit your `prisma/prisma.schema` to your liking")
-    tasks.push("- [ ] DB: Run `npx prisma db push` to sync the schema to your database")
-  }
-
-  if (addModules.includes("auth")) {
-    tasks.push("- [ ] Auth: Configure your auth providers to the [NuxtAuthHandler](./server/api/auth/[...].ts)")
-    tasks.push("- [ ] Auth, optional: Enable global protection by setting `enableGlobalAppMiddleware: true` in [your nuxt.config.ts](./nuxt.config.ts). Delete the logal middleware in the [protected.vue](./pages/protected.vue) page if you do")
-  }
-
+  const tasksPostInstall = addModules.map((module: Modules) => moduleConfigs[module].tasksPostInstall).flat()
   const packageManager = getUserPkgManager()
 
   return `# ${setProjectName}-app
@@ -59,7 +49,7 @@ This is a straight-forward setup with minimal templating and scaffolding. The op
 
 Some tasks you should probably do in the beginning are:
 - [ ] replace this generic README with a more specific one
-${tasks.join("\n")}
+${tasksPostInstall.join("\n")}
 
 ### Setup
 
