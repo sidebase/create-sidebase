@@ -1,7 +1,7 @@
 import chalk from "chalk"
-import { get } from "node:https"
 import type { Preferences } from "./prompts"
 import { getUserPkgManager } from "./utils/getUserPkgManager"
+import { getVersion } from "./utils/getVersion"
 
 const diamond = chalk.bold.gray("🐑 Diamond:").padEnd(12, " ")  // Make `diamond` fixed sized -> emojis can habe surprising lengths
 
@@ -75,24 +75,4 @@ export const sayGoodbye = (preferences: Preferences) => {
 
   console.log(`\nStuck? Join us at ${chalk.blue("https://discord.gg/auc8eCeGzx")}\n`)
   console.log(`🐑 So Long, and Thanks for ... using ${chalk.green("sidebase")} to setup your application`)
-}
-
-
-
-// Adapted from: https://github.com/withastro/astro/blob/2552816d5fa14a191a73179698b4b6f574a9963f/packages/create-astro/src/messages.ts#L44-L58
-let v: string
-export const getVersion = () => {
-
-  return new Promise<string>((resolve) => {
-    if (v) return resolve(v)
-    get("https://registry.npmjs.org/create-sidebase/latest", (res) => {
-      let body = ""
-      res.on("data", (chunk) => (body += chunk))
-      res.on("end", () => {
-        const { version } = JSON.parse(body)
-        v = version
-        resolve(version)
-      })
-    })
-  })
 }
