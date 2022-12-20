@@ -41,7 +41,11 @@ export default async (preferences: Preferences, templateDir: string) => {
   }
 
   // 4. Write nuxt config
-  let nuxtConfig = {}
+  let nuxtConfig = {
+    typescript: {
+      shim: false
+    }
+  }
   for (const nuxtConfigExtension of nuxtConfigExtensions) {
     nuxtConfig = defu(nuxtConfig, nuxtConfigExtension)
   }
