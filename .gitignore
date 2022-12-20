@@ -5,3 +5,6 @@ dist/
 *.log
 docs/
 .DS_Store
+
+# default output of cli
+my-sidebase-app

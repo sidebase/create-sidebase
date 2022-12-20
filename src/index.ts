@@ -8,14 +8,26 @@ import { cliOptions } from "./utils/parseCliOptions"
 
 
 const main = async () => {
-  const { quick } = cliOptions
+  const { quick, ci } = cliOptions
   if (!quick) {
     await sayWelcome()
   } else {
     sayQuickWelcome()
   }
 
-  const preferences = await getUserPreferences()
+  let preferences
+  if (!ci) {
+    preferences = await getUserPreferences()
+  } else {
+    preferences = {
+      setProjectName: "my-sidebase-app",
+      setStack: "merino",
+      addModules: [ "prisma", "auth", "trpc", "tailwind", "naiveui" ],
+      runGitInit: true,
+      addCi: "github",
+      runInstall: true
+    }
+  }
 
   if (!quick) {
     saySetupIsRunning(preferences)
