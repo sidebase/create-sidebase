@@ -8,7 +8,7 @@ export const getVersion = async () => {
     return v
   }
 
-  if (process.env.NODE_ENV === "production" && !cliOptions.nocounting) {
+  if (process.env.NODE_ENV != "development" && !cliOptions.nocounting) {
     try {
       fetch("https://plausible.io/api/event", {
         method: "POST",
