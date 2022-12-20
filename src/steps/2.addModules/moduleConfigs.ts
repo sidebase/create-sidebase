@@ -163,7 +163,7 @@ export default createNuxtApiHandler({
 `
 
 const nuxtTrpcPlugin = `import { createTRPCNuxtClient, httpBatchLink } from "trpc-nuxt/client"
-import type { AppRouter } from "~/server/api/trpc/[trpc]"
+import type { AppRouter } from "~/server/trpc/routers"
 
 export default defineNuxtPlugin(() => {
   /**
