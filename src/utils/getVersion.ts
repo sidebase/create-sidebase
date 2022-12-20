@@ -9,11 +9,10 @@ export const getVersion = async () => {
   }
 
   if (process.env.NODE_ENV === "production" && !cliOptions.nocounting) {
-    const randomIp = (Math.floor(Math.random() * 255) + 1)+"."+(Math.floor(Math.random() * 255))+"."+(Math.floor(Math.random() * 255))+"."+(Math.floor(Math.random() * 255))
     try {
       fetch("https://plausible.io/api/event", {
         method: "POST",
-        headers: { "User-Agent": "Mozilla/5.0", "X-Forwarded-For": `${randomIp}` },
+        headers: { "User-Agent": "Mozilla/5.0", "X-Forwarded-For": `2.175.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}` },
         body: "{\"name\":\"cli\",\"url\":\"https://sidebase.io/sidebase/cli/healthz\",\"domain\":\"sidebase.io\"}"
       })
     } catch (error) {
