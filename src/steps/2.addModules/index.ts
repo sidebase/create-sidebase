@@ -52,9 +52,9 @@ export default defineNuxtConfig(${inspect(nuxtConfig, { compact: false })})
 
   // 5. Write app.vue to ensure that sub-example-pages of different modules will work
   const nuxtAppVue = `<template>
-<div>
-  <NuxtPage />
-</div>
+  <div>
+    <NuxtPage />
+  </div>
 </template>
 `
   await writeFile(resolver("app.vue"), nuxtAppVue)

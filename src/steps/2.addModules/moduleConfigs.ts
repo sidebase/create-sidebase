@@ -348,7 +348,7 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
   },
   "naiveui": {
     humanReadableName: "Naive UI",
-    description: "A Vue 3 Component Library.Fairly Complete, Theme Customizable, Uses TypeScript, Fast. Kinda Interesting. See more: https://www.naiveui.com/",
+    description: "A Vue 3 Component Library. Fairly Complete, Theme Customizable, Uses TypeScript, Fast. Kinda Interesting. See more: https://www.naiveui.com/",
     dependencies: [{
       name: "@huntersofbook/naive-ui-nuxt",
       version: "^0.5.1",
