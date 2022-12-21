@@ -235,12 +235,12 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     dependencies: [
       {
         name: "prisma",
-        version: "^4.7.1",
+        version: "^4.8.0",
         isDev: true
       },
       {
         name: "@prisma/client",
-        version: "^4.7.1",
+        version: "^4.8.0",
         isDev: false
       },
       {
