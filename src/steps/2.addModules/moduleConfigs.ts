@@ -252,7 +252,7 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
       },
       {
         name: "@sidebase/nuxt-prisma",
-        version: "^0.1.0",
+        version: "^0.1.2",
         isDev: false
       }
     ],
