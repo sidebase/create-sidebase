@@ -50,7 +50,7 @@ This is a straight-forward setup with minimal templating and scaffolding. The op
 Some tasks you should probably do in the beginning are:
 - [ ] replace this generic README with a more specific one
 - [ ] install the Vue Volar extension
-- [ ] enable [Volar takeover mode](https://nuxt.com/docs/getting-started/installation#prerequisites)
+- [ ] enable [Volar takeover mode](https://nuxt.com/docs/getting-started/installation#prerequisites) to ensure a smooth editor setup
 ${tasksPostInstall.join("\n")}
 
 ### Setup
