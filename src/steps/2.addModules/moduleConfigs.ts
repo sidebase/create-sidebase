@@ -108,8 +108,11 @@ const nuxtTrpcRootConfig = `/**
  */
 import { initTRPC } from '@trpc/server'
 import { Context } from '~/server/trpc/context'
+import superjson from 'superjson';
 
-const t = initTRPC.context<Context>().create()
+const t = initTRPC.context<Context>().create({
+  transformer: superjson,
+})
 
 /**
  * Unprotected procedure
@@ -132,6 +135,7 @@ export const appRouter = router({
     .query(({ input }) => {
       return {
         greeting: \`hello \${input?.text ?? "world"}\`,
+        time: new Date()
       }
     }),
 })
@@ -176,6 +180,7 @@ export default createNuxtApiHandler({
 
 const nuxtTrpcPlugin = `import { createTRPCNuxtClient, httpBatchLink } from "trpc-nuxt/client"
 import type { AppRouter } from "~/server/trpc/routers"
+import superjson from 'superjson';
 
 export default defineNuxtPlugin(() => {
   /**
@@ -183,6 +188,7 @@ export default defineNuxtPlugin(() => {
    * built on top of \`useAsyncData\`.
    */
   const client = createTRPCNuxtClient<AppRouter>({
+    transformer: superjson,
     links: [
       httpBatchLink({
         url: "/api/trpc",
@@ -206,7 +212,8 @@ const hello = await $client.hello.useQuery({ text: 'client' })
 
 <template>
   <div>
-    <p>tRPC Data: {{ hello.data.value?.greeting }}</p>
+    <!-- As \`superjson\` is already pre-configured, we can use \`time\` as a \`Date\` object without further deserialization 🎉 -->
+    <p>tRPC Data: {{ hello.data.value?.greeting }} send at {{ hello.data.value?.time.toLocaleDateString() }}</p>
   </div>
 </template>
 `
@@ -308,6 +315,10 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     }, {
       name: "zod",
       version: "^3.20.2",
+      isDev: false
+    }, {
+      name: "superjson",
+      version: "^1.12.1",
       isDev: false
     }],
     nuxtConfig: {
