@@ -13,7 +13,7 @@ export const getVersion = async () => {
       fetch("https://plausible.io/api/event", {
         method: "POST",
         headers: { "User-Agent": "Mozilla/5.0", "X-Forwarded-For": `2.175.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}` },
-        body: "{\"name\":\"cli\",\"url\":\"https://sidebase.io/sidebase/cli/healthz\",\"domain\":\"sidebase.io\"}"
+        body: "{\"name\":\"cli\",\"url\":\"https://cli.sidebase.io/\",\"domain\":\"cli.sidebase.io\"}"
       })
     } catch (error) {
       // pass
