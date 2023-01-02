@@ -34,10 +34,12 @@ const main = async () => {
   }
 
   // 1. Download the Nuxt 3 template
-  const template = await wrapInSpinner("Adding Nuxt 3 template", downloadTemplate, preferences)
+  const template = await wrapInSpinner(`Adding Nuxt 3 ${preferences.setStack} template`, downloadTemplate, preferences)
 
   // 2. Add modules
-  await wrapInSpinner("Adding Nuxt modules", addModules, preferences, template.dir)
+  if (preferences.setStack === "merino") {
+    await wrapInSpinner("Adding Nuxt modules", addModules, preferences, template.dir)
+  }
 
   // 3. Initialize git
   if (preferences.runGitInit) {

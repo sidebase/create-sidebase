@@ -9,11 +9,7 @@ import defu from "defu"
 import { inspect } from "node:util"
 
 export default async (preferences: Preferences, templateDir: string) => {
-  const selectedModules: Modules[] = preferences.addModules
-  if (!selectedModules || selectedModules.length === 0) {
-    return
-  }
-
+  const selectedModules: Modules[] = preferences.addModules || []
   const resolver = getResolver(templateDir)
 
   // 1. Gather module configuration for all selected modules
@@ -63,12 +59,11 @@ export default defineNuxtConfig(${inspect(nuxtConfig, { compact: false })})
 `
   await writeFile(resolver("app.vue"), nuxtAppVue)
 
-
   // 6. Write index.vue with a nice welcome message as well as links to sub-pages
   const moduleIndexHtmlSnippets = selectedModules.map((module) => moduleConfigs[module].htmlForIndexVue).filter(html => typeof html !== "undefined")
   const nuxtPagesIndexVue = `<template>
   <div>
-    <h1 ${selectedModules.includes("tailwind") ? "class=\"text-4xl\"" : ""}>Welcome to your sidebase app!</h1>${moduleIndexHtmlSnippets.length > 0 ? "\n" + moduleIndexHtmlSnippets.join("\n    ") : ""}
+    <h1${selectedModules.includes("tailwind") ? " class=\"text-4xl\"" : ""}>Welcome to your sidebase app!</h1>${moduleIndexHtmlSnippets.length > 0 ? "\n" + moduleIndexHtmlSnippets.join("\n    ") : ""}
   </div>
 </template>
 `
