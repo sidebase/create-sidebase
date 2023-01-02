@@ -1,6 +1,6 @@
 {
   "name": "create-sidebase",
-  "version": "0.2.8",
+  "version": "0.3.0",
   "description": "The productive way to build fullstack Nuxt 3 applications, like create-t3-app but for Nuxt.",
   "scripts": {
     "dev": "vite-node src/",
