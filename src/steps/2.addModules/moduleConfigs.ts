@@ -213,7 +213,7 @@ const hello = await $client.hello.useQuery({ text: 'client' })
 <template>
   <div>
     <!-- As \`superjson\` is already pre-configured, we can use \`time\` as a \`Date\` object without further deserialization 🎉 -->
-    <p>tRPC Data: {{ hello.data.value?.greeting }} send at {{ hello.data.value?.time.toLocaleDateString() }}</p>
+    <p>tRPC Data: "{{ hello.data.value?.greeting }}" send at "{{ hello.data.value?.time.toLocaleDateString() }}".</p>
   </div>
 </template>
 `

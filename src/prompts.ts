@@ -5,12 +5,15 @@ import { getUserPkgManager } from "./utils/getUserPkgManager"
 
 const skipIfCheviotWasChosen = (typeIfNotMerino: PromptType) => (_: unknown, preferences: Record<string, string>) => preferences.setStack === "cheviot" ? null : typeIfNotMerino
 
+const PROJECT_NAME_NOUNS = ["app", "project", "endeavour", "undertaking", "enterprise", "venture", "experiment", "effort", "operation", "affair", "pursuit", "struggle", "adventure", "thing"]
+const getRandomProjectNoun = () => PROJECT_NAME_NOUNS[Math.floor((Math.random() * PROJECT_NAME_NOUNS.length))]
+
 const PROMPT_QUESTIONS: PromptObject[] = [
   {
     type: "text",
     name: "setProjectName",
     message: "What will your project be called?",
-    initial: "my-sidebase-app"
+    initial: `my-sidebase-${getRandomProjectNoun()}`
   },
   {
     type: "select",
