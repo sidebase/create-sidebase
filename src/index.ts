@@ -5,6 +5,7 @@ import { getUserPreferences } from "./prompts"
 import { wrapInSpinner } from "./utils/spinner"
 import { getUserPkgManager } from "./utils/getUserPkgManager"
 import { cliOptions } from "./utils/parseCliOptions"
+import { count } from "./utils/count"
 
 
 const main = async () => {
@@ -18,6 +19,7 @@ const main = async () => {
   let preferences
   if (!ci) {
     preferences = await getUserPreferences()
+    count(preferences)
   } else {
     preferences = {
       setProjectName: "my-sidebase-app",
