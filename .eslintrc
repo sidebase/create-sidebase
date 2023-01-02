@@ -33,6 +33,7 @@
             "error",
             "never"
         ],
-        "object-curly-spacing": [1, "always"]
+        "object-curly-spacing": [1, "always"],
+        "space-infix-ops": ["error"]
     }
 }
