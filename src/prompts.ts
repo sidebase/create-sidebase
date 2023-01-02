@@ -26,7 +26,7 @@ const PROMPT_QUESTIONS: PromptObject[] = [
     type: skipIfCheviotWasChosen("multiselect"),
     "name": "addModules",
     message: "Which modules would you like to use?",
-    choices: Object.entries(moduleConfigs).map(([key, { humanReadableName, description }]) => ({ title: humanReadableName, description, value: key}))
+    choices: Object.entries(moduleConfigs).map(([key, { humanReadableName, description }]) => ({ title: humanReadableName, description, value: key }))
   },
   {
     type: "confirm",

@@ -17,7 +17,7 @@ export const addPackageDependencies = async (opts: {
   const pathToPackageJson = resolve(`./${projectDir}/package.json`)
   const packageJson = await readPackageJSON(pathToPackageJson)
 
-  for (const { name, version, isDev} of dependencies) {
+  for (const { name, version, isDev } of dependencies) {
     if (isDev) {
       packageJson.devDependencies = defu(packageJson.devDependencies, {
         [name]: version

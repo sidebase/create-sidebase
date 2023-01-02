@@ -87,5 +87,5 @@ ${packageManager} run preview
 
 export default async (preferences: Preferences, templateDir: string) => {
   const resolver = getResolver(templateDir)
-  await writeFile(resolver("README.md"), makeReadme(preferences), { flag:"w" })
+  await writeFile(resolver("README.md"), makeReadme(preferences), { flag: "w" })
 }

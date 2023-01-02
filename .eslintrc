@@ -32,6 +32,7 @@
         "semi": [
             "error",
             "never"
-        ]
+        ],
+        "object-curly-spacing": [1, "always"]
     }
 }
