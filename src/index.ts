@@ -24,7 +24,7 @@ const main = async () => {
     preferences = {
       setProjectName: "my-sidebase-app",
       setStack: "merino",
-      addModules: [ "prisma", "auth", "trpc", "tailwind", "naiveui" ],
+      addModules: [ "prisma", "auth", "trpc", "tailwind", "unocss", "naiveui" ],
       runGitInit: true,
       addCi: "github",
       runInstall: true

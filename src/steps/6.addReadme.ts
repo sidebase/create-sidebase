@@ -24,7 +24,7 @@ const makeReadme = (preferences: Preferences) =>  {
       "- Component tests via test-library/vue",
       "- Nuxt 3 native API testing via @nuxt/test-utils",
       "- Code coverage via c8",
-      "- CSS utilities via TailwindCSS",
+      "- CSS utilities via TailwindCSS or UnoCSS",
       "- CSS components via Naive UI",
       "- Type checking in script and template via Volar / vue-tsc",
       "- Code editor configuration via .editorconfig files and a portable .settings/ folder whith best-practice VS Code settings and extensions for Vue 3 / Nuxt 3 development",

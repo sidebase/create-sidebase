@@ -234,7 +234,7 @@ declare interface ModuleConfig {
 }
 
 // TODO: Improve files approach: It will fail as soon as the content of a file depends on two dependencies at the same time!
-export type Modules = "prisma" | "auth" | "trpc" | "tailwind" | "naiveui"
+export type Modules = "prisma" | "auth" | "trpc" | "tailwind" | "unocss" | "naiveui"
 export const moduleConfigs: Record<Modules, ModuleConfig> = {
   "prisma": {
     humanReadableName: "Prisma ORM",
@@ -365,6 +365,20 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     }],
     nuxtConfig: {
       modules: ["@nuxtjs/tailwindcss"]
+    },
+    files: [],
+    tasksPostInstall: []
+  },
+  "unocss": {
+    humanReadableName: "UnoCSS",
+    description: "The instant on-demand Atomic CSS engine. See more: https://uno.antfu.me/",
+    dependencies: [{
+      name: "@unocss/nuxt",
+      version: "^0.48.0",
+      isDev: true
+    }],
+    nuxtConfig: {
+      modules: ["@unocss/nuxt"],
     },
     files: [],
     tasksPostInstall: []
