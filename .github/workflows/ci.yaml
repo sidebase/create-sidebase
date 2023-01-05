@@ -39,16 +39,16 @@ jobs:
       - run: cd my-sidebase-app && npx prisma db push && npx prisma generate
 
       # start dev-app, all of the following adapted from https://stackoverflow.com/a/60996259
-      - run: "cd my-sidebase-app && timeout 30 npm run dev || ( [[ $? -eq 124 ]] && echo "app started and did not exit within first 30 seconds, thats good" )"
+      - run: "cd my-sidebase-app && timeout 30 npm run dev || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
 
       # start prod-app
-      - run: "cd my-sidebase-app && npm run build && timeout 30 npm run preview || ( [[ $? -eq 124 ]] && echo "app started and did not exit within first 30 seconds, thats good" )"
+      - run: "cd my-sidebase-app && npm run build && timeout 30 npm run preview || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
 
       # start dev-app and curl from it
-      - run: "cd my-sidebase-app && timeout 30 (npm run dev & (sleep 10 && curl --fail localhost:3000))  || ( [[ $? -eq 124 ]] && echo "app started and did not exit within first 30 seconds, thats good""
+      - run: "cd my-sidebase-app && timeout 30 (npm run dev & (sleep 10 && curl --fail localhost:3000))  || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\""
 
       # build prod-app, start it in prod mode and curl from it
-      - run: "cd my-sidebase-app && npm run build && timeout 30 (npm run preview & (sleep 10 && curl --fail localhost:3000))  || ( [[ $? -eq 124 ]] && echo "app started and did not exit within first 30 seconds, thats good""
+      - run: "cd my-sidebase-app && npm run build && timeout 30 (npm run preview & (sleep 10 && curl --fail localhost:3000))  || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\""
 
   publish:
     needs: [testCli, testCodebase]
