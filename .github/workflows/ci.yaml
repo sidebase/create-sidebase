@@ -38,10 +38,16 @@ jobs:
       # This is what the user would do, minus actually starting the application
       - run: cd my-sidebase-app && npx prisma generate
 
-      # start app and curl from it
+      # start dev-app
+      - run: "cd my-sidebase-app && timeout 30 npm run dev"
+
+      # start prod-app
+      - run: "cd my-sidebase-app && npm run build && timeout 30 npm run preview"
+
+      # start dev-app and curl from it
       - run: "cd my-sidebase-app && timeout 30 npm run dev & (sleep 10 && curl --fail localhost:3000)"
 
-      # build app, start it in prod mode and curl from it
+      # build prod-app, start it in prod mode and curl from it
       - run: "cd my-sidebase-app && npm run build && timeout 30 npm run preview & (sleep 10 && curl --fail localhost:3000)"
 
   publish:
