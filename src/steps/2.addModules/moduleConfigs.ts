@@ -277,7 +277,7 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     dependencies: [
       {
         name: "@sidebase/nuxt-auth",
-        version: "^0.3.2",
+        version: "^0.3.3",
         isDev: true
       },
     ],
