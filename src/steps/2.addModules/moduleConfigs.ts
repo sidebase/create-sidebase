@@ -2,7 +2,7 @@ import { NuxtConfig } from "@nuxt/schema"
 import { Dependency } from "../../utils/addPackageDependency"
 
 /**
- * PRISMA FILE CONTENTS, from: `npx prisma init`
+ * PRISMA FILE CONTENTS
  */
 const prismaFile = `// This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
@@ -27,6 +27,75 @@ model Example {
 
 const prismaEnvFile = `# Prisma
 DATABASE_URL=file:./db.sqlite
+`
+
+const prismaExampleEndpoint = `/**
+ * Fetch all \`examples\` from the database. Run \`npx prisma generate\` and \`npx prisma db push\` for this to work.
+ *
+ * If you are using \`tRPC\` you can access the prisma-client by adding it to the context:
+ * \`\`\`ts
+ * export async function createContext(event: H3Event) {
+ *   return { prisma: event.context.prisma }
+ * }
+ *
+ * export type Context = inferAsyncReturnType<typeof createContext>;
+ * \`\`\`
+ */
+export default defineEventHandler(event => event.context.prisma.example.findMany())
+`
+
+const prismaServerMiddleware = `import { PrismaClient } from '@prisma/client'
+
+let prisma: PrismaClient
+
+declare module 'h3' {
+  interface H3EventContext {
+    prisma: PrismaClient
+  }
+}
+
+export default eventHandler((event) => {
+  if (!prisma) {
+    prisma = new PrismaClient()
+  }
+  event.context.prisma = prisma
+})
+`
+
+const prismaUtils = `import { execSync } from 'child_process'
+
+/**
+ * Helper to reset the database via a programmatic prisma invocation. Helpful to add to \`beforeEach\` or \`beforeAll\` of your testing setup.
+ *
+ * WARNING: Never run this in production.
+ *
+ * Taken from https://github.com/prisma/prisma/issues/13549#issuecomment-1144883246
+ *
+ * @param databaseUrl Connection URL to database. Inferred from \`process.env.DATABASE_URL\` if not provided
+ */
+export const resetDatabase = (databaseUrl?: string) => {
+  const url = databaseUrl || process.env.DATABASE_URL
+  if (!url) {
+    throw new Error('Cannot reset database - connection string could not be inferred.')
+  }
+
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('This utility should not be called in production. It is meant for testing and development')
+  }
+
+  execSync(\`cd ${process.cwd()} && DATABASE_URL=\${url} npx prisma db push --force-reset\`, { stdio: 'inherit' })
+}
+`
+
+const prismaExamplePage = `<script setup lang="ts">
+const { data: examples } = useFetch('/api/examples')
+</script>
+
+<template>
+  <div>
+    <p>Prisma ORM Data from the database, received {{ examples?.length || 0 }} records: <pre>{{ examples }}</pre></p>
+  </div>
+</template>
 `
 
 /**
@@ -153,13 +222,10 @@ import type { H3Event } from 'h3'
  */
 export async function createContext(event: H3Event) {
   /**
-   * Add any trpc-request context here. E.g., you could add \`prisma\` like this if you've set it up:
+   * Add any trpc-request context here. E.g., you could add \`prisma\` like this (if you've added it via sidebase):
+   * \`\`\`ts
+   * return { prisma: event.context.prisma }
    * \`\`\`
-   * const prisma = usePrisma(event)
-   * return { prisma }
-   * \`\`\`
-   *
-   * You can import \`usePrisma\` like this: \`import { usePrisma } from '@sidebase/nuxt-prisma'\`
    */
   return {}
 }
@@ -249,27 +315,34 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
         name: "@prisma/client",
         version: "^4.8.0",
         isDev: false
-      },
-      {
-        name: "@sidebase/nuxt-prisma",
-        version: "^0.1.2",
-        isDev: false
       }
     ],
-    nuxtConfig: {
-      extends: ["@sidebase/nuxt-prisma"],
-    },
+    nuxtConfig: {},
     files: [{
       path: ".env",
       content: prismaEnvFile
     }, {
       path: "prisma/schema.prisma",
       content: prismaFile
+    }, {
+      path: "server/api/examples.get.ts",
+      content: prismaExampleEndpoint
+    }, {
+      path: "server/middleware/0.prisma.ts",
+      content: prismaServerMiddleware
+    }, {
+      path: "prisma/utils.ts",
+      content: prismaUtils
+    }, {
+      path: "pages/prisma.vue",
+      content: prismaExamplePage
     }],
     tasksPostInstall: [
       "- [ ] Prisma: Edit your `prisma/prisma.schema` to your liking",
-      "- [ ] Prisma: Run `npx prisma db push` to sync the schema to your database after changing it"
-    ]
+      "- [ ] Prisma: Run `npx prisma db push` to sync the schema to your database after changing the schema",
+      "- [ ] Prisma: Run `npx prisma generate` to re-generate the client after changing the schema"
+    ],
+    htmlForIndexVue: "<p>Checkout the Prisma ORM demo page here: <nuxt-link to=\"/prisma\" class=\"underline text-blue\">Click me to test the Prisma ORM setup!</nuxt-link></p>"
   },
   "auth": {
     humanReadableName: "nuxt-auth",
