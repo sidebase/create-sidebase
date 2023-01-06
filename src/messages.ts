@@ -1,7 +1,7 @@
 import chalk from "chalk"
 import type { Preferences } from "./prompts"
-import { getVersion } from "./utils/getVersion"
 import { getUserPkgManager } from "./utils/getUserPkgManager"
+import { getVersion } from "./utils/getVersion"
 
 const diamond = chalk.bold.gray("🐑 Diamond:").padEnd(12, " ")  // Make `diamond` fixed sized -> emojis can habe surprising lengths
 

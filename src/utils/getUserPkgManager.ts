@@ -1,5 +1,5 @@
 // Adapted from https://github.com/t3-oss/create-t3-app/blob/63847602f40c61678cab6a2d3bf3330aae925dd2/cli/src/utils/getUserPkgManager.ts#L1-L19
-export type PackageManager = "npm" | "pnpm" | "yarn";
+export type PackageManager = "npm" | "pnpm" | "yarn" | "none";
 
 let manager: PackageManager
 export const getUserPkgManager: () => PackageManager = () => {
