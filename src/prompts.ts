@@ -49,7 +49,7 @@ const PROMPT_QUESTIONS: PromptObject[] = [
   {
     type: "select",
     name: "runInstall",
-    message: "Would you like to install packages after finishing up, if so choose your package manager?",
+    message: "Would you like to install packages after finishing up ? If so, choose your package manager.",
     choices: [
       { title: "NPM", description: "Install packages using NPM", value: "npm" },
       { title: "YARN", description: "Install packages using YARN", value: "yarn" },
