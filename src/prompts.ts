@@ -1,7 +1,6 @@
 import prompts, { PromptType, type PromptObject } from "prompts"
 import { say } from "./messages"
 import { moduleConfigs } from "./steps/2.addModules/moduleConfigs"
-import { getUserPkgManager } from "./utils/getUserPkgManager"
 
 const skipIfCheviotWasChosen = (typeIfNotMerino: PromptType) => (_: unknown, preferences: Record<string, string>) => preferences.setStack === "cheviot" ? null : typeIfNotMerino
 
@@ -48,13 +47,16 @@ const PROMPT_QUESTIONS: PromptObject[] = [
     initial: 0,
   },
   {
-    type: "confirm",
+    type: "select",
     name: "runInstall",
-    message: () => {
-      const packageManager = getUserPkgManager()
-      return `Would you like to run \`${packageManager} install\` after finishing up?`
-    },
-    initial: true,
+    message: "Would you like to install packages after finishing up, if so choose your package manager?",
+    choices: [
+      { title: "NPM", description: "Install packages using NPM", value: "npm" },
+      { title: "YARN", description: "Install packages using YARN", value: "yarn" },
+      { title: "PNPM", description: "Install packages using PNPM", value: "pnpm" },
+      { title: "Do not install", description: "Do not install packages are project has been set up", value: "none" },
+    ],
+    initial: 0,
   }
 ]
 

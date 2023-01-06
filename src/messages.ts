@@ -1,7 +1,7 @@
 import chalk from "chalk"
 import type { Preferences } from "./prompts"
-import { getUserPkgManager } from "./utils/getUserPkgManager"
 import { getVersion } from "./utils/getVersion"
+import { getUserPkgManager } from "./utils/getUserPkgManager"
 
 const diamond = chalk.bold.gray("🐑 Diamond:").padEnd(12, " ")  // Make `diamond` fixed sized -> emojis can habe surprising lengths
 
@@ -62,16 +62,15 @@ export const sayGoodbye = (preferences: Preferences) => {
 
   sayCommand(`cd ${preferences.setProjectName}`, "Enter your project directory")
 
-  const packageManager = getUserPkgManager()
-  if (!preferences.runInstall) {
-    sayCommand(`${packageManager} install`, "Install project dependencies")
+  if (preferences.runInstall === "none") {
+    sayCommand(`${getUserPkgManager()} install`, "Install project dependencies")
   }
 
   if (preferences.addModules?.includes("prisma") || preferences.setStack === "cheviot") {
     sayCommand("npx prisma generate", "Initialize the Prisma client")
   }
 
-  sayCommand(`${packageManager} run dev`, "Start the development server, use CTRL+C to stop")
+  sayCommand(`${preferences.runInstall === "none" ? getUserPkgManager() : preferences.runInstall} run dev`, "Start the development server, use CTRL+C to stop")
 
   console.log(`\nStuck? Join us at ${chalk.blue("https://discord.gg/auc8eCeGzx")}\n`)
   console.log(`🐑 So Long, and Thanks for ... using ${chalk.green("sidebase")} to setup your application`)

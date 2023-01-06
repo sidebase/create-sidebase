@@ -1,7 +1,6 @@
 import { writeFile } from "node:fs/promises"
 import { getResolver } from "../getResolver"
 import { Preferences } from "../prompts"
-import { getUserPkgManager } from "../utils/getUserPkgManager"
 import { moduleConfigs, Modules } from "./2.addModules/moduleConfigs"
 
 const makeReadme = (preferences: Preferences) =>  {
@@ -32,7 +31,7 @@ const makeReadme = (preferences: Preferences) =>  {
   }
 
   const tasksPostInstall = addModules.map((module: Modules) => moduleConfigs[module].tasksPostInstall).flat()
-  const packageManager = getUserPkgManager()
+  const packageManager = preferences.runInstall === "none" ? "npm" : preferences.runInstall
 
   return `# ${setProjectName}-app
 

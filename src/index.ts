@@ -3,7 +3,6 @@ import { downloadTemplate, addModules, initGit, addCi, npmInstall, addReadme } f
 import { sayGoodbye, sayQuickWelcome, saySetupIsRunning, sayWelcome } from "./messages"
 import { getUserPreferences } from "./prompts"
 import { wrapInSpinner } from "./utils/spinner"
-import { getUserPkgManager } from "./utils/getUserPkgManager"
 import { cliOptions } from "./utils/parseCliOptions"
 import { count } from "./utils/count"
 
@@ -27,7 +26,7 @@ const main = async () => {
       addModules: [ "prisma", "auth", "trpc", "tailwind", "naiveui" ],
       runGitInit: true,
       addCi: "github",
-      runInstall: true
+      runInstall: 0
     }
   }
 
@@ -54,8 +53,8 @@ const main = async () => {
   }
 
   // 5. Run install
-  if (preferences.runInstall) {
-    await wrapInSpinner(`Running \`${getUserPkgManager()} install\``, npmInstall, template.dir)
+  if (preferences.runInstall !== "none") {
+    await wrapInSpinner(`Running \`${preferences.runInstall} install\``, npmInstall, preferences.runInstall, template.dir)
   }
 
   // 6. Write readme
