@@ -68,6 +68,7 @@ export const sayGoodbye = (preferences: Preferences) => {
   }
 
   if (preferences.addModules?.includes("prisma") || preferences.setStack === "cheviot") {
+    sayCommand("npx prisma db push", "Initialize the database")
     sayCommand("npx prisma generate", "Initialize the Prisma client")
   }
 
