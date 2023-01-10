@@ -34,8 +34,6 @@ jobs:
       - run: npm ci
       - run: npm run dev -- -- --ci
 
-
-
       # This is what the user would do, minus actually starting the application
       - run: cd my-sidebase-app && npx prisma db push && npx prisma generate
 
