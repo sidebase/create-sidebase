@@ -83,7 +83,7 @@ export const resetDatabase = (databaseUrl?: string) => {
     throw new Error('This utility should not be called in production. It is meant for testing and development')
   }
 
-  execSync(\`cd ${process.cwd()} && DATABASE_URL=\${url} npx prisma db push --force-reset\`, { stdio: 'inherit' })
+  execSync(\`cd \${process.cwd()} && DATABASE_URL=\${url} npx prisma db push --force-reset\`, { stdio: 'inherit' })
 }
 `
 
