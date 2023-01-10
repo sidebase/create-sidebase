@@ -48,10 +48,15 @@ export const saySetupIsRunning = (preferences: Preferences) => {
 }
 
 const sayCommand = (command: string, comment = "") => {
+  const coloredCommand = chalk.blue(`> ${command}`)
   if (comment.length > 0) {
-    console.log(chalk.blue(`> ${command}`).padEnd(32, " "), chalk.gray(`// ${comment}`))
+    const coloredComment = chalk.gray(`// ${comment}`)
+
+    // pad command to have unified length for all logging output
+    const assembledLine = `${coloredCommand.padEnd(40, " ")} ${coloredComment}`
+    console.log(assembledLine)
   } else {
-    console.log(chalk.blue(`> ${command}`))
+    console.log(coloredCommand)
   }
 }
 
