@@ -36,13 +36,13 @@ jobs:
 
       # Setup for `pnpm` matrix-case
       - run: npm install -g pnpm
-        if: ${{ contains(matrix.pkgManager, 'pnpm') }}
+        if: ${{ matrix.pkgManager == 'pnpm' }}
       - run: ${{ matrix.pkgManager }} install
-        if: ${{ contains(matrix.pkgManager, 'pnpm') }}
+        if: ${{ matrix.pkgManager == 'pnpm' }}
 
       # Setup for `npm` matrix-case
       - run: ${{ matrix.pkgManager }} ci
-        if: ${{ contains(matrix.pkgManager, 'npm') }}
+        if: ${{ matrix.pkgManager == 'npm' }}
 
       # Run cli command in automatic mode
       - run: ${{ matrix.pkgManager }} run dev -- -- --ci
