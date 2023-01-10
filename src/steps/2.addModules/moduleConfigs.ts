@@ -38,7 +38,7 @@ const prismaExampleEndpoint = `/**
  *   return { prisma: event.context.prisma }
  * }
  *
- * export type Context = inferAsyncReturnType<typeof createContext>;
+ * export type Context = inferAsyncReturnType<typeof createContext>
  * \`\`\`
  */
 export default defineEventHandler(event => event.context.prisma.example.findMany())
@@ -154,7 +154,7 @@ export default NuxtAuthHandler({
 const nuxtAuthExamplePage = `<template>
   <div>
     <div>I'm protected! Session data: {{ data }}</div>
-    <button @click="signOut()" class="rounded-xl shadow-xl p-2 m-2">sign out</button>
+    <button class="rounded-xl shadow-xl p-2 m-2" @click="signOut()">sign out</button>
   </div>
 </template>
 
@@ -178,7 +178,7 @@ const nuxtTrpcRootConfig = `/**
  * @see https://trpc.io/docs/v10/procedures
  */
 import { initTRPC } from '@trpc/server'
-import superjson from 'superjson';
+import superjson from 'superjson'
 import { Context } from '~/server/trpc/context'
 
 const t = initTRPC.context<Context>().create({
@@ -188,9 +188,9 @@ const t = initTRPC.context<Context>().create({
 /**
  * Unprotected procedure
  **/
-export const publicProcedure = t.procedure;
-export const router = t.router;
-export const middleware = t.middleware;
+export const publicProcedure = t.procedure
+export const router = t.router
+export const middleware = t.middleware
 `
 
 const nuxtTrpcRoutersIndex = `import { z } from 'zod'
@@ -208,7 +208,7 @@ export const appRouter = router({
         greeting: \`hello \${input?.text ?? 'world'}\`,
         time: new Date()
       }
-    }),
+    })
 })
 
 // export type definition of API
@@ -232,7 +232,7 @@ export function createContext (_event: H3Event) {
   return {}
 }
 
-export type Context = inferAsyncReturnType<typeof createContext>;
+export type Context = inferAsyncReturnType<typeof createContext>
 `
 
 const nuxtTrpcApiHandler = `import { createNuxtApiHandler } from 'trpc-nuxt'
@@ -246,9 +246,9 @@ export default createNuxtApiHandler({
 })
 `
 
-const nuxtTrpcPlugin = `import { createTRPCNuxtClient, httpBatchLink } from "trpc-nuxt/client"
-import superjson from 'superjson';
-import type { AppRouter } from "~/server/trpc/routers"
+const nuxtTrpcPlugin = `import { createTRPCNuxtClient, httpBatchLink } from 'trpc-nuxt/client'
+import superjson from 'superjson'
+import type { AppRouter } from '~/server/trpc/routers'
 
 export default defineNuxtPlugin(() => {
   /**
