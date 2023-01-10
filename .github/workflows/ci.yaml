@@ -39,7 +39,7 @@ jobs:
 
       # code should be 100% correct at the start
       - run: cd my-sidebase-app && npm run lint
-      - run: cd my-sidebase-app && timeout 30 npm run dev && npm run typecheck  # we need to start nuxt here to generate `.nuxt` with tsconfig
+      - run: cd my-sidebase-app && npm exec nuxi prepare && npm run typecheck
 
       # start dev-app, all of the following adapted from https://stackoverflow.com/a/60996259
       - run: "cd my-sidebase-app && timeout 30 npm run dev || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
