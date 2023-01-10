@@ -37,7 +37,7 @@ jobs:
       # Setup for `pnpm` matrix-case
       - run: npm install -g pnpm
         if: ${{ contains(matrix.pkgManager, 'pnpm') }}
-      - run: ${{ matrix.pkgManager }} install --frozen-lockfile
+      - run: ${{ matrix.pkgManager }} install
         if: ${{ contains(matrix.pkgManager, 'pnpm') }}
 
       # Setup for `yarn` matrix-case
@@ -45,7 +45,7 @@ jobs:
         if: ${{ contains(matrix.pkgManager, 'yarn') }}
       - run: corepack prepare yarn@3.3.1 --activate
         if: ${{ contains(matrix.pkgManager, 'yarn') }}
-      - run: ${{ matrix.pkgManager }} install --frozen-lockfile
+      - run: ${{ matrix.pkgManager }} install
         if: ${{ contains(matrix.pkgManager, 'yarn') }}
 
       # Setup for `npm` matrix-case
