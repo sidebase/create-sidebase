@@ -20,10 +20,12 @@ jobs:
       - run: npm ci
 
       - run: npm run lint
-
       - run: npm run typecheck
 
   testCli:
+    strategy:
+      matrix:
+        pkgManager: [npm, pnpm, yarn]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -32,23 +34,27 @@ jobs:
         with:
           node-version: 16.14.2
 
-      - run: npm ci
-      - run: npm run dev -- -- --ci
+      - run: ${{ matrix.pkgManager }} ci
+      - run: ${{ matrix.pkgManager }} run dev -- -- --ci
 
       # This is what the user would do, minus actually starting the application
       - run: cd my-sidebase-app && npx prisma db push && npx prisma generate
 
+      # Lint and typecheck generated code - should be flawless
+      - run: ${{ matrix.pkgManager }} run lint
+      - run: ${{ matrix.pkgManager }} run typecheck
+
       # start dev-app, all of the following adapted from https://stackoverflow.com/a/60996259
-      - run: "cd my-sidebase-app && timeout 30 npm run dev || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
+      - run: "cd my-sidebase-app && timeout 30 ${{ matrix.pkgManager }} run dev || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
 
       # start prod-app
-      - run: "export AUTH_ORIGIN=http://localhost:3000 && cd my-sidebase-app && npm run build && timeout 30 npm run preview || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
+      - run: "export AUTH_ORIGIN=http://localhost:3000 && cd my-sidebase-app && ${{ matrix.pkgManager }} run build && timeout 30 ${{ matrix.pkgManager }} run preview || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
 
       # start dev-app and curl from it
-      - run: "cd my-sidebase-app && timeout 30 npm run dev & (sleep 10 && curl --fail localhost:3000) || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
+      - run: "cd my-sidebase-app && timeout 30 ${{ matrix.pkgManager }} run dev & (sleep 10 && curl --fail localhost:3000) || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
 
       # build prod-app, start it in prod mode and curl from it
-      - run: "export AUTH_ORIGIN=http://localhost:3000 && cd my-sidebase-app && npm run build && timeout 30 npm run preview & (sleep 10 && curl --fail localhost:3000)  || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
+      - run: "export AUTH_ORIGIN=http://localhost:3000 && cd my-sidebase-app && ${{ matrix.pkgManager }} run build && timeout 30 ${{ matrix.pkgManager }} run preview & (sleep 10 && curl --fail localhost:3000)  || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
 
   publish:
     needs: [testCli, testCodebase]
