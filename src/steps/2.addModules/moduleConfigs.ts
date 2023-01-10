@@ -38,7 +38,7 @@ const prismaExampleEndpoint = `/**
  *   return { prisma: event.context.prisma }
  * }
  *
- * export type Context = inferAsyncReturnType<typeof createContext>;
+ * export type Context = inferAsyncReturnType<typeof createContext>
  * \`\`\`
  */
 export default defineEventHandler(event => event.context.prisma.example.findMany())
@@ -152,8 +152,10 @@ export default NuxtAuthHandler({
 `
 
 const nuxtAuthExamplePage = `<template>
-  <div>I'm protected! Session data: {{ data }}</div>
-  <button @click="signOut()" class="rounded-xl shadow-xl p-2 m-2">sign out</button>
+  <div>
+    <div>I'm protected! Session data: {{ data }}</div>
+    <button class="rounded-xl shadow-xl p-2 m-2" @click="signOut()">sign out</button>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -176,19 +178,19 @@ const nuxtTrpcRootConfig = `/**
  * @see https://trpc.io/docs/v10/procedures
  */
 import { initTRPC } from '@trpc/server'
+import superjson from 'superjson'
 import { Context } from '~/server/trpc/context'
-import superjson from 'superjson';
 
 const t = initTRPC.context<Context>().create({
-  transformer: superjson,
+  transformer: superjson
 })
 
 /**
  * Unprotected procedure
  **/
-export const publicProcedure = t.procedure;
-export const router = t.router;
-export const middleware = t.middleware;
+export const publicProcedure = t.procedure
+export const router = t.router
+export const middleware = t.middleware
 `
 
 const nuxtTrpcRoutersIndex = `import { z } from 'zod'
@@ -198,15 +200,15 @@ export const appRouter = router({
   hello: publicProcedure
     .input(
       z.object({
-        text: z.string().nullish(),
-      }),
+        text: z.string().nullish()
+      })
     )
     .query(({ input }) => {
       return {
-        greeting: \`hello \${input?.text ?? "world"}\`,
+        greeting: \`hello \${input?.text ?? 'world'}\`,
         time: new Date()
       }
-    }),
+    })
 })
 
 // export type definition of API
@@ -220,17 +222,17 @@ import type { H3Event } from 'h3'
  * Creates context for an incoming request
  * @link https://trpc.io/docs/context
  */
-export async function createContext(event: H3Event) {
+export function createContext (_event: H3Event) {
   /**
    * Add any trpc-request context here. E.g., you could add \`prisma\` like this (if you've added it via sidebase):
    * \`\`\`ts
-   * return { prisma: event.context.prisma }
+   * return { prisma: _event.context.prisma }
    * \`\`\`
    */
   return {}
 }
 
-export type Context = inferAsyncReturnType<typeof createContext>;
+export type Context = inferAsyncReturnType<typeof createContext>
 `
 
 const nuxtTrpcApiHandler = `import { createNuxtApiHandler } from 'trpc-nuxt'
@@ -240,13 +242,13 @@ import { createContext } from '~/server/trpc/context'
 // export API handler
 export default createNuxtApiHandler({
   router: appRouter,
-  createContext,
+  createContext
 })
 `
 
-const nuxtTrpcPlugin = `import { createTRPCNuxtClient, httpBatchLink } from "trpc-nuxt/client"
-import type { AppRouter } from "~/server/trpc/routers"
-import superjson from 'superjson';
+const nuxtTrpcPlugin = `import { createTRPCNuxtClient, httpBatchLink } from 'trpc-nuxt/client'
+import superjson from 'superjson'
+import type { AppRouter } from '~/server/trpc/routers'
 
 export default defineNuxtPlugin(() => {
   /**
@@ -257,15 +259,15 @@ export default defineNuxtPlugin(() => {
     transformer: superjson,
     links: [
       httpBatchLink({
-        url: "/api/trpc",
-      }),
-    ],
+        url: '/api/trpc'
+      })
+    ]
   })
 
   return {
     provide: {
-      client,
-    },
+      client
+    }
   }
 })
 `
