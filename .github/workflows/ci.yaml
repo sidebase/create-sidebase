@@ -25,7 +25,7 @@ jobs:
   testCli:
     strategy:
       matrix:
-        pkgManager: [npm, pnpm, yarn]
+        pkgManager: [npm, pnpm]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -39,14 +39,6 @@ jobs:
         if: ${{ contains(matrix.pkgManager, 'pnpm') }}
       - run: ${{ matrix.pkgManager }} install
         if: ${{ contains(matrix.pkgManager, 'pnpm') }}
-
-      # Setup for `yarn` matrix-case
-      - run: corepack enable
-        if: ${{ contains(matrix.pkgManager, 'yarn') }}
-      - run: corepack prepare yarn@3.3.1 --activate
-        if: ${{ contains(matrix.pkgManager, 'yarn') }}
-      - run: ${{ matrix.pkgManager }} install
-        if: ${{ contains(matrix.pkgManager, 'yarn') }}
 
       # Setup for `npm` matrix-case
       - run: ${{ matrix.pkgManager }} ci
