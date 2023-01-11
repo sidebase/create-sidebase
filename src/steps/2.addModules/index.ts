@@ -61,9 +61,12 @@ export default defineNuxtConfig(${inspect(nuxtConfig, { compact: false })})
 
   // 6. Write index.vue with a nice welcome message as well as links to sub-pages
   const moduleIndexHtmlSnippets = selectedModules.map((module) => moduleConfigs[module].htmlForIndexVue).filter(html => typeof html !== "undefined")
+  const moduleIndexHtml = moduleIndexHtmlSnippets.length > 0 ? "\n    " + moduleIndexHtmlSnippets.join("\n    ") : ""
   const nuxtPagesIndexVue = `<template>
   <div>
-    <h1${selectedModules.includes("tailwind") ? " class=\"text-4xl\"" : ""}>Welcome to your sidebase app!</h1>${moduleIndexHtmlSnippets.length > 0 ? "\n" + moduleIndexHtmlSnippets.join("\n    ") : ""}
+    <h1${selectedModules.includes("tailwind") ? " class=\"text-4xl\"" : ""}>
+      Welcome to your sidebase app!
+    </h1>${moduleIndexHtml}
   </div>
 </template>
 `
