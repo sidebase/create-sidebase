@@ -20,7 +20,6 @@ jobs:
       - run: npm ci
 
       - run: npm run lint
-
       - run: npm run typecheck
 
   testCli:
@@ -38,6 +37,10 @@ jobs:
       # This is what the user would do, minus actually starting the application
       - run: cd my-sidebase-app && npx prisma db push && npx prisma generate
 
+      # code should be 100% correct at the start
+      - run: cd my-sidebase-app && npm run lint
+      - run: cd my-sidebase-app && npm exec nuxi prepare && npm run typecheck
+
       # start dev-app, all of the following adapted from https://stackoverflow.com/a/60996259
       - run: "cd my-sidebase-app && timeout 30 npm run dev || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
 
@@ -49,6 +52,7 @@ jobs:
 
       # build prod-app, start it in prod mode and curl from it
       - run: "export AUTH_ORIGIN=http://localhost:3000 && cd my-sidebase-app && npm run build && timeout 30 npm run preview & (sleep 10 && curl --fail localhost:3000)  || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
+
 
   publish:
     needs: [testCli, testCodebase]

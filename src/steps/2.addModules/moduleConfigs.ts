@@ -154,7 +154,9 @@ export default NuxtAuthHandler({
 const nuxtAuthExamplePage = `<template>
   <div>
     <div>I'm protected! Session data: {{ data }}</div>
-    <button class="rounded-xl shadow-xl p-2 m-2" @click="signOut()">sign out</button>
+    <button class="rounded-xl shadow-xl p-2 m-2" @click="signOut()">
+      sign out
+    </button>
   </div>
 </template>
 
@@ -344,7 +346,12 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
       "- [ ] Prisma: Run `npx prisma db push` to sync the schema to your database after changing the schema",
       "- [ ] Prisma: Run `npx prisma generate` to re-generate the client after changing the schema"
     ],
-    htmlForIndexVue: "<p>Checkout the Prisma ORM demo page here: <nuxt-link to=\"/prisma\" class=\"underline text-blue\">Click me to test the Prisma ORM setup!</nuxt-link></p>"
+    htmlForIndexVue: `<p>
+      Checkout the Prisma ORM demo page here:
+      <nuxt-link to="/prisma" class="underline text-blue">
+        Click me to test the Prisma ORM setup!
+      </nuxt-link>
+    </p>`
   },
   "auth": {
     humanReadableName: "nuxt-auth",
@@ -370,7 +377,12 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
       "- [ ] Auth: Configure your auth providers to the [NuxtAuthHandler](./server/api/auth/[...].ts)",
       "- [ ] Auth, optional: Enable global protection by setting `enableGlobalAppMiddleware: true` in [your nuxt.config.ts](./nuxt.config.ts). Delete the logal middleware in the [protected.vue](./pages/protected.vue) page if you do"
     ],
-    htmlForIndexVue: "<p>Checkout the page protected by `nuxt-auth` here: <nuxt-link to=\"/protected\" class=\"underline text-blue\">Click me to test the auth setup!</nuxt-link></p>"
+    htmlForIndexVue: `<p>
+      Checkout the page protected by \`nuxt-auth\` here:
+      <nuxt-link to="/protected" class="underline text-blue">
+        Click me to test the auth setup!
+      </nuxt-link>
+    </p>`
   },
   "trpc": {
     humanReadableName: "tRPC 10",
@@ -428,7 +440,12 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
       },
     ],
     tasksPostInstall: [],
-    htmlForIndexVue: "<p>Checkout the tRPC demo page here: <nuxt-link to=\"/trpc\" class=\"underline text-blue\">Click me to test the tRPC setup!</nuxt-link></p>"
+    htmlForIndexVue: `<p>
+      Checkout the tRPC demo page here:
+      <nuxt-link to="/trpc" class="underline text-blue">
+        Click me to test the tRPC setup!
+      </nuxt-link>
+    </p>`
   },
   "tailwind": {
     humanReadableName: "Tailwind CSS",
