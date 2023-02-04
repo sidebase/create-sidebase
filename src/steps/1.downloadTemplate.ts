@@ -28,7 +28,8 @@ export default async (preferences: Preferences) => {
     })
   } catch (error) {
     console.log()
-    say(`Failed to initialize project folder - does a folder with the same name already exist? Aborting mission. Here is the full error: \n${error}`)
+    say("Failed to initialize project folder - does a folder with the same name already exist? Aborting mission. Here is the full error:")
+    console.error(error)
     process.exit()
   }
 
