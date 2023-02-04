@@ -94,7 +94,7 @@ const prismaExamplePage = `<script setup lang="ts">
  * As soon as https://github.com/nuxt/nuxt/issues/15280 is closed and released, we can go back to just: \`const { data: examples } = useFetch('/api/examples')\`
  * */
 import type { Ref } from 'vue'
-import { Example } from '.prisma/client';
+import { Example } from '.prisma/client'
 
 const { data } = useFetch('/api/examples')
 const examples = (data as Ref<Example[] | null>)
