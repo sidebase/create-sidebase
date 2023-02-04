@@ -88,7 +88,16 @@ export const resetDatabase = (databaseUrl?: string) => {
 `
 
 const prismaExamplePage = `<script setup lang="ts">
-const { data: examples } = useFetch('/api/examples')
+/**
+ * In Nuxt 3.1.2 \`useFetch\` return types are not correctly inferred. In order to workaround this limitation, we sadly need to manually import and type a lof ot things.
+ *
+ * As soon as https://github.com/nuxt/nuxt/issues/15280 is closed and released, we can go back to just: \`const { data: examples } = useFetch('/api/examples')\`
+ * */
+import type { Ref } from 'vue'
+import { Example } from '.prisma/client'
+
+const { data } = useFetch('/api/examples')
+const examples = (data as Ref<Example[] | null>)
 </script>
 
 <template>
