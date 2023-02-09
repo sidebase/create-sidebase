@@ -415,8 +415,8 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
       "- [ ] Auth, optional: Enable global protection by setting `enableGlobalAppMiddleware: true` in [your nuxt.config.ts](./nuxt.config.ts). Delete the local middleware in the [protected.vue](./pages/protected.vue) page if you do"
     ],
     indexVue: generateModuleHTMLSnippet(
-      "nuxt-auth",
-      "Nuxt user authentication and sessions via NextAuth.js. nuxt-auth wraps NextAuth.js to offer the reliability & convenience of a 12k star library to the nuxt 3 ecosystem with a native developer experience (DX)",
+      "Authentication",
+      "Nuxt user authentication and sessions through nuxt-auth. nuxt-auth wraps NextAuth.js to offer the reliability & convenience of a 12k star library to the nuxt 3 ecosystem with a native developer experience (DX)",
       "auth__card",
       "https://sidebase.io/nuxt-auth/getting-started",
       "background: radial-gradient(#0FCF97, #0B9A71);"
@@ -483,7 +483,7 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
       "tRPC allows you to easily build & consume fully typesafe APIs without schemas or code generation.",
       "trpc__card",
       "https://sidebase.io/sidebase/components/trpc",
-      "background: radial-gradient(#f588d8, #c0a3e5);"
+      "background: radial-gradient(#a07ccf, #926dc2);"
     ),
   },
   "tailwind": {
@@ -504,7 +504,7 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
       "Rapidly build modern websites without ever leaving your HTML.",
       "tailwind__card",
       "https://sidebase.io/sidebase/components/tailwindcss",
-      "background: radial-gradient(#60efbc, #58d5c9);"
+      "background: radial-gradient(#7466e3, #5a4ad9);"
     ),
   },
   "naiveui": {
@@ -525,7 +525,7 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
       "Fairly Complete, Theme Customizable, Uses TypeScript, Fast, Kinda Interesting.",
       "naiveui__card",
       "https://www.naiveui.com/en-US/os-theme",
-      "background: radial-gradient(#fbc1cc, #fa99b2);"
+      "background: radial-gradient(#ad6434, #995020);"
     ),
   }
 }
