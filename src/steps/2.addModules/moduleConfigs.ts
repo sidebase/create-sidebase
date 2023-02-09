@@ -1,7 +1,7 @@
 import { NuxtConfig } from "@nuxt/schema"
 import { Dependency } from "../../utils/addPackageDependency"
 
-const generateModuleHTMLSnippet = (title: string, description: string, cardClass: string, documentationLink: string, styles: string) => {
+const generateModuleHTMLSnippet = (title: string, description: string, cardClass: string, documentationLink: string, styles: string): {html: string, css: string} => {
   const html = `  <div class="card ${cardClass}">
         <div class="card__body">
           <h2 class="card__title">
@@ -382,15 +382,13 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
       "- [ ] Prisma: Run `npx prisma db push` to sync the schema to your database after changing the schema",
       "- [ ] Prisma: Run `npx prisma generate` to re-generate the client after changing the schema"
     ],
-    indexVue: {
-      ...generateModuleHTMLSnippet(
-        "Prisma ORM",
-        "Prisma unlocks a new level of developer experience when working with databases thanks to its intuitive data model, automated migrations, type-safety & auto-completion.",
-        "prisma__card",
-        "https://sidebase.io/sidebase/components/prisma",
-        "background: radial-gradient(#3fbafe, #5A67D8FF);"
-      )
-    },
+    indexVue: generateModuleHTMLSnippet(
+      "Prisma ORM",
+      "Prisma unlocks a new level of developer experience when working with databases thanks to its intuitive data model, automated migrations, type-safety & auto-completion.",
+      "prisma__card",
+      "https://sidebase.io/sidebase/components/prisma",
+      "background: radial-gradient(#3fbafe, #5A67D8FF);"
+    ),
   },
   "auth": {
     humanReadableName: "nuxt-auth",
@@ -416,15 +414,13 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
       "- [ ] Auth: Configure your auth providers to the [NuxtAuthHandler](./server/api/auth/[...].ts)",
       "- [ ] Auth, optional: Enable global protection by setting `enableGlobalAppMiddleware: true` in [your nuxt.config.ts](./nuxt.config.ts). Delete the local middleware in the [protected.vue](./pages/protected.vue) page if you do"
     ],
-    indexVue: {
-      ...generateModuleHTMLSnippet(
-        "nuxt-auth",
-        "Nuxt user authentication and sessions via NextAuth.js. nuxt-auth wraps NextAuth.js to offer the reliability & convenience of a 12k star library to the nuxt 3 ecosystem with a native developer experience (DX)",
-        "auth__card",
-        "https://sidebase.io/nuxt-auth/getting-started",
-        "background: radial-gradient(#0FCF97, #0B9A71);"
-      ),
-    },
+    indexVue: generateModuleHTMLSnippet(
+      "nuxt-auth",
+      "Nuxt user authentication and sessions via NextAuth.js. nuxt-auth wraps NextAuth.js to offer the reliability & convenience of a 12k star library to the nuxt 3 ecosystem with a native developer experience (DX)",
+      "auth__card",
+      "https://sidebase.io/nuxt-auth/getting-started",
+      "background: radial-gradient(#0FCF97, #0B9A71);"
+    ),
   },
   "trpc": {
     humanReadableName: "tRPC 10",
@@ -482,15 +478,13 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
       },
     ],
     tasksPostInstall: [],
-    indexVue: {
-      ...generateModuleHTMLSnippet(
-        "tRPC",
-        "tRPC allows you to easily build & consume fully typesafe APIs without schemas or code generation.",
-        "trpc__card",
-        "https://sidebase.io/sidebase/components/trpc",
-        "background: radial-gradient(#f588d8, #c0a3e5);"
-      ),
-    },
+    indexVue: generateModuleHTMLSnippet(
+      "tRPC",
+      "tRPC allows you to easily build & consume fully typesafe APIs without schemas or code generation.",
+      "trpc__card",
+      "https://sidebase.io/sidebase/components/trpc",
+      "background: radial-gradient(#f588d8, #c0a3e5);"
+    ),
   },
   "tailwind": {
     humanReadableName: "Tailwind CSS",
@@ -505,15 +499,13 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     },
     files: [],
     tasksPostInstall: [],
-    indexVue: {
-      ...generateModuleHTMLSnippet(
-        "TailwindCSS",
-        "Rapidly build modern websites without ever leaving your HTML.",
-        "tailwind__card",
-        "https://sidebase.io/sidebase/components/tailwindcss",
-        "background: radial-gradient(#60efbc, #58d5c9);"
-      ),
-    },
+    indexVue: generateModuleHTMLSnippet(
+      "TailwindCSS",
+      "Rapidly build modern websites without ever leaving your HTML.",
+      "tailwind__card",
+      "https://sidebase.io/sidebase/components/tailwindcss",
+      "background: radial-gradient(#60efbc, #58d5c9);"
+    ),
   },
   "naiveui": {
     humanReadableName: "Naive UI",
@@ -528,14 +520,12 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     },
     files: [],
     tasksPostInstall: [],
-    indexVue: {
-      ...generateModuleHTMLSnippet(
-        "NaiveUI",
-        "Fairly Complete, Theme Customizable, Uses TypeScript, Fast, Kinda Interesting.",
-        "naiveui__card",
-        "https://www.naiveui.com/en-US/os-theme",
-        "background: radial-gradient(#fbc1cc, #fa99b2);"
-      ),
-    },
+    indexVue: generateModuleHTMLSnippet(
+      "NaiveUI",
+      "Fairly Complete, Theme Customizable, Uses TypeScript, Fast, Kinda Interesting.",
+      "naiveui__card",
+      "https://www.naiveui.com/en-US/os-theme",
+      "background: radial-gradient(#fbc1cc, #fa99b2);"
+    ),
   }
 }
