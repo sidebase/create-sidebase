@@ -1,7 +1,7 @@
 import { moduleConfigs, Modules } from "./moduleConfigs"
 
 const getModulesSnippet = (selectedModules: Modules[], key: "html" | "css" | "js") => {
-  const moduleIndexSnippets = selectedModules.map((module) => moduleConfigs[module].indexVue?.[key]).filter(html => typeof html !== "undefined")
+  const moduleIndexSnippets = selectedModules.map((module) => moduleConfigs[module].indexVue?.[key]).filter(snippet => typeof snippet !== "undefined")
   return moduleIndexSnippets.length > 0 ? "\n    " + moduleIndexSnippets.join("\n    ") : ""
 }
 export const generateIndexVue = (selectedModules: Modules[]) => {
@@ -24,9 +24,9 @@ export const generateIndexVue = (selectedModules: Modules[]) => {
   </div>
 </template>
 
-<script>
+${js && `<script>
 ${js}
-</script>
+</script>`}
 
 <style scoped>
     * {
