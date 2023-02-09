@@ -509,7 +509,7 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
   },
   "naiveui": {
     humanReadableName: "Naive UI",
-    description: "A Vue 3 Component Library. Fairly Complete, Theme Customizable, Uses TypeScript, Fast. Kinda Interesting. See more: https://www.naiveui.com/",
+    description: "A Vue 3 Component Library. Complete, Customizable, Uses TypeScript, Fast. See more: https://www.naiveui.com/",
     dependencies: [{
       name: "@huntersofbook/naive-ui-nuxt",
       version: "^0.5.1",
@@ -522,7 +522,7 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     tasksPostInstall: [],
     indexVue: generateModuleHTMLSnippet(
       "NaiveUI",
-      "Fairly Complete, Theme Customizable, Uses TypeScript, Fast, Kinda Interesting.",
+      "A Vue 3 Component Library. Complete, Customizable, Uses TypeScript, Fast.",
       "naiveui__card",
       "https://www.naiveui.com/en-US/os-theme",
       "background: radial-gradient(#ad6434, #995020);"
