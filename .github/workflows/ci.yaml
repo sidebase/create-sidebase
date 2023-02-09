@@ -53,21 +53,3 @@ jobs:
       # build prod-app, start it in prod mode and curl from it
       - run: "export AUTH_ORIGIN=http://localhost:3000 && cd my-sidebase-app && npm run build && timeout 30 npm run preview & (sleep 10 && curl --fail localhost:3000)  || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
 
-
-  publish:
-    needs: [testCli, testCodebase]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Use Node.js 16.14.2
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.14.2
-
-      - run: npm ci
-
-      - uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          access: public

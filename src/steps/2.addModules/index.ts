@@ -7,6 +7,7 @@ import path from "node:path"
 import { NuxtConfig } from "@nuxt/schema"
 import defu from "defu"
 import { inspect } from "node:util"
+import { generateIndexVue } from "./generateIndexVue"
 
 export default async (preferences: Preferences, templateDir: string) => {
   const selectedModules: Modules[] = preferences.addModules || []
@@ -60,16 +61,7 @@ export default defineNuxtConfig(${inspect(nuxtConfig, { compact: false })})
   await writeFile(resolver("app.vue"), nuxtAppVue)
 
   // 6. Write index.vue with a nice welcome message as well as links to sub-pages
-  const moduleIndexHtmlSnippets = selectedModules.map((module) => moduleConfigs[module].htmlForIndexVue).filter(html => typeof html !== "undefined")
-  const moduleIndexHtml = moduleIndexHtmlSnippets.length > 0 ? "\n    " + moduleIndexHtmlSnippets.join("\n    ") : ""
-  const nuxtPagesIndexVue = `<template>
-  <div>
-    <h1${selectedModules.includes("tailwind") ? " class=\"text-4xl\"" : ""}>
-      Welcome to your sidebase app!
-    </h1>${moduleIndexHtml}
-  </div>
-</template>
-`
+  const nuxtPagesIndexVue = generateIndexVue(selectedModules)
   await mkdir(resolver("pages"), { recursive: true })
   await writeFile(resolver("pages/index.vue"), nuxtPagesIndexVue)
 }
