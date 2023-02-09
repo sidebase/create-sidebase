@@ -17,7 +17,7 @@ export const generateIndexVue = (selectedModules: Modules[]) => {
       </h1>
       <p class="heading__credits">
         Read our documentation <a href="https://sidebase.io/sidebase/welcome" target="_blank">here</a>.
-        ${selectedModules.length > 0 && "Get started in no time with the following amazing modules:"}
+        ${selectedModules.length > 0 ? "Get started in no time with the following amazing modules:" : "Add some of our amazing modules <a href='https://sidebase.io' target='_blank'>here</a>."}
       </p>
     </div>
     <div class="cards">${html}
