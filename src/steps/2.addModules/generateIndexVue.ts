@@ -23,11 +23,10 @@ export const generateIndexVue = (selectedModules: Modules[]) => {
     </div>
   </div>
 </template>
-
-${js && `<script>
+${js && `
+<script>
 ${js}
-</script>`}
-
+</script>\n`}
 <style scoped>
     * {
         margin: 0;
