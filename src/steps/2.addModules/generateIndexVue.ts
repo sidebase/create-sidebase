@@ -12,13 +12,14 @@ export const generateIndexVue = (selectedModules: Modules[]) => {
   return `<template>
   <div class="main-container">
     <div class="heading">
-        <h1 class="heading__title">Welcome to your new <span class="gradient__text">sidebase</span> app!</h1>
-        <p class="heading__credits">
-            Read our documentation <a href="https://sidebase.io/sidebase/welcome" target="_blank">here</a>. Get started in no time with the following amazing modules:
-        </p>
+      <h1 class="heading__title">
+        Welcome to your new <span class="gradient__text">sidebase</span> app!
+      </h1>
+      <p class="heading__credits">
+        Read our documentation <a href="https://sidebase.io/sidebase/welcome" target="_blank">here</a>. Get started in no time with the following amazing modules:
+      </p>
     </div>
-    <div class="cards">
-${html}
+    <div class="cards">${html}
     </div>
   </div>
 </template>
@@ -165,10 +166,6 @@ ${js}
             grid-template-columns: repeat(1, minmax(0, 1fr));
         }
     }
-
-    /* CARD BACKGROUNDS */
-
 ${css}
-</style>
-`
+</style>`
 }

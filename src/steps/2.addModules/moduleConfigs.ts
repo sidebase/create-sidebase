@@ -2,22 +2,21 @@ import { NuxtConfig } from "@nuxt/schema"
 import { Dependency } from "../../utils/addPackageDependency"
 
 const generateModuleHTMLSnippet = (title: string, description: string, cardClass: string, documentationLink: string) => {
-  return `
-  <div class="card ${cardClass}">
-    <div class="card__body">
-        <h2 class="card__title">
+  return `  <div class="card ${cardClass}">
+        <div class="card__body">
+          <h2 class="card__title">
             ${title}
-        </h2>
-        <p>
+          </h2>
+          <p>
             ${description}
-        </p>
-    </div>
-    <p class="card__action">
-        <a class="card__link" href="${documentationLink}" target="_blank">
+          </p>
+        </div>
+        <p class="card__action">
+          <a class="card__link" href="${documentationLink}" target="_blank">
             Read documentation
-        </a>
-    </p>
-  </div>`
+          </a>
+        </p>
+      </div>`
 }
 
 /**
