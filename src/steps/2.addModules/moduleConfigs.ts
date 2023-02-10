@@ -348,12 +348,12 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     dependencies: [
       {
         name: "prisma",
-        version: "^4.8.0",
+        version: "^4.10.1",
         isDev: true
       },
       {
         name: "@prisma/client",
-        version: "^4.8.0",
+        version: "^4.10.1",
         isDev: false
       }
     ],
@@ -396,9 +396,14 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     dependencies: [
       {
         name: "@sidebase/nuxt-auth",
-        version: "^0.3.3",
+        version: "^0.4.1",
         isDev: true
       },
+      {
+        name: "next-auth",
+        version: "^4.18.8",
+        isDev: false
+      }
     ],
     nuxtConfig: {
       modules: ["@sidebase/nuxt-auth"]
@@ -427,23 +432,23 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     description: "Build end-to-end typesafe APIs in Nuxt applications. See more: https://trpc.io/",
     dependencies: [{
       name: "@trpc/server",
-      version: "^10.5.0",
+      version: "^10.10.0",
       isDev: false
     }, {
       name: "@trpc/client",
-      version: "^10.5.0",
+      version: "^10.10.0",
       isDev: false
     }, {
       name: "trpc-nuxt",
-      version: "^0.4.4",
+      version: "^0.6.0",
       isDev: false
     }, {
       name: "zod",
-      version: "^3.20.2",
+      version: "^3.20.6",
       isDev: false
     }, {
       name: "superjson",
-      version: "^1.12.1",
+      version: "^1.12.2",
       isDev: false
     }],
     nuxtConfig: {
@@ -512,7 +517,7 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     description: "A Vue 3 Component Library. Complete, Customizable, Uses TypeScript, Fast. See more: https://www.naiveui.com/",
     dependencies: [{
       name: "@huntersofbook/naive-ui-nuxt",
-      version: "^0.5.1",
+      version: "^0.6.0",
       isDev: true
     }],
     nuxtConfig: {
