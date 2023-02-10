@@ -53,7 +53,7 @@ DATABASE_URL=file:./db.sqlite
 `
 
 const prismaExampleEndpoint = `/**
- * Fetch all \`examples\` from the database. Run \`npx prisma generate\` and \`npx prisma db push\` for this to work.
+ * Fetch all \`examples\` from the database. Run \`npx prisma db push\` at least once for this to work.
  *
  * If you are using \`tRPC\` you can access the prisma-client by adding it to the context:
  * \`\`\`ts
@@ -315,7 +315,7 @@ const hello = await $client.hello.useQuery({ text: 'client' })
 <template>
   <div>
     <!-- As \`superjson\` is already pre-configured, we can use \`time\` as a \`Date\` object without further deserialization 🎉 -->
-    <p>tRPC Data: "{{ hello.data.value?.greeting }}" send at "{{ hello.data.value?.time.toLocaleDateString() }}".</p>
+    <p>tRPC Data: "{{ hello.data.value?.greeting }}" send at "{{ hello.data.value?.time.toLocaleDateString('en-EN') }}".</p>
   </div>
 </template>
 `
@@ -379,8 +379,7 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     }],
     tasksPostInstall: [
       "- [ ] Prisma: Edit your `prisma/prisma.schema` to your liking",
-      "- [ ] Prisma: Run `npx prisma db push` to sync the schema to your database after changing the schema",
-      "- [ ] Prisma: Run `npx prisma generate` to re-generate the client after changing the schema"
+      "- [ ] Prisma: Run `npx prisma db push` to sync the schema to your database & generate the Prisma Client",
     ],
     indexVue: generateModuleHTMLSnippet(
       "Prisma ORM",
