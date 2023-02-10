@@ -125,7 +125,7 @@ const examples = (data as Ref<Example[] | null>)
 
 <template>
   <div>
-    <p>Prisma ORM Data from the database, received {{ examples?.length || 0 }} records: <pre>{{ examples }}</pre></p>
+    Prisma ORM Data from the database, received {{ examples?.length || 0 }} records: <pre>{{ examples }}</pre>
   </div>
 </template>
 `
@@ -315,7 +315,7 @@ const hello = await $client.hello.useQuery({ text: 'client' })
 <template>
   <div>
     <!-- As \`superjson\` is already pre-configured, we can use \`time\` as a \`Date\` object without further deserialization 🎉 -->
-    <p>tRPC Data: "{{ hello.data.value?.greeting }}" send at "{{ hello.data.value?.time.toLocaleDateString('en-EN') }}".</p>
+    tRPC Data: "{{ hello.data.value?.greeting }}" send at "{{ hello.data.value?.time.toLocaleDateString('en-EN') }}".
   </div>
 </template>
 `
