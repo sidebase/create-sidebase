@@ -53,7 +53,7 @@ DATABASE_URL=file:./db.sqlite
 `
 
 const prismaExampleEndpoint = `/**
- * Fetch all \`examples\` from the database. Run \`npx prisma generate\` and \`npx prisma db push\` for this to work.
+ * Fetch all \`examples\` from the database. Run \`npx prisma db push\` at least once for this to work.
  *
  * If you are using \`tRPC\` you can access the prisma-client by adding it to the context:
  * \`\`\`ts
@@ -111,21 +111,12 @@ export const resetDatabase = (databaseUrl?: string) => {
 `
 
 const prismaExamplePage = `<script setup lang="ts">
-/**
- * In Nuxt 3.1.2 \`useFetch\` return types are not correctly inferred. In order to workaround this limitation, we sadly need to manually import and type a lof ot things.
- *
- * As soon as https://github.com/nuxt/nuxt/issues/15280 is closed and released, we can go back to just: \`const { data: examples } = useFetch('/api/examples')\`
- * */
-import type { Ref } from 'vue'
-import { Example } from '.prisma/client'
-
-const { data } = useFetch('/api/examples')
-const examples = (data as Ref<Example[] | null>)
+const { data: examples } = useFetch('/api/examples')
 </script>
 
 <template>
   <div>
-    <p>Prisma ORM Data from the database, received {{ examples?.length || 0 }} records: <pre>{{ examples }}</pre></p>
+    Prisma ORM Data from the database, received {{ examples?.length || 0 }} records: <pre>{{ examples }}</pre>
   </div>
 </template>
 `
@@ -315,7 +306,7 @@ const hello = await $client.hello.useQuery({ text: 'client' })
 <template>
   <div>
     <!-- As \`superjson\` is already pre-configured, we can use \`time\` as a \`Date\` object without further deserialization 🎉 -->
-    <p>tRPC Data: "{{ hello.data.value?.greeting }}" send at "{{ hello.data.value?.time.toLocaleDateString() }}".</p>
+    tRPC Data: "{{ hello.data.value?.greeting }}" send at "{{ hello.data.value?.time.toLocaleDateString('en-EN') }}".
   </div>
 </template>
 `
@@ -348,12 +339,12 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     dependencies: [
       {
         name: "prisma",
-        version: "^4.8.0",
+        version: "^4.10.1",
         isDev: true
       },
       {
         name: "@prisma/client",
-        version: "^4.8.0",
+        version: "^4.10.1",
         isDev: false
       }
     ],
@@ -379,8 +370,7 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     }],
     tasksPostInstall: [
       "- [ ] Prisma: Edit your `prisma/prisma.schema` to your liking",
-      "- [ ] Prisma: Run `npx prisma db push` to sync the schema to your database after changing the schema",
-      "- [ ] Prisma: Run `npx prisma generate` to re-generate the client after changing the schema"
+      "- [ ] Prisma: Run `npx prisma db push` to sync the schema to your database & generate the Prisma Client",
     ],
     indexVue: generateModuleHTMLSnippet(
       "Prisma ORM",
@@ -396,9 +386,14 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     dependencies: [
       {
         name: "@sidebase/nuxt-auth",
-        version: "^0.3.3",
+        version: "^0.4.1",
         isDev: true
       },
+      {
+        name: "next-auth",
+        version: "^4.18.8",
+        isDev: false
+      }
     ],
     nuxtConfig: {
       modules: ["@sidebase/nuxt-auth"]
@@ -427,23 +422,23 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     description: "Build end-to-end typesafe APIs in Nuxt applications. See more: https://trpc.io/",
     dependencies: [{
       name: "@trpc/server",
-      version: "^10.5.0",
+      version: "^10.10.0",
       isDev: false
     }, {
       name: "@trpc/client",
-      version: "^10.5.0",
+      version: "^10.10.0",
       isDev: false
     }, {
       name: "trpc-nuxt",
-      version: "^0.4.4",
+      version: "^0.6.0",
       isDev: false
     }, {
       name: "zod",
-      version: "^3.20.2",
+      version: "^3.20.6",
       isDev: false
     }, {
       name: "superjson",
-      version: "^1.12.1",
+      version: "^1.12.2",
       isDev: false
     }],
     nuxtConfig: {
@@ -512,7 +507,7 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     description: "A Vue 3 Component Library. Complete, Customizable, Uses TypeScript, Fast. See more: https://www.naiveui.com/",
     dependencies: [{
       name: "@huntersofbook/naive-ui-nuxt",
-      version: "^0.5.1",
+      version: "^0.6.0",
       isDev: true
     }],
     nuxtConfig: {

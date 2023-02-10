@@ -35,7 +35,7 @@ jobs:
       - run: npm run dev -- -- --ci
 
       # This is what the user would do, minus actually starting the application
-      - run: cd my-sidebase-app && npx prisma db push && npx prisma generate
+      - run: cd my-sidebase-app && npx prisma db push
 
       # code should be 100% correct at the start
       - run: cd my-sidebase-app && npm run lint
@@ -52,4 +52,3 @@ jobs:
 
       # build prod-app, start it in prod mode and curl from it
       - run: "export AUTH_ORIGIN=http://localhost:3000 && cd my-sidebase-app && npm run build && timeout 30 npm run preview & (sleep 10 && curl --fail localhost:3000)  || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
-
