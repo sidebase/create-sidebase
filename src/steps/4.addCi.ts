@@ -12,7 +12,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  lint:
 
     runs-on: ubuntu-latest
 
@@ -24,11 +24,16 @@ jobs:
         with:
           node-version: 16.14.2
 
-      - run: npm ci
+      - name: Setup
+        run: npm i -g @antfu/ni
 
-      - run: npm run build
+      - name: Install
+        run: nci
 
-      # TODO: Add more steps here, like "npm run lint" or "npm run test" as you add the tooling for it
+      - name: Lint
+        run: nr lint
+
+      # TODO: Add more steps here, like "nr test" as you add the tooling for it
 `
 
 export default async (preferences: Preferences, templateDir: string) => {
