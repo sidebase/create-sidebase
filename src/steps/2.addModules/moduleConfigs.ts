@@ -339,12 +339,12 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     dependencies: [
       {
         name: "prisma",
-        version: "^4.10.1",
+        version: "^4.11.0",
         isDev: true
       },
       {
         name: "@prisma/client",
-        version: "^4.10.1",
+        version: "^4.11.0",
         isDev: false
       }
     ],
@@ -386,7 +386,7 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     dependencies: [
       {
         name: "@sidebase/nuxt-auth",
-        version: "^0.4.1",
+        version: "^0.4.2",
         isDev: true
       },
       {
@@ -422,19 +422,19 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     description: "Build end-to-end typesafe APIs in Nuxt applications. See more: https://trpc.io/",
     dependencies: [{
       name: "@trpc/server",
-      version: "^10.10.0",
+      version: "^10.12.0",
       isDev: false
     }, {
       name: "@trpc/client",
-      version: "^10.10.0",
+      version: "^10.12.0",
       isDev: false
     }, {
       name: "trpc-nuxt",
-      version: "^0.6.0",
+      version: "^0.7.0",
       isDev: false
     }, {
       name: "zod",
-      version: "^3.20.6",
+      version: "^3.21.2",
       isDev: false
     }, {
       name: "superjson",
@@ -486,7 +486,7 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     description: "A utility-first CSS framework packed with classes that can be composed to build any design, directly in your markup. See more: https://tailwindcss.com/",
     dependencies: [{
       name: "@nuxtjs/tailwindcss",
-      version: "^6.1.3",
+      version: "^6.4.0",
       isDev: true
     }],
     nuxtConfig: {
@@ -507,7 +507,7 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     description: "A Vue 3 Component Library. Complete, Customizable, Uses TypeScript, Fast. See more: https://www.naiveui.com/",
     dependencies: [{
       name: "@huntersofbook/naive-ui-nuxt",
-      version: "^0.6.0",
+      version: "^0.7.1",
       isDev: true
     }],
     nuxtConfig: {
