@@ -1,7 +1,14 @@
 import { NuxtConfig } from "@nuxt/schema"
 import { Dependency } from "../../utils/addPackageDependency"
 
-const generateModuleHTMLSnippet = (title: string, description: string, cardClass: string, documentationLink: string, styles: string): {html: string, css: string} => {
+const generateModuleHTMLSnippet = (
+  title: string,
+  description: string,
+  cardClass: string,
+  styles: string,
+  documentationLink: string,
+  exampleLink?: string
+): {html: string, css: string} => {
   const html = `  <div class="card ${cardClass}">
         <div class="card__body">
           <h2 class="card__title">
@@ -15,6 +22,11 @@ const generateModuleHTMLSnippet = (title: string, description: string, cardClass
           <a class="card__link" href="${documentationLink}" target="_blank">
             Read documentation
           </a>
+          ${exampleLink && (
+    `<a class="card__link" href="${exampleLink}" target="_blank">
+            View example
+          </a>`
+  )}
         </p>
       </div>`
   const css = `.${cardClass} { ${styles} }`
@@ -378,8 +390,9 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
       "Prisma ORM",
       "Prisma unlocks a new level of developer experience when working with databases thanks to its intuitive data model, automated migrations, type-safety & auto-completion.",
       "prisma__card",
+      "background: radial-gradient(#3fbafe, #5A67D8FF);",
       "https://sidebase.io/sidebase/components/prisma",
-      "background: radial-gradient(#3fbafe, #5A67D8FF);"
+      "/prisma"
     ),
   },
   "auth": {
@@ -415,8 +428,9 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
       "Authentication",
       "Nuxt user authentication and sessions through nuxt-auth. nuxt-auth wraps NextAuth.js to offer the reliability & convenience of a 12k star library to the nuxt 3 ecosystem with a native developer experience (DX)",
       "auth__card",
+      "background: radial-gradient(#0FCF97, #0B9A71);",
       "https://sidebase.io/nuxt-auth/getting-started",
-      "background: radial-gradient(#0FCF97, #0B9A71);"
+      "/protected"
     ),
   },
   "trpc": {
@@ -479,8 +493,9 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
       "tRPC",
       "tRPC allows you to easily build & consume fully typesafe APIs without schemas or code generation.",
       "trpc__card",
+      "background: radial-gradient(#a07ccf, #926dc2);",
       "https://sidebase.io/sidebase/components/trpc",
-      "background: radial-gradient(#a07ccf, #926dc2);"
+      "/trpc"
     ),
   },
   "tailwind": {
@@ -500,8 +515,8 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
       "TailwindCSS",
       "Rapidly build modern websites without ever leaving your HTML.",
       "tailwind__card",
+      "background: radial-gradient(#7466e3, #5a4ad9);",
       "https://sidebase.io/sidebase/components/tailwindcss",
-      "background: radial-gradient(#7466e3, #5a4ad9);"
     ),
   },
   "naiveui": {
@@ -521,8 +536,8 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
       "NaiveUI",
       "A Vue 3 Component Library. Complete, Customizable, Uses TypeScript, Fast.",
       "naiveui__card",
+      "background: radial-gradient(#ad6434, #995020);",
       "https://www.naiveui.com/en-US/os-theme",
-      "background: radial-gradient(#ad6434, #995020);"
     ),
   }
 }
