@@ -22,11 +22,11 @@ const generateModuleHTMLSnippet = (
           <a class="card__link" href="${documentationLink}" target="_blank">
             Read documentation
           </a>
-          ${exampleLink && (
+          ${exampleLink ? (
     `<a class="card__link" href="${exampleLink}" target="_blank">
             View example
           </a>`
-  )}
+  ) : ""}
         </p>
       </div>`
   const css = `.${cardClass} { ${styles} }`
