@@ -359,12 +359,12 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     dependencies: [
       {
         name: "prisma",
-        version: "^4.11.0",
+        version: "^4.13.0",
         isDev: true
       },
       {
         name: "@prisma/client",
-        version: "^4.11.0",
+        version: "^4.13.0",
         isDev: false
       }
     ],
@@ -407,12 +407,12 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     dependencies: [
       {
         name: "@sidebase/nuxt-auth",
-        version: "^0.4.4",
+        version: "^0.5.0",
         isDev: true
       },
       {
         name: "next-auth",
-        version: "^4.18.8",
+        version: "^4.22.1",
         isDev: false
       }
     ],
@@ -444,23 +444,23 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     description: "Build end-to-end typesafe APIs in Nuxt applications. See more: https://trpc.io/",
     dependencies: [{
       name: "@trpc/server",
-      version: "^10.12.0",
+      version: "^10.25.0",
       isDev: false
     }, {
       name: "@trpc/client",
-      version: "^10.12.0",
+      version: "^10.25.0",
       isDev: false
     }, {
       name: "trpc-nuxt",
-      version: "^0.7.0",
+      version: "^0.9.0",
       isDev: false
     }, {
       name: "zod",
-      version: "^3.21.2",
+      version: "^3.21.4",
       isDev: false
     }, {
       name: "superjson",
-      version: "^1.12.2",
+      version: "^1.12.3",
       isDev: false
     }],
     nuxtConfig: {
@@ -509,7 +509,7 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     description: "A utility-first CSS framework packed with classes that can be composed to build any design, directly in your markup. See more: https://tailwindcss.com/",
     dependencies: [{
       name: "@nuxtjs/tailwindcss",
-      version: "^6.4.0",
+      version: "^6.6.7",
       isDev: true
     }],
     nuxtConfig: {
