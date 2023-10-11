@@ -6,6 +6,7 @@ export interface Dependency {
   name: string
   version: string
   isDev: boolean
+  isPeer?: boolean
 }
 
 export const addPackageDependencies = async (opts: {
@@ -17,9 +18,13 @@ export const addPackageDependencies = async (opts: {
   const pathToPackageJson = resolve(`./${projectDir}/package.json`)
   const packageJson = await readPackageJSON(pathToPackageJson)
 
-  for (const { name, version, isDev } of dependencies) {
+  for (const { name, version, isDev, isPeer } of dependencies) {
     if (isDev) {
       packageJson.devDependencies = defu(packageJson.devDependencies, {
+        [name]: version
+      })
+    } else if (isPeer) {
+      packageJson.peerDependencies = defu(packageJson.peerDependencies, {
         [name]: version
       })
     } else {

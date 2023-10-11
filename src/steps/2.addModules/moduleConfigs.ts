@@ -206,7 +206,7 @@ const nuxtAuthExamplePage = `<template>
 <script setup lang="ts">
 definePageMeta({ middleware: 'auth' })
 
-const { data, signOut } = useSession()
+const { data, signOut } = useAuth()
 </script>
 `
 
@@ -359,12 +359,12 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     dependencies: [
       {
         name: "prisma",
-        version: "^4.11.0",
+        version: "^5.4.1",
         isDev: true
       },
       {
         name: "@prisma/client",
-        version: "^4.11.0",
+        version: "^5.4.1",
         isDev: false
       }
     ],
@@ -407,17 +407,18 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     dependencies: [
       {
         name: "@sidebase/nuxt-auth",
-        version: "^0.4.4",
+        version: "^0.6.0-beta.6",
         isDev: true
       },
       {
         name: "next-auth",
-        version: "^4.18.8",
-        isDev: false
+        version: "4.21.1",
+        isDev: false,
+        isPeer: true
       }
     ],
     nuxtConfig: {
-      modules: ["@sidebase/nuxt-auth"]
+      modules: ["@sidebase/nuxt-auth"],
     },
     files: [{
       path: "server/api/auth/[...].ts",
@@ -444,19 +445,19 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     description: "Build end-to-end typesafe APIs in Nuxt applications. See more: https://trpc.io/",
     dependencies: [{
       name: "@trpc/server",
-      version: "^10.12.0",
+      version: "^10.40.0",
       isDev: false
     }, {
       name: "@trpc/client",
-      version: "^10.12.0",
+      version: "^10.40.0",
       isDev: false
     }, {
       name: "trpc-nuxt",
-      version: "^0.7.0",
+      version: "^0.10.12",
       isDev: false
     }, {
       name: "zod",
-      version: "^3.21.2",
+      version: "^3.22.4",
       isDev: false
     }, {
       name: "superjson",
@@ -509,7 +510,7 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     description: "A utility-first CSS framework packed with classes that can be composed to build any design, directly in your markup. See more: https://tailwindcss.com/",
     dependencies: [{
       name: "@nuxtjs/tailwindcss",
-      version: "^6.4.0",
+      version: "^6.8.0",
       isDev: true
     }],
     nuxtConfig: {
@@ -529,12 +530,12 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
     humanReadableName: "Naive UI",
     description: "A Vue 3 Component Library. Complete, Customizable, Uses TypeScript, Fast. See more: https://www.naiveui.com/",
     dependencies: [{
-      name: "@huntersofbook/naive-ui-nuxt",
-      version: "^0.7.1",
+      name: "@bg-dev/nuxt-naiveui",
+      version: "^1.5.1",
       isDev: true
     }],
     nuxtConfig: {
-      modules: ["@huntersofbook/naive-ui-nuxt"],
+      modules: ["@bg-dev/nuxt-naiveui"],
     },
     files: [],
     tasksPostInstall: [],
