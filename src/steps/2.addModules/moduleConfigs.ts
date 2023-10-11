@@ -418,7 +418,7 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
       }
     ],
     nuxtConfig: {
-      modules: ["@sidebase/nuxt-auth"],
+      modules: ["@sidebase/nuxt-auth"]
     },
     files: [{
       path: "server/api/auth/[...].ts",
