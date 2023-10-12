@@ -6,8 +6,6 @@ const getModulesSnippet = (selectedModules: Modules[], key: "html" | "css" | "js
 }
 export const generateIndexVue = (selectedModules: Modules[]) => {
   const html = getModulesSnippet(selectedModules, "html")
-  const css = getModulesSnippet(selectedModules, "css")
-  const js = getModulesSnippet(selectedModules, "js")
 
   return `<template>
   <div class="wrapper">
@@ -22,7 +20,7 @@ export const generateIndexVue = (selectedModules: Modules[]) => {
         </p>
       </div>
 
-      <div class="modules_grid">
+      <div class="modules_grid">${html}
       </div>
     </div>
 
