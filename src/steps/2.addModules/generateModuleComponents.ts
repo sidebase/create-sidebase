@@ -30,9 +30,9 @@ export function generateModuleHTMLComponent (
 }
 
 export function generateModuleHTMLSnippet (componentName: string) {
-  const html = `  <div class="card">
-        <${componentName} />
-      </div>`
+  const html = `    <div class="card">
+          <${componentName} />
+        </div>`
   return {
     html,
   }
