@@ -60,7 +60,7 @@ const { data: users } = useFetch('/api/users')
 <template>
   ${generateModuleHTMLComponent(
     "Drizzle ORM",
-    "'If you know SQL, you know Drizzle ORM': Drizzle ORM follows the SQL-like syntax whenever possible, are strongly typed ground up, and fail at compile time, not in runtime.",
+    "If you know SQL, you know Drizzle ORM: Drizzle ORM follows the SQL-like syntax whenever possible, are strongly typed ground up, and fail at compile time, not in runtime.",
     "https://orm.drizzle.team/",
     `<p>
         Drizzle ORM Data from the database, received {{ users?.length || 0 }} records!
