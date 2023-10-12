@@ -413,7 +413,7 @@ export const moduleConfigs: Record<Modules, ModuleConfig> = {
       {
         name: "next-auth",
         version: "4.21.1",
-        isDev: false,
+        isDev: false
       }
     ],
     nuxtConfig: {
