@@ -84,17 +84,6 @@ export const resetDatabase = (databaseUrl?: string) => {
 }
 `
 
-const prismaExamplePage = `<script setup lang="ts">
-const { data: examples } = useFetch('/api/examples')
-</script>
-
-<template>
-  <div>
-    Prisma ORM Data from the database, received {{ examples?.length || 0 }} records: <pre>{{ examples }}</pre>
-  </div>
-</template>
-`
-
 const prismaDemoComponent = `<script lang="ts" setup>
 const { data: examples } = useFetch('/api/examples')
 </script>
@@ -144,9 +133,6 @@ const prisma: ModuleConfig = {
     path: "prisma/utils.ts",
     content: prismaUtils
   }, {
-    path: "pages/prisma.vue",
-    content: prismaExamplePage
-  },{
     path: "components/Welcome/PrismaDemo.vue",
     content: prismaDemoComponent,
   }],

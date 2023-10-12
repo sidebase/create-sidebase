@@ -1,10 +1,7 @@
 import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from "../generateModuleComponents"
 import type { ModuleConfig } from "../moduleConfigs"
 
-const tailwindDemoComponent = `<script lang="ts" setup>
-const { data: examples } = useFetch('/api/examples')
-</script>
-<template>
+const tailwindDemoComponent = `<template>
   ${generateModuleHTMLComponent(
     "TailwindCSS",
     "Rapidly build modern websites without ever leaving your HTML.",

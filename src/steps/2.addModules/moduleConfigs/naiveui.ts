@@ -1,10 +1,7 @@
 import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from "../generateModuleComponents"
 import type { ModuleConfig } from "../moduleConfigs"
 
-const naiveDemoComponent = `<script setup lang="ts">
-const showModal = ref(false)
-</script>
-<template>
+const naiveDemoComponent = `<template>
   ${generateModuleHTMLComponent(
     "NaiveUI",
     "A Vue 3 Component Library. Complete, Customizable, Uses TypeScript, Fast.",

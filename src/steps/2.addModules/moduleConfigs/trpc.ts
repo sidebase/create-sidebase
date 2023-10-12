@@ -105,20 +105,6 @@ export default defineNuxtPlugin(() => {
 })
 `
 
-const nuxtTrpcExamplePage = `<script setup lang="ts">
-const { $client } = useNuxtApp()
-
-const hello = await $client.hello.useQuery({ text: 'client' })
-</script>
-
-<template>
-  <div>
-    <!-- As \`superjson\` is already pre-configured, we can use \`time\` as a \`Date\` object without further deserialization 🎉 -->
-    tRPC Data: "{{ hello.data.value?.greeting }}" send at "{{ hello.data.value?.time.toLocaleDateString('en-EN') }}".
-  </div>
-</template>
-`
-
 const trpcDemoComponent = `<script lang="ts" setup>
 const { $client } = useNuxtApp()
 
@@ -188,10 +174,6 @@ const trpc: ModuleConfig = {
     {
       path: "plugins/trpcClient.ts",
       content: nuxtTrpcPlugin
-    },
-    {
-      path: "pages/trpc.vue",
-      content: nuxtTrpcExamplePage
     },
     {
       path: "components/Welcome/TRPCDemo.vue",
