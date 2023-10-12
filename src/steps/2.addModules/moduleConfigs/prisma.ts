@@ -93,9 +93,8 @@ const { data: examples } = useFetch('/api/examples')
     "Prisma unlocks a new level of developer experience when working with databases thanks to its intuitive data model, automated migrations, type-safety & auto-completion.",
     "https://sidebase.io/sidebase/components/prisma",
     `<p>
-    Prisma ORM Data from the database, received {{ examples?.length || 0 }} records!
-    </p>
-    `,
+        Prisma ORM Data from the database, received {{ examples?.length || 0 }} records!
+      </p>`,
     "",
   ).html}
 </template>

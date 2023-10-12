@@ -62,18 +62,18 @@ const { status, data, signIn, signOut } = useAuth()
     "Nuxt user authentication and sessions through nuxt-auth. nuxt-auth wraps NextAuth.js to offer the reliability & convenience of a 12k star library to the nuxt 3 ecosystem with a native developer experience (DX)",
     "https://sidebase.io/nuxt-auth/getting-started",
     `<p v-if="status === 'authenticated'">
-    Logged in as "{{ data?.user?.name }}"!
-    </p>
-    <p v-else>
-    Not logged in.
-    </p>
+        Logged in as "{{ data?.user?.name }}"
+      </p>
+      <p v-else>
+        Not logged in.
+      </p>
     `,
     `<WelcomeButtonLink v-if="status !== 'authenticated'" @click="signIn">
-    Sign in
-    </WelcomeButtonLink>
-    <WelcomeButtonLink v-else @click="signOut">
-    Sign out
-    </WelcomeButtonLink>`,
+          Sign in
+        </WelcomeButtonLink>
+        <WelcomeButtonLink v-else @click="signOut">
+          Sign out
+        </WelcomeButtonLink>`,
   ).html}
 </template>
 `

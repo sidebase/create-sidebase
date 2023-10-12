@@ -116,9 +116,9 @@ const hello = await $client.hello.useQuery({ text: 'client' })
     "tRPC allows you to easily build & consume fully typesafe APIs without schemas or code generation.",
     "https://sidebase.io/sidebase/components/trpc",
     `<p>
-    <!-- As superjson is already pre-configured, we can use time as a Date object without further deserialization 🎉 -->
-    tRPC Data: "{{ hello.data.value?.greeting }}" send at "{{ hello.data.value?.time.toLocaleDateString('en-EN') }}".
-    </p>
+        <!-- As superjson is already pre-configured, we can use time as a Date object without further deserialization 🎉 -->
+        tRPC Data: "{{ hello.data.value?.greeting }}" send at "{{ hello.data.value?.time.toLocaleDateString('en-EN') }}".
+      </p>
     `,
     "",
   ).html}

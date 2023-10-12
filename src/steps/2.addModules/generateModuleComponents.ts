@@ -5,24 +5,25 @@ export function generateModuleHTMLComponent (
   demo: string,
   actions: string
 ): {html: string} {
-  const html = `  <div class="layout">
-        <div class="group">
-          <h1 class="heading">
-            ${title}
-          </h1>
-          <p class="description">
-            ${description}
-          </p>
-        </div>
-        <div class="group">${demo}
-          <div class="actions">
-            <WelcomeButtonLink href="${documentationLink}" :blank="true">
-              Documentation
-            </WelcomeButtonLink>
-            ${actions}
-          </div>
-        </div>
-      </div>`
+  const html = `<div class="layout">
+    <div class="group">
+      <h1 class="heading">
+        ${title}
+      </h1>
+      <p class="description">
+        ${description}
+      </p>
+    </div>
+    <div class="group">
+      ${demo}
+      <div class="actions">
+        <WelcomeButtonLink href="${documentationLink}" :blank="true">
+          Documentation
+        </WelcomeButtonLink>
+        ${actions}
+      </div>
+    </div>
+  </div>`
   return {
     html,
   }

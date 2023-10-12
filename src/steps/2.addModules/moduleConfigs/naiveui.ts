@@ -1,24 +1,27 @@
 import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from "../generateModuleComponents"
 import type { ModuleConfig } from "../moduleConfigs"
 
-const naiveDemoComponent = `<template>
+const naiveDemoComponent = `<script setup lang="ts">
+const showModal = ref(false)
+</script>
+<template>
   ${generateModuleHTMLComponent(
     "NaiveUI",
     "A Vue 3 Component Library. Complete, Customizable, Uses TypeScript, Fast.",
     "https://www.naiveui.com/en-US/os-theme",
-    `    <n-modal v-model:show="showModal">
-      <n-card
-        style="width: 600px"
-        title="NaiveUI + sidebase = ❤️"
-        role="dialog"
-        aria-modal="true"
-      >
-        Its this simple! You can now begin using any NaiveUI component in your project!
-      </n-card>
-    </n-modal>`,
+    `<n-modal v-model:show="showModal">
+        <n-card
+          style="width: 600px"
+          title="NaiveUI + sidebase = ❤️"
+          role="dialog"
+          aria-modal="true"
+        >
+          Its this simple! You can now begin using any NaiveUI component in your project!
+        </n-card>
+      </n-modal>`,
     `<WelcomeButtonLink @click="showModal = true">
-      Open modal
-    </WelcomeButtonLink>`,
+          Open modal
+        </WelcomeButtonLink>`,
   ).html}
 </template>
 `
