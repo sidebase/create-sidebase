@@ -8,6 +8,7 @@ import { NuxtConfig } from "@nuxt/schema"
 import defu from "defu"
 import { inspect } from "node:util"
 import { generateIndexVue } from "./generateIndexVue"
+import { buttonLink } from "./generateModuleComponents"
 
 export default async (preferences: Preferences, templateDir: string) => {
   const selectedModules: Modules[] = preferences.addModules || []
@@ -64,4 +65,10 @@ export default defineNuxtConfig(${inspect(nuxtConfig, { compact: false })})
   const nuxtPagesIndexVue = generateIndexVue(selectedModules)
   await mkdir(resolver("pages"), { recursive: true })
   await writeFile(resolver("pages/index.vue"), nuxtPagesIndexVue)
+
+  // 7. Write ButtonLink.vue for the module components
+  if (selectedModules.length > 0) {
+    await mkdir(resolver("components/Welcome"), { recursive: true })
+    await writeFile(resolver("components/Welcome/ButtonLink.vue"), buttonLink)
+  }
 }
