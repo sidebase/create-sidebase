@@ -84,13 +84,14 @@ const auth: ModuleConfig = {
   dependencies: [
     {
       name: "@sidebase/nuxt-auth",
-      version: "^0.5.0",
+      version: "^0.6.4",
       isDev: true
     },
     {
       name: "next-auth",
       version: "4.21.1",
       isDev: false,
+      isPeer: true,
     }
   ],
   nuxtConfig: {
