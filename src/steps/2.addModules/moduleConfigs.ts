@@ -7,6 +7,7 @@ import auth from "./moduleConfigs/auth"
 import trpc from "./moduleConfigs/trpc"
 import tailwind from "./moduleConfigs/tailwind"
 import naiveui from "./moduleConfigs/naiveui"
+import drizzle from "./moduleConfigs/drizzle"
 
 export declare interface File {
   path: string;
@@ -28,9 +29,10 @@ export declare interface ModuleConfig {
 }
 
 // TODO: Improve files approach: It will fail as soon as the content of a file depends on two dependencies at the same time!
-export type Modules = "prisma" | "auth" | "trpc" | "tailwind" | "naiveui"
+export type Modules = "prisma" | "drizzle" | "auth" | "trpc" | "tailwind" | "naiveui"
 export const moduleConfigs: Record<Modules, ModuleConfig> = {
   "prisma": prisma,
+  "drizzle": drizzle,
   "auth": auth,
   "trpc": trpc,
   "tailwind": tailwind,
