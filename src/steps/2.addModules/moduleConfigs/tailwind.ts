@@ -19,7 +19,7 @@ const tailwind: ModuleConfig = {
   description: "A utility-first CSS framework packed with classes that can be composed to build any design, directly in your markup. See more: https://tailwindcss.com/",
   dependencies: [{
     name: "@nuxtjs/tailwindcss",
-    version: "^6.8.0",
+    version: "^6.10.4",
     isDev: true
   }],
   nuxtConfig: {

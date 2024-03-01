@@ -31,7 +31,7 @@ const naiveui: ModuleConfig = {
   description: "A Vue 3 Component Library. Complete, Customizable, Uses TypeScript, Fast. See more: https://www.naiveui.com/",
   dependencies: [{
     name: "@bg-dev/nuxt-naiveui",
-    version: "^1.5.1",
+    version: "^1.8.1",
     isDev: true
   }],
   nuxtConfig: {
