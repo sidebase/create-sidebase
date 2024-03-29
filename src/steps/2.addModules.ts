@@ -26,7 +26,7 @@ export default async (preferences: Preferences, templateDir: string) => {
   }
 
   // 2. Add required dependencies to `package.json`
-  addPackageDependencies({
+  await addPackageDependencies({
     projectDir: preferences.setProjectName,
     dependencies
   })

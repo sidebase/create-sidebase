@@ -33,11 +33,13 @@ export default async (preferences: Preferences) => {
   const packages = Object.values(packageConfigs).filter(({ type }) => type === "template")
   const dependencies = packages.flatMap(({ dependencies }) => dependencies)
   const scripts = packages.flatMap(({ scripts }) => scripts)
-  addPackageDependencies({
+
+  console.log(dependencies)
+  await addPackageDependencies({
     projectDir: preferences.setProjectName,
     dependencies
   })
-  addPackageScripts({
+  await addPackageScripts({
     projectDir: preferences.setProjectName,
     scripts,
   })
