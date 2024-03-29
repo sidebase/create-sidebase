@@ -43,22 +43,24 @@ const main = async () => {
     await wrapInSpinner("Adding Nuxt modules", addModules, preferences, template.dir)
   }
 
-  // 3. Initialize git
+  // 3. Add Linter
+
+  // 4. Initialize git
   if (preferences.runGitInit) {
     await wrapInSpinner("Running `git init`", initGit, template.dir)
   }
 
-  // 4. Add CI
+  // 5. Add CI
   if (preferences.addCi === "github") {
     await wrapInSpinner("Adding CI template", addCi, preferences, template.dir)
   }
 
-  // 5. Run install
+  // 6. Run install
   if (preferences.runInstall) {
     await wrapInSpinner(`Running \`${getUserPkgManager()} install\``, npmInstall, template.dir)
   }
 
-  // 6. Write readme
+  // 7. Write readme
   await wrapInSpinner("Adding README", addReadme, preferences, template.dir)
 
   sayGoodbye(preferences)

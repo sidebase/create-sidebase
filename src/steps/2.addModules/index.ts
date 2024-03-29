@@ -1,4 +1,4 @@
-import { getResolver } from "../../getResolver"
+import { getResolver } from "../../utils/getResolver"
 import { Preferences  } from "../../prompts"
 import { File, moduleConfigs, Modules } from "./moduleConfigs"
 import { addPackageDependencies, Dependency } from "../../utils/addPackageDependency"

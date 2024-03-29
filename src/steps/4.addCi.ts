@@ -1,5 +1,5 @@
 import { mkdir, writeFile } from "node:fs/promises"
-import { getResolver } from "../getResolver"
+import { getResolver } from "../utils/getResolver"
 import { Preferences } from "../prompts"
 
 const GITHUB_ACTIONS_TEMPLATE = `

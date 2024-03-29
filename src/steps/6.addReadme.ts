@@ -1,5 +1,5 @@
 import { writeFile } from "node:fs/promises"
-import { getResolver } from "../getResolver"
+import { getResolver } from "../utils/getResolver"
 import { Preferences } from "../prompts"
 import { getUserPkgManager } from "../utils/getUserPkgManager"
 import { moduleConfigs, Modules } from "./2.addModules/moduleConfigs"
