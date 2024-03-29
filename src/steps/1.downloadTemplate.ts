@@ -6,7 +6,7 @@ import { writeFile } from "node:fs/promises"
 import { say } from "../messages"
 
 const KNOWN_TEMPLATES = {
-  "merino": "github:sidebase/merino#v3",
+  "merino": "github:nuxt/starter#v3",
   "cheviot": "community/sidebase"
 }
 
