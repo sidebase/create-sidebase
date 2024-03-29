@@ -79,8 +79,10 @@ const { status, data, signIn, signOut } = useAuth()
 `
 
 const auth: PackageConfig = {
+  type: "module",
   humanReadableName: "nuxt-auth",
   description: "Authentication via OAuth, Credentials and magic email flows. Wraps the popular NextAuth.js with 12k stars. See more: https://sidebase.io/nuxt-auth",
+  scripts: [],
   dependencies: [
     {
       name: "@sidebase/nuxt-auth",

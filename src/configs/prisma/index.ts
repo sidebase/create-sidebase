@@ -101,8 +101,10 @@ const { data: examples } = useFetch('/api/examples')
 `
 
 const prisma: PackageConfig = {
+  type: "module",
   humanReadableName: "Prisma ORM",
   description: "Next-generation Node.js and TypeScript ORM. See more: https://www.prisma.io/",
+  scripts: [],
   dependencies: [
     {
       name: "prisma",

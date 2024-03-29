@@ -1,10 +1,10 @@
-import { moduleConfigs, Modules } from "../configs/index"
+import { packageConfigs, Packages } from "../configs/index"
 
-const getModulesSnippet = (selectedModules: Modules[], key: "html" | "css" | "js") => {
-  const moduleIndexSnippets = selectedModules.map((module) => moduleConfigs[module].indexVue?.[key]).filter(snippet => typeof snippet !== "undefined")
+const getModulesSnippet = (selectedModules: Packages[], key: "html" | "css" | "js") => {
+  const moduleIndexSnippets = selectedModules.map((module) => packageConfigs[module].indexVue?.[key]).filter(snippet => typeof snippet !== "undefined")
   return moduleIndexSnippets.length > 0 ? "\n    " + moduleIndexSnippets.join("\n    ") : ""
 }
-export const generateIndexVue = (selectedModules: Modules[]) => {
+export const generateIndexVue = (selectedModules: Packages[]) => {
   const html = getModulesSnippet(selectedModules, "html")
 
   return `<template>

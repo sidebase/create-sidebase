@@ -27,8 +27,10 @@ const showModal = ref(false)
 `
 
 const naiveui: PackageConfig = {
+  type: "module",
   humanReadableName: "Naive UI",
   description: "A Vue 3 Component Library. Complete, Customizable, Uses TypeScript, Fast. See more: https://www.naiveui.com/",
+  scripts: [],
   dependencies: [{
     name: "@bg-dev/nuxt-naiveui",
     version: "^1.8.1",

@@ -9,6 +9,11 @@ export interface Dependency {
   isPeer?: boolean
 }
 
+export interface Script {
+  name: string,
+  command: string,
+}
+
 export const addPackageDependencies = async (opts: {
   dependencies: Dependency[];
   projectDir: string;
@@ -35,5 +40,22 @@ export const addPackageDependencies = async (opts: {
   }
 
   await writePackageJSON(pathToPackageJson, packageJson)
+}
 
+export const addPackageScripts = async (opts: {
+  scripts: Script[];
+  projectDir: string;
+}) => {
+  const { projectDir, scripts } = opts
+
+  const pathToPackageJson = resolve(`./${projectDir}/package.json`)
+  const packageJson = await readPackageJSON(pathToPackageJson)
+
+  for (const { name, command } of scripts) {
+    packageJson.scripts = defu(packageJson.scripts, {
+      [name]: command
+    })
+  }
+
+  await writePackageJSON(pathToPackageJson, packageJson)
 }

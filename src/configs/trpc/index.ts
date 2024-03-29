@@ -126,8 +126,10 @@ const hello = await $client.hello.useQuery({ text: 'client' })
 `
 
 const trpc: PackageConfig = {
+  type: "module",
   humanReadableName: "tRPC 10",
   description: "Build end-to-end typesafe APIs in Nuxt applications. See more: https://trpc.io/",
+  scripts: [],
   dependencies: [{
     name: "@trpc/server",
     version: "^10.45.0",

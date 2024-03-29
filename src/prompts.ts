@@ -1,6 +1,6 @@
 import prompts, { PromptType, type PromptObject } from "prompts"
 import { say } from "./messages"
-import { moduleConfigs } from "./configs/index"
+import { packageConfigs } from "./configs/index"
 import { getUserPkgManager } from "./utils/getUserPkgManager"
 import { getRandomProjectNoun } from "./utils/getRandomProjectNoun"
 
@@ -27,7 +27,7 @@ const PROMPT_QUESTIONS: PromptObject[] = [
     type: skipIfCheviotWasChosen("multiselect"),
     "name": "addModules",
     message: "Which modules would you like to use?",
-    choices: Object.entries(moduleConfigs).map(([key, { humanReadableName, description }]) => ({ title: humanReadableName, description, value: key }))
+    choices: Object.entries(packageConfigs).filter(([, { type }]) => type === "module").map(([key, { humanReadableName, description }]) => ({ title: humanReadableName, description, value: key }))
   },
   {
     type: "confirm",

@@ -43,8 +43,6 @@ const main = async () => {
     await wrapInSpinner("Adding Nuxt modules", addModules, preferences, template.dir)
   }
 
-  // 3. Add Linter
-
   // 4. Initialize git
   if (preferences.runGitInit) {
     await wrapInSpinner("Running `git init`", initGit, template.dir)

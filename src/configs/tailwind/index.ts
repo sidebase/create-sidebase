@@ -15,8 +15,10 @@ const tailwindDemoComponent = `<template>
 `
 
 const tailwind: PackageConfig = {
+  type: "module",
   humanReadableName: "Tailwind CSS",
   description: "A utility-first CSS framework packed with classes that can be composed to build any design, directly in your markup. See more: https://tailwindcss.com/",
+  scripts: [],
   dependencies: [{
     name: "@nuxtjs/tailwindcss",
     version: "^6.10.4",
