@@ -22,7 +22,6 @@ export const addPackageDependencies = async (opts: {
 
   const pathToPackageJson = resolve(`./${projectDir}/package.json`)
   const packageJson = await readPackageJSON(pathToPackageJson)
-  console.log(packageJson)
 
   for (const { name, version, isDev, isPeer } of dependencies) {
     if (isDev) {
@@ -51,7 +50,6 @@ export const addPackageScripts = async (opts: {
 
   const pathToPackageJson = resolve(`./${projectDir}/package.json`)
   const packageJson = await readPackageJSON(pathToPackageJson)
-  console.log(packageJson)
 
 
   for (const { name, command } of scripts) {
