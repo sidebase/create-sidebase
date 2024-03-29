@@ -23,14 +23,22 @@ export default antfu({
     quotes: 'single',
   },
 
-  // TypeScript and Vue are auto-detected, you can also explicitly enable them:
+  // TypeScript and Vue are auto-detected, you can also explicitly enable them
   typescript: true,
   vue: true,
 
   // Disable jsonc and yaml support
   jsonc: false,
   yaml: false,
-})`
+
+  // Overwrite certain rules to your preference
+  rules: {
+    "no-console": ['error', {
+      allow: ['info', 'warn', 'trace', 'error', 'group', 'groupEnd']
+    }]
+  }
+})
+`
 
 const lint: PackageConfig = {
   type: "template",
@@ -54,7 +62,7 @@ const lint: PackageConfig = {
   }],
   nuxtConfig: {},
   files: [{
-    path: "eslint.config.ts",
+    path: "eslint.config.mjs",
     content: eslintConfig
   }],
   tasksPostInstall: [],
