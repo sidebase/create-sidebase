@@ -2,11 +2,9 @@ import prompts, { PromptType, type PromptObject } from "prompts"
 import { say } from "./messages"
 import { moduleConfigs } from "./steps/2.addModules/moduleConfigs"
 import { getUserPkgManager } from "./utils/getUserPkgManager"
+import { getRandomProjectNoun } from "./utils/getRandomProjectNoun"
 
 const skipIfCheviotWasChosen = (typeIfNotMerino: PromptType) => (_: unknown, preferences: Record<string, string>) => preferences.setStack === "cheviot" ? null : typeIfNotMerino
-
-const PROJECT_NAME_NOUNS = ["app", "project", "endeavour", "undertaking", "enterprise", "venture", "experiment", "effort", "operation", "affair", "pursuit", "struggle", "adventure", "thing", "opportunity"]
-const getRandomProjectNoun = () => PROJECT_NAME_NOUNS[Math.floor((Math.random() * PROJECT_NAME_NOUNS.length))]
 
 const PROMPT_QUESTIONS: PromptObject[] = [
   {
