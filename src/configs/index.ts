@@ -25,8 +25,8 @@ export declare interface PackageConfig {
   }
 }
 
-export type Packages = "prisma" | "auth" | "trpc" | "tailwind" | "naiveui"
-export const packageConfigs: Record<Packages, PackageConfig> = {
+export type Modules = "prisma" | "auth" | "trpc" | "tailwind" | "naiveui"
+export const moduleConfigs: Record<Modules, PackageConfig> = {
   "prisma": prisma,
   "auth": auth,
   "trpc": trpc,
