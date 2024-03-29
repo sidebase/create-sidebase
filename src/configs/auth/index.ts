@@ -1,5 +1,5 @@
-import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from "../generateModuleComponents"
-import type { ModuleConfig } from "../moduleConfigs"
+import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from "../../generators/generateModuleComponents"
+import type { PackageConfig } from "../index"
 
 const nuxtAuthServerFile = `import CredentialsProvider from 'next-auth/providers/credentials'
 import GithubProvider from 'next-auth/providers/github'
@@ -78,7 +78,7 @@ const { status, data, signIn, signOut } = useAuth()
 </template>
 `
 
-const auth: ModuleConfig = {
+const auth: PackageConfig = {
   humanReadableName: "nuxt-auth",
   description: "Authentication via OAuth, Credentials and magic email flows. Wraps the popular NextAuth.js with 12k stars. See more: https://sidebase.io/nuxt-auth",
   dependencies: [

@@ -1,5 +1,5 @@
-import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from "../generateModuleComponents"
-import type { ModuleConfig } from "../moduleConfigs"
+import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from "../../generators/generateModuleComponents"
+import type { PackageConfig } from "../index"
 
 const nuxtTrpcRootConfig = `/**
  * This is your entry point to setup the root configuration for tRPC on the server.
@@ -125,7 +125,7 @@ const hello = await $client.hello.useQuery({ text: 'client' })
 </template>
 `
 
-const trpc: ModuleConfig = {
+const trpc: PackageConfig = {
   humanReadableName: "tRPC 10",
   description: "Build end-to-end typesafe APIs in Nuxt applications. See more: https://trpc.io/",
   dependencies: [{

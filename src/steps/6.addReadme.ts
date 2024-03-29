@@ -2,14 +2,14 @@ import { writeFile } from "node:fs/promises"
 import { getResolver } from "../utils/getResolver"
 import { Preferences } from "../prompts"
 import { getUserPkgManager } from "../utils/getUserPkgManager"
-import { moduleConfigs, Modules } from "./2.addModules/moduleConfigs"
+import { packageConfigs, Packages } from "../configs"
 
 const makeReadme = (preferences: Preferences) =>  {
   const { setProjectName = "sidebase", setStack = undefined, addModules = [], addCi = "none" } = preferences
 
   let selectedFeatures = []
   if (setStack === "merino") {
-    selectedFeatures = addModules.map((module: keyof typeof moduleConfigs) => `- ${moduleConfigs[module].humanReadableName}`)
+    selectedFeatures = addModules.map((module: keyof typeof packageConfigs) => `- ${packageConfigs[module].humanReadableName}`)
     if (addCi === "github") {
       selectedFeatures.push("- GitHub Actions based CI")
     }
@@ -31,7 +31,7 @@ const makeReadme = (preferences: Preferences) =>  {
     ]
   }
 
-  const tasksPostInstall = addModules.map((module: Modules) => moduleConfigs[module].tasksPostInstall).flat()
+  const tasksPostInstall = addModules.map((module: Packages) => packageConfigs[module].tasksPostInstall).flat()
   const packageManager = getUserPkgManager()
 
   return `# ${setProjectName}-app

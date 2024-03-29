@@ -1,5 +1,5 @@
-import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from "../generateModuleComponents"
-import type { ModuleConfig } from "../moduleConfigs"
+import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from "../../generators/generateModuleComponents"
+import type { PackageConfig } from "../index"
 
 const prismaFile = `// This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
@@ -100,7 +100,7 @@ const { data: examples } = useFetch('/api/examples')
 </template>
 `
 
-const prisma: ModuleConfig = {
+const prisma: PackageConfig = {
   humanReadableName: "Prisma ORM",
   description: "Next-generation Node.js and TypeScript ORM. See more: https://www.prisma.io/",
   dependencies: [

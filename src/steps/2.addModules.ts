@@ -1,17 +1,17 @@
-import { getResolver } from "../../utils/getResolver"
-import { Preferences  } from "../../prompts"
-import { File, moduleConfigs, Modules } from "./moduleConfigs"
-import { addPackageDependencies, Dependency } from "../../utils/addPackageDependency"
+import { getResolver } from "../utils/getResolver"
+import { Preferences  } from "../prompts"
+import { File, packageConfigs, Packages } from "../configs/index"
+import { addPackageDependencies, Dependency } from "../utils/addPackageDependency"
 import { writeFile, mkdir } from "node:fs/promises"
 import path from "node:path"
 import { NuxtConfig } from "@nuxt/schema"
 import defu from "defu"
 import { inspect } from "node:util"
-import { generateIndexVue } from "./generateIndexVue"
-import { buttonLink } from "./generateModuleComponents"
+import { generateIndexVue } from "../generators/generateIndexVue"
+import { buttonLink } from "../generators/generateModuleComponents"
 
 export default async (preferences: Preferences, templateDir: string) => {
-  const selectedModules: Modules[] = preferences.addModules || []
+  const selectedModules: Packages[] = preferences.addModules || []
   const resolver = getResolver(templateDir)
 
   // 1. Gather module configuration for all selected modules
@@ -20,9 +20,9 @@ export default async (preferences: Preferences, templateDir: string) => {
   let files: File[] = []
 
   for (const selectedModule of selectedModules) {
-    dependencies = [...dependencies, ...moduleConfigs[selectedModule].dependencies]
-    nuxtConfigExtensions = nuxtConfigExtensions.concat(moduleConfigs[selectedModule].nuxtConfig)
-    files = files.concat(moduleConfigs[selectedModule].files)
+    dependencies = [...dependencies, ...packageConfigs[selectedModule].dependencies]
+    nuxtConfigExtensions = nuxtConfigExtensions.concat(packageConfigs[selectedModule].nuxtConfig)
+    files = files.concat(packageConfigs[selectedModule].files)
   }
 
   // 2. Add required dependencies to `package.json`
