@@ -2,7 +2,35 @@ import type { PackageConfig } from "../index"
 
 const eslintConfig = `import antfu from '@antfu/eslint-config'
 
-export default antfu()`
+const ignores = [
+  '.nuxt',
+  '**/.nuxt/**',
+  '.output',
+  '**/.output/**',
+  'node_modules',
+  '**/node_modules/**',
+  'public',
+  '**/public/**',
+]
+
+export default antfu({
+  // .eslintignore is no longer supported in Flat config, use ignores instead
+  ignores,
+
+  // Stylistic formatting rules
+  stylistic: {
+    indent: 2,
+    quotes: 'single',
+  },
+
+  // TypeScript and Vue are auto-detected, you can also explicitly enable them:
+  typescript: true,
+  vue: true,
+
+  // Disable jsonc and yaml support
+  jsonc: false,
+  yaml: false,
+})`
 
 const lint: PackageConfig = {
   type: "template",
