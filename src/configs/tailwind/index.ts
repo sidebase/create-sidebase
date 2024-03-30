@@ -8,8 +8,8 @@ const tailwindDemoComponent = `<template>
     "https://sidebase.io/sidebase/components/tailwindcss",
     "",
     `<WelcomeButtonLink href="/_tailwind/" :blank="true">
-        Tailwind viewer
-      </WelcomeButtonLink>`,
+          Tailwind viewer
+        </WelcomeButtonLink>`,
   ).html}
 </template>
 `
