@@ -6,10 +6,10 @@ export function generateModuleHTMLComponent (
   actions: string
 ): {html: string} {
   const htmlActions = actions ? `
-      ${actions}` : ""
+        ${actions}` : ""
 
   const htmlDemo = demo ? `
-    ${demo}` : ""
+      ${demo}` : ""
   const html = `<div class="layout">
     <div class="group">
       <h1 class="heading">

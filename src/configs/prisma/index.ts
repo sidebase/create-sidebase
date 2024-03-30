@@ -70,7 +70,7 @@ const prismaUtils = `import { execSync } from 'node:child_process'
  *
  * @param databaseUrl Connection URL to database. Inferred from \`process.env.DATABASE_URL\` if not provided
  */
-export function resetDatabase (databaseUrl?: string){
+export function resetDatabase(databaseUrl?: string) {
   const url = databaseUrl || process.env.DATABASE_URL
   if (!url) {
     throw new Error('Cannot reset database - connection string could not be inferred.')
