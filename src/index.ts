@@ -7,7 +7,6 @@ import { getUserPkgManager } from "./utils/getUserPkgManager"
 import { cliOptions } from "./utils/parseCliOptions"
 import { count } from "./utils/count"
 
-
 const main = async () => {
   const { quick, ci } = cliOptions
   if (!quick) {
