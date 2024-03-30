@@ -1,5 +1,5 @@
-import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from "../../generators/generateModuleComponents"
-import type { PackageConfig } from "../index"
+import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from '../../generators/generateModuleComponents'
+import type { PackageConfig } from '../index'
 
 const naiveDemoComponent = `<script setup lang="ts">
 const showModal = ref(false)
@@ -7,9 +7,9 @@ const showModal = ref(false)
 
 <template>
   ${generateModuleHTMLComponent(
-    "NaiveUI",
-    "A Vue 3 Component Library. Complete, Customizable, Uses TypeScript, Fast.",
-    "https://www.naiveui.com/en-US/os-theme",
+    'NaiveUI',
+    'A Vue 3 Component Library. Complete, Customizable, Uses TypeScript, Fast.',
+    'https://www.naiveui.com/en-US/os-theme',
     `<n-modal v-model:show="showModal">
         <n-card
           style="width: 600px"
@@ -28,24 +28,24 @@ const showModal = ref(false)
 `
 
 const naiveui: PackageConfig = {
-  type: "module",
-  humanReadableName: "Naive UI",
-  description: "A Vue 3 Component Library. Complete, Customizable, Uses TypeScript, Fast. See more: https://www.naiveui.com/",
+  type: 'module',
+  humanReadableName: 'Naive UI',
+  description: 'A Vue 3 Component Library. Complete, Customizable, Uses TypeScript, Fast. See more: https://www.naiveui.com/',
   scripts: [],
   dependencies: [{
-    name: "@bg-dev/nuxt-naiveui",
-    version: "^1.8.1",
+    name: '@bg-dev/nuxt-naiveui',
+    version: '^1.8.1',
     isDev: true
   }],
   nuxtConfig: {
-    modules: ["@bg-dev/nuxt-naiveui"],
+    modules: ['@bg-dev/nuxt-naiveui'],
   },
   files: [{
-    path: "components/Welcome/NaiveDemo.vue",
+    path: 'components/Welcome/NaiveDemo.vue',
     content: naiveDemoComponent
   }],
   tasksPostInstall: [],
-  indexVue: generateModuleHTMLSnippet("WelcomeNaiveDemo"),
+  indexVue: generateModuleHTMLSnippet('WelcomeNaiveDemo'),
 }
 
 export default naiveui

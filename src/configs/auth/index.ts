@@ -1,5 +1,5 @@
-import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from "../../generators/generateModuleComponents"
-import type { PackageConfig } from "../index"
+import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from '../../generators/generateModuleComponents'
+import type { PackageConfig } from '../index'
 
 const nuxtAuthServerFile = `import CredentialsProvider from 'next-auth/providers/credentials'
 import GithubProvider from 'next-auth/providers/github'
@@ -60,9 +60,9 @@ const { status, data, signIn, signOut } = useAuth()
 
 <template>
   ${generateModuleHTMLComponent(
-    "Authentication",
-    "Nuxt user authentication and sessions through nuxt-auth. nuxt-auth wraps NextAuth.js to offer the reliability & convenience of a 12k star library to the nuxt 3 ecosystem with a native developer experience (DX)",
-    "https://sidebase.io/nuxt-auth/getting-started",
+    'Authentication',
+    'Nuxt user authentication and sessions through nuxt-auth. nuxt-auth wraps NextAuth.js to offer the reliability & convenience of a 12k star library to the nuxt 3 ecosystem with a native developer experience (DX)',
+    'https://sidebase.io/nuxt-auth/getting-started',
     `<p v-if="status === 'authenticated'">
         Logged in as "{{ data?.user?.name }}"
       </p>
@@ -80,38 +80,38 @@ const { status, data, signIn, signOut } = useAuth()
 `
 
 const auth: PackageConfig = {
-  type: "module",
-  humanReadableName: "nuxt-auth",
-  description: "Authentication via OAuth, Credentials and magic email flows. Wraps the popular NextAuth.js with 12k stars. See more: https://sidebase.io/nuxt-auth",
+  type: 'module',
+  humanReadableName: 'nuxt-auth',
+  description: 'Authentication via OAuth, Credentials and magic email flows. Wraps the popular NextAuth.js with 12k stars. See more: https://sidebase.io/nuxt-auth',
   scripts: [],
   dependencies: [
     {
-      name: "@sidebase/nuxt-auth",
-      version: "^0.6.4",
+      name: '@sidebase/nuxt-auth',
+      version: '^0.6.4',
       isDev: true
     },
     {
-      name: "next-auth",
-      version: "4.21.1",
+      name: 'next-auth',
+      version: '4.21.1',
       isDev: false,
       isPeer: true,
     }
   ],
   nuxtConfig: {
-    modules: ["@sidebase/nuxt-auth"],
+    modules: ['@sidebase/nuxt-auth'],
   },
   files: [{
-    path: "server/api/auth/[...].ts",
+    path: 'server/api/auth/[...].ts',
     content: nuxtAuthServerFile
-  },{
-    path: "components/Welcome/AuthDemo.vue",
+  }, {
+    path: 'components/Welcome/AuthDemo.vue',
     content: authDemoComponent
   }],
   tasksPostInstall: [
-    "- [ ] Auth: Configure your auth providers to the [NuxtAuthHandler](./server/api/auth/[...].ts)",
-    "- [ ] Auth, optional: Enable global protection by setting `enableGlobalAppMiddleware: true` in [your nuxt.config.ts](./nuxt.config.ts). Delete the local middleware in the [protected.vue](./pages/protected.vue) page if you do"
+    '- [ ] Auth: Configure your auth providers to the [NuxtAuthHandler](./server/api/auth/[...].ts)',
+    '- [ ] Auth, optional: Enable global protection by setting `enableGlobalAppMiddleware: true` in [your nuxt.config.ts](./nuxt.config.ts). Delete the local middleware in the [protected.vue](./pages/protected.vue) page if you do'
   ],
-  indexVue: generateModuleHTMLSnippet("WelcomeAuthDemo"),
+  indexVue: generateModuleHTMLSnippet('WelcomeAuthDemo'),
 }
 
 export default auth

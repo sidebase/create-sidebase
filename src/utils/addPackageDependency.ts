@@ -1,6 +1,6 @@
-import { resolve } from "node:path"
-import { readPackageJSON, writePackageJSON } from "pkg-types"
-import { defu } from "defu"
+import { resolve } from 'node:path'
+import { readPackageJSON, writePackageJSON } from 'pkg-types'
+import { defu } from 'defu'
 
 export interface Dependency {
   name: string
@@ -10,14 +10,14 @@ export interface Dependency {
 }
 
 export interface Script {
-  name: string,
-  command: string,
+  name: string
+  command: string
 }
 
-export const addPackageDependencies = async (opts: {
-  dependencies: Dependency[];
-  projectDir: string;
-}) => {
+export async function addPackageDependencies(opts: {
+  dependencies: Dependency[]
+  projectDir: string
+}) {
   const { projectDir, dependencies } = opts
 
   const pathToPackageJson = resolve(`./${projectDir}/package.json`)
@@ -28,11 +28,13 @@ export const addPackageDependencies = async (opts: {
       packageJson.devDependencies = defu(packageJson.devDependencies, {
         [name]: version
       })
-    } else if (isPeer) {
+    }
+    else if (isPeer) {
       packageJson.peerDependencies = defu(packageJson.peerDependencies, {
         [name]: version
       })
-    } else {
+    }
+    else {
       packageJson.dependencies = defu(packageJson.dependencies, {
         [name]: version
       })
@@ -42,15 +44,14 @@ export const addPackageDependencies = async (opts: {
   await writePackageJSON(pathToPackageJson, packageJson)
 }
 
-export const addPackageScripts = async (opts: {
-  scripts: Script[];
-  projectDir: string;
-}) => {
+export async function addPackageScripts(opts: {
+  scripts: Script[]
+  projectDir: string
+}) {
   const { projectDir, scripts } = opts
 
   const pathToPackageJson = resolve(`./${projectDir}/package.json`)
   const packageJson = await readPackageJSON(pathToPackageJson)
-
 
   for (const { name, command } of scripts) {
     packageJson.scripts = defu(packageJson.scripts, {

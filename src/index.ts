@@ -1,17 +1,18 @@
 #!/usr/bin/env node
-import { downloadTemplate, addModules, initGit, addCi, npmInstall, addReadme } from "./steps"
-import { sayGoodbye, sayQuickWelcome, saySetupIsRunning, sayWelcome } from "./messages"
-import { getUserPreferences } from "./prompts"
-import { wrapInSpinner } from "./utils/spinner"
-import { getUserPkgManager } from "./utils/getUserPkgManager"
-import { cliOptions } from "./utils/parseCliOptions"
-import { count } from "./utils/count"
+import { addCi, addModules, addReadme, downloadTemplate, initGit, npmInstall } from './steps'
+import { sayGoodbye, sayQuickWelcome, saySetupIsRunning, sayWelcome } from './messages'
+import { getUserPreferences } from './prompts'
+import { wrapInSpinner } from './utils/spinner'
+import { getUserPkgManager } from './utils/getUserPkgManager'
+import { cliOptions } from './utils/parseCliOptions'
+import { count } from './utils/count'
 
-const main = async () => {
+async function main() {
   const { quick, ci } = cliOptions
   if (!quick) {
     await sayWelcome()
-  } else {
+  }
+  else {
     sayQuickWelcome()
   }
 
@@ -19,13 +20,14 @@ const main = async () => {
   if (!ci) {
     preferences = await getUserPreferences()
     count(preferences)
-  } else {
+  }
+  else {
     preferences = {
-      setProjectName: "my-sidebase-app",
-      setStack: "merino",
-      addModules: [ "prisma", "auth", "trpc", "tailwind", "naiveui" ],
+      setProjectName: 'my-sidebase-app',
+      setStack: 'merino',
+      addModules: ['prisma', 'auth', 'trpc', 'tailwind', 'naiveui'],
       runGitInit: true,
-      addCi: "github",
+      addCi: 'github',
       runInstall: true
     }
   }
@@ -38,18 +40,18 @@ const main = async () => {
   const template = await wrapInSpinner(`Adding Nuxt 3 ${preferences.setStack}-template`, downloadTemplate, preferences)
 
   // 2. Add modules
-  if (preferences.setStack === "merino") {
-    await wrapInSpinner("Adding Nuxt modules", addModules, preferences, template.dir)
+  if (preferences.setStack === 'merino') {
+    await wrapInSpinner('Adding Nuxt modules', addModules, preferences, template.dir)
   }
 
   // 4. Initialize git
   if (preferences.runGitInit) {
-    await wrapInSpinner("Running `git init`", initGit, template.dir)
+    await wrapInSpinner('Running `git init`', initGit, template.dir)
   }
 
   // 5. Add CI
-  if (preferences.addCi === "github") {
-    await wrapInSpinner("Adding CI template", addCi, preferences, template.dir)
+  if (preferences.addCi === 'github') {
+    await wrapInSpinner('Adding CI template', addCi, preferences, template.dir)
   }
 
   // 6. Run install
@@ -58,18 +60,19 @@ const main = async () => {
   }
 
   // 7. Write readme
-  await wrapInSpinner("Adding README", addReadme, preferences, template.dir)
+  await wrapInSpinner('Adding README', addReadme, preferences, template.dir)
 
   sayGoodbye(preferences)
 }
 
 main().catch((err) => {
-  console.error("Aborting installation...")
+  console.error('Aborting installation...')
   if (err instanceof Error) {
     console.error(err)
-  } else {
+  }
+  else {
     console.error(
-      "An unknown error has occurred. Please open an issue on github with the below:",
+      'An unknown error has occurred. Please open an issue on github with the below:',
     )
     console.log(err)
   }

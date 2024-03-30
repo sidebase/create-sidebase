@@ -1,15 +1,19 @@
-export function generateModuleHTMLComponent (
+export function generateModuleHTMLComponent(
   title: string,
   description: string,
   documentationLink: string,
   demo: string,
   actions: string
-): {html: string} {
-  const htmlActions = actions ? `
-        ${actions}` : ""
+): { html: string } {
+  const htmlActions = actions
+    ? `
+        ${actions}`
+    : ''
 
-  const htmlDemo = demo ? `
-      ${demo}` : ""
+  const htmlDemo = demo
+    ? `
+      ${demo}`
+    : ''
   const html = `<div class="layout">
     <div class="group">
       <h1 class="heading">
@@ -32,7 +36,7 @@ export function generateModuleHTMLComponent (
   }
 }
 
-export function generateModuleHTMLSnippet (componentName: string) {
+export function generateModuleHTMLSnippet(componentName: string) {
   const html = `    <div class="card">
           <${componentName} />
         </div>`

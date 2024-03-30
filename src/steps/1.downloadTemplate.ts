@@ -1,15 +1,15 @@
-import { downloadTemplate } from "giget"
-import { Preferences } from "../prompts"
-import { say } from "../messages"
-import { packageConfigs } from "../configs"
-import { addPackageDependencies, addPackageScripts } from "../utils/addPackageDependency"
-import { writeFile, mkdir } from "node:fs/promises"
-import path from "node:path"
-import { getResolver } from "../utils/getResolver"
+import { mkdir, writeFile } from 'node:fs/promises'
+import path from 'node:path'
+import { downloadTemplate } from 'giget'
+import type { Preferences } from '../prompts'
+import { say } from '../messages'
+import { packageConfigs } from '../configs'
+import { addPackageDependencies, addPackageScripts } from '../utils/addPackageDependency'
+import { getResolver } from '../utils/getResolver'
 
 const KNOWN_TEMPLATES = {
-  "merino": "github:nuxt/starter#v3",
-  "cheviot": "community/sidebase"
+  merino: 'github:nuxt/starter#v3',
+  cheviot: 'community/sidebase'
 }
 
 export default async (preferences: Preferences) => {
@@ -20,17 +20,18 @@ export default async (preferences: Preferences) => {
   try {
     template = await downloadTemplate(templateName, {
       dir: preferences.setProjectName,
-      registry: "https://raw.githubusercontent.com/nuxt/starter/templates/templates"
+      registry: 'https://raw.githubusercontent.com/nuxt/starter/templates/templates'
     })
-  } catch (error) {
+  }
+  catch (error) {
     console.log()
-    say("Failed to initialize project folder - does a folder with the same name already exist? Aborting mission. Here is the full error:")
+    say('Failed to initialize project folder - does a folder with the same name already exist? Aborting mission. Here is the full error:')
     console.error(error)
     process.exit()
   }
 
   // 2. Add missing dependencies
-  const packages = Object.values(packageConfigs).filter(({ type }) => type === "template")
+  const packages = Object.values(packageConfigs).filter(({ type }) => type === 'template')
   const dependencies = packages.flatMap(({ dependencies }) => dependencies)
   const scripts = packages.flatMap(({ scripts }) => scripts)
 

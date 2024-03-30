@@ -1,5 +1,5 @@
-import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from "../../generators/generateModuleComponents"
-import type { PackageConfig } from "../index"
+import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from '../../generators/generateModuleComponents'
+import type { PackageConfig } from '../index'
 
 const nuxtTrpcRootConfig = `/**
  * This is your entry point to setup the root configuration for tRPC on the server.
@@ -113,77 +113,77 @@ const hello = await $client.hello.useQuery({ text: 'client' })
 
 <template>
   ${generateModuleHTMLComponent(
-    "tRPC",
-    "tRPC allows you to easily build & consume fully typesafe APIs without schemas or code generation.",
-    "https://sidebase.io/sidebase/components/trpc",
+    'tRPC',
+    'tRPC allows you to easily build & consume fully typesafe APIs without schemas or code generation.',
+    'https://sidebase.io/sidebase/components/trpc',
     `<p>
         <!-- As superjson is already pre-configured, we can use time as a Date object without further deserialization 🎉 -->
         tRPC Data: "{{ hello.data.value?.greeting }}" send at "{{ hello.data.value?.time.toLocaleDateString('en-EN') }}".
       </p>`,
-    "",
+    '',
   ).html}
 </template>
 `
 
 const trpc: PackageConfig = {
-  type: "module",
-  humanReadableName: "tRPC 10",
-  description: "Build end-to-end typesafe APIs in Nuxt applications. See more: https://trpc.io/",
+  type: 'module',
+  humanReadableName: 'tRPC 10',
+  description: 'Build end-to-end typesafe APIs in Nuxt applications. See more: https://trpc.io/',
   scripts: [],
   dependencies: [{
-    name: "@trpc/server",
-    version: "^10.45.0",
+    name: '@trpc/server',
+    version: '^10.45.0',
     isDev: false
   }, {
-    name: "@trpc/client",
-    version: "^10.45.0",
+    name: '@trpc/client',
+    version: '^10.45.0',
     isDev: false
   }, {
-    name: "trpc-nuxt",
-    version: "^0.10.15",
+    name: 'trpc-nuxt',
+    version: '^0.10.15',
     isDev: false
   }, {
-    name: "zod",
-    version: "^3.22.4",
+    name: 'zod',
+    version: '^3.22.4',
     isDev: false
   }, {
-    name: "superjson",
-    version: "^2.2.1",
+    name: 'superjson',
+    version: '^2.2.1',
     isDev: false
   }],
   nuxtConfig: {
     build: {
-      transpile: ["trpc-nuxt"]
+      transpile: ['trpc-nuxt']
     }
   },
   files: [
     {
-      path: "server/trpc/trpc.ts",
+      path: 'server/trpc/trpc.ts',
       content: nuxtTrpcRootConfig
     },
     {
-      path: "server/trpc/routers/index.ts",
+      path: 'server/trpc/routers/index.ts',
       content: nuxtTrpcRoutersIndex
     },
     {
-      path: "server/trpc/context.ts",
+      path: 'server/trpc/context.ts',
       content: nuxtTrpcContext
     },
     {
-      path: "server/api/trpc/[trpc].ts",
+      path: 'server/api/trpc/[trpc].ts',
       content: nuxtTrpcApiHandler
     },
     {
-      path: "plugins/trpcClient.ts",
+      path: 'plugins/trpcClient.ts',
       content: nuxtTrpcPlugin
     },
     {
-      path: "components/Welcome/TRPCDemo.vue",
+      path: 'components/Welcome/TRPCDemo.vue',
       content: trpcDemoComponent,
     }
   ],
   tasksPostInstall: [],
-  indexVue: generateModuleHTMLSnippet("WelcomeTRPCDemo"),
+  indexVue: generateModuleHTMLSnippet('WelcomeTRPCDemo'),
 }
 
 export default trpc

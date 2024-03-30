@@ -1,34 +1,36 @@
-import { writeFile } from "node:fs/promises"
-import { getResolver } from "../utils/getResolver"
-import { Preferences } from "../prompts"
-import { getUserPkgManager } from "../utils/getUserPkgManager"
-import { packageConfigs, Packages } from "../configs"
+import { writeFile } from 'node:fs/promises'
+import { getResolver } from '../utils/getResolver'
+import type { Preferences } from '../prompts'
+import { getUserPkgManager } from '../utils/getUserPkgManager'
+import type { Packages } from '../configs'
+import { packageConfigs } from '../configs'
 
-const makeReadme = (preferences: Preferences) =>  {
-  const { setProjectName = "sidebase", setStack = undefined, addModules = [], addCi = "none" } = preferences
+function makeReadme(preferences: Preferences) {
+  const { setProjectName = 'sidebase', setStack = undefined, addModules = [], addCi = 'none' } = preferences
 
   let selectedFeatures = []
-  if (setStack === "merino") {
+  if (setStack === 'merino') {
     selectedFeatures = addModules.map((module: keyof typeof packageConfigs) => `- ${packageConfigs[module].humanReadableName}`)
-    if (addCi === "github") {
-      selectedFeatures.push("- GitHub Actions based CI")
+    if (addCi === 'github') {
+      selectedFeatures.push('- GitHub Actions based CI')
     }
-    selectedFeatures.push("- Linting via ESLint and @antfu/eslint-config")
-  } else {
+    selectedFeatures.push('- Linting via ESLint and @antfu/eslint-config')
+  }
+  else {
     selectedFeatures = [
-      "- Database models, migrations, queries and easy DB-switching via Prisma",
-      "- Deep Prisma integration: Use the client in your endpoints via nuxt-prisma, Prisma client is auto-generated for npm run dev and other commands and more",
-      "- Frontend- and Backend data-transformation via nuxt-parse and zod",
-      "- In-memory development SQL-database via sqlite3",
-      "- Linting via eslint",
-      "- Test management, Test UI, component snapshotting via vitest",
-      "- Component tests via test-library/vue",
-      "- Nuxt 3 native API testing via @nuxt/test-utils",
-      "- Code coverage via c8",
-      "- CSS utilities via TailwindCSS",
-      "- CSS components via Naive UI",
-      "- Type checking in script and template via Volar / vue-tsc",
-      "- Code editor configuration via .editorconfig files and a portable .settings/ folder whith best-practice VS Code settings and extensions for Vue 3 / Nuxt 3 development",
+      '- Database models, migrations, queries and easy DB-switching via Prisma',
+      '- Deep Prisma integration: Use the client in your endpoints via nuxt-prisma, Prisma client is auto-generated for npm run dev and other commands and more',
+      '- Frontend- and Backend data-transformation via nuxt-parse and zod',
+      '- In-memory development SQL-database via sqlite3',
+      '- Linting via eslint',
+      '- Test management, Test UI, component snapshotting via vitest',
+      '- Component tests via test-library/vue',
+      '- Nuxt 3 native API testing via @nuxt/test-utils',
+      '- Code coverage via c8',
+      '- CSS utilities via TailwindCSS',
+      '- CSS components via Naive UI',
+      '- Type checking in script and template via Volar / vue-tsc',
+      '- Code editor configuration via .editorconfig files and a portable .settings/ folder whith best-practice VS Code settings and extensions for Vue 3 / Nuxt 3 development',
     ]
   }
 
@@ -40,7 +42,7 @@ const makeReadme = (preferences: Preferences) =>  {
 This is a [sidebase ${setStack}](https://sidebase.io/) app created by running \`${packageManager} create sidebase@latest\`. This project uses the following technologies for a great developer- and user-experience:
 - [TypeScript](https://www.typescriptlang.org/)
 - [Nuxt 3](https://nuxt.com)
-${selectedFeatures.join("\n")}
+${selectedFeatures.join('\n')}
 
 ## How to get going?
 
@@ -53,7 +55,7 @@ Some tasks you should probably do in the beginning are:
 - [ ] install the Vue Volar extension
 - [ ] enable [Volar takeover mode](https://nuxt.com/docs/getting-started/installation#prerequisites) to ensure a smooth editor setup
 - [ ] [install Nuxt 3 devtools](https://github.com/nuxt/devtools#installation) if you want to use them
-${tasksPostInstall.join("\n")}
+${tasksPostInstall.join('\n')}
 
 ### Setup
 
@@ -89,5 +91,5 @@ ${packageManager} run preview
 
 export default async (preferences: Preferences, templateDir: string) => {
   const resolver = getResolver(templateDir)
-  await writeFile(resolver("README.md"), makeReadme(preferences), { flag: "w" })
+  await writeFile(resolver('README.md'), makeReadme(preferences), { flag: 'w' })
 }

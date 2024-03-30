@@ -1,14 +1,16 @@
-import { getResolver } from "../utils/getResolver"
-import { Preferences  } from "../prompts"
-import { File, packageConfigs, Packages } from "../configs/index"
-import { addPackageDependencies, Dependency } from "../utils/addPackageDependency"
-import { writeFile, mkdir } from "node:fs/promises"
-import path from "node:path"
-import { NuxtConfig } from "@nuxt/schema"
-import defu from "defu"
-import { inspect } from "node:util"
-import { generateIndexVue } from "../generators/generateIndexVue"
-import { buttonLink } from "../generators/generateModuleComponents"
+import { mkdir, writeFile } from 'node:fs/promises'
+import path from 'node:path'
+import { inspect } from 'node:util'
+import type { NuxtConfig } from '@nuxt/schema'
+import defu from 'defu'
+import { getResolver } from '../utils/getResolver'
+import type { Preferences } from '../prompts'
+import type { File, Packages } from '../configs/index'
+import { packageConfigs } from '../configs/index'
+import type { Dependency } from '../utils/addPackageDependency'
+import { addPackageDependencies } from '../utils/addPackageDependency'
+import { generateIndexVue } from '../generators/generateIndexVue'
+import { buttonLink } from '../generators/generateModuleComponents'
 
 export default async (preferences: Preferences, templateDir: string) => {
   const selectedModules: Packages[] = preferences.addModules || []
@@ -50,7 +52,7 @@ export default async (preferences: Preferences, templateDir: string) => {
   const nuxtConfigFile = `// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig(${inspect(nuxtConfig, { compact: false })})
 `
-  await writeFile(resolver("nuxt.config.ts"), nuxtConfigFile)
+  await writeFile(resolver('nuxt.config.ts'), nuxtConfigFile)
 
   // 5. Write app.vue to ensure that sub-example-pages of different modules will work
   const nuxtAppVue = `<template>
@@ -59,16 +61,16 @@ export default defineNuxtConfig(${inspect(nuxtConfig, { compact: false })})
   </div>
 </template>
 `
-  await writeFile(resolver("app.vue"), nuxtAppVue)
+  await writeFile(resolver('app.vue'), nuxtAppVue)
 
   // 6. Write index.vue with a nice welcome message as well as links to sub-pages
   const nuxtPagesIndexVue = generateIndexVue(selectedModules)
-  await mkdir(resolver("pages"), { recursive: true })
-  await writeFile(resolver("pages/index.vue"), nuxtPagesIndexVue)
+  await mkdir(resolver('pages'), { recursive: true })
+  await writeFile(resolver('pages/index.vue'), nuxtPagesIndexVue)
 
   // 7. Write ButtonLink.vue for the module components
   if (selectedModules.length > 0) {
-    await mkdir(resolver("components/Welcome"), { recursive: true })
-    await writeFile(resolver("components/Welcome/ButtonLink.vue"), buttonLink)
+    await mkdir(resolver('components/Welcome'), { recursive: true })
+    await writeFile(resolver('components/Welcome/ButtonLink.vue'), buttonLink)
   }
 }

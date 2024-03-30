@@ -1,6 +1,6 @@
-import { mkdir, writeFile } from "node:fs/promises"
-import { getResolver } from "../utils/getResolver"
-import { Preferences } from "../prompts"
+import { mkdir, writeFile } from 'node:fs/promises'
+import { getResolver } from '../utils/getResolver'
+import type { Preferences } from '../prompts'
 
 const GITHUB_ACTIONS_TEMPLATE = `
 name: CI
@@ -59,12 +59,12 @@ jobs:
 
 export default async (preferences: Preferences, templateDir: string) => {
   // Cheviot already has github actions by default
-  if (preferences.setStack === "cheviot") {
+  if (preferences.setStack === 'cheviot') {
     return
   }
 
   const resolver = getResolver(templateDir)
 
-  await mkdir(resolver(".github/workflows"), { recursive: true })
-  await writeFile(resolver(".github/workflows/ci.yaml"), GITHUB_ACTIONS_TEMPLATE)
+  await mkdir(resolver('.github/workflows'), { recursive: true })
+  await writeFile(resolver('.github/workflows/ci.yaml'), GITHUB_ACTIONS_TEMPLATE)
 }
