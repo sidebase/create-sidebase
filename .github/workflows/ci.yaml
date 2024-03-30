@@ -16,10 +16,29 @@ jobs:
         with:
           node-version: 20.6.1
 
-      - run: npm ci
+      - uses: pnpm/action-setup@v3
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 8
 
-      - run: npm run lint
-      - run: npm run typecheck
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - run: pnpm install
+
+      - run: pnpm run lint
+      - run: pnpm run typecheck
 
   testCli:
     runs-on: ubuntu-latest
@@ -30,15 +49,34 @@ jobs:
         with:
           node-version: 20.6.1
 
-      - run: npm ci
-      - run: npm run dev -- -- --ci
+      - uses: pnpm/action-setup@v3
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 8
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - run: pnpm install
+      - run: pnpm run dev -- -- --ci
 
       # This is what the user would do, minus actually starting the application
       - run: cd my-sidebase-app && npx prisma db push
 
       # code should be 100% correct at the start
-      - run: cd my-sidebase-app && npm run lint
-      - run: cd my-sidebase-app && npm exec nuxi prepare && npm run typecheck
+      - run: cd my-sidebase-app && pnpm lint
+      - run: cd my-sidebase-app && npm exec nuxi prepare && pnpm run typecheck
 
       # start dev-app, all of the following adapted from https://stackoverflow.com/a/60996259
       - run: "cd my-sidebase-app && timeout 30 npm run dev || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
