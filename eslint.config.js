@@ -31,9 +31,7 @@ export default antfu({
 
   // Overwrite certain rules to your preference
   rules: {
-    'no-console': ['error', {
-      allow: ['info', 'warn', 'trace', 'error', 'group', 'groupEnd'],
-    }],
+    'no-console': 'off',
     'style/comma-dangle': 'off',
     'curly': ['error', 'all'],
     'node/prefer-global/process': ['error', 'always'],
