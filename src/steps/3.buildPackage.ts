@@ -22,13 +22,13 @@ export default async function (templateDir: string, configs: Config[], modules: 
   })
 
   // 2. Add the dependencies to the `package.json`
-  addPackageDependencies({
+  await addPackageDependencies({
     projectDir: templateDir,
     dependencies: dependenciesToAdd
   })
 
   // 3. Add the scripts to the `package.json`
-  addPackageScripts({
+  await addPackageScripts({
     projectDir: templateDir,
     scripts: scriptsToAdd
   })
