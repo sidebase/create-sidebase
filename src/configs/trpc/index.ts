@@ -12,7 +12,7 @@ const nuxtTrpcRootConfig = `/**
  */
 import { initTRPC } from '@trpc/server'
 import superjson from 'superjson'
-import { Context } from '~/server/trpc/context'
+import type { Context } from '~/server/trpc/context'
 
 const t = initTRPC.context<Context>().create({
   transformer: superjson
@@ -20,7 +20,7 @@ const t = initTRPC.context<Context>().create({
 
 /**
  * Unprotected procedure
- **/
+ */
 export const publicProcedure = t.procedure
 export const router = t.router
 export const middleware = t.middleware
@@ -48,14 +48,14 @@ export const appRouter = router({
 export type AppRouter = typeof appRouter
 `
 
-const nuxtTrpcContext = `import { inferAsyncReturnType } from '@trpc/server'
+const nuxtTrpcContext = `import type { inferAsyncReturnType } from '@trpc/server'
 import type { H3Event } from 'h3'
 
 /**
  * Creates context for an incoming request
  * @link https://trpc.io/docs/context
  */
-export function createContext (_event: H3Event) {
+export function createContext(_event: H3Event) {
   /**
    * Add any trpc-request context here. E.g., you could add \`prisma\` like this (if you've added it via sidebase):
    * \`\`\`ts
@@ -110,6 +110,7 @@ const { $client } = useNuxtApp()
 
 const hello = await $client.hello.useQuery({ text: 'client' })
 </script>
+
 <template>
   ${generateModuleHTMLComponent(
     "tRPC",
@@ -118,8 +119,7 @@ const hello = await $client.hello.useQuery({ text: 'client' })
     `<p>
         <!-- As superjson is already pre-configured, we can use time as a Date object without further deserialization 🎉 -->
         tRPC Data: "{{ hello.data.value?.greeting }}" send at "{{ hello.data.value?.time.toLocaleDateString('en-EN') }}".
-      </p>
-    `,
+      </p>`,
     "",
   ).html}
 </template>

@@ -59,7 +59,7 @@ export default eventHandler((event) => {
 })
 `
 
-const prismaUtils = `import { execSync } from 'child_process'
+const prismaUtils = `import { execSync } from 'node:child_process'
 
 /**
  * Helper to reset the database via a programmatic prisma invocation. Helpful to add to \`beforeEach\` or \`beforeAll\` of your testing setup.
@@ -70,7 +70,7 @@ const prismaUtils = `import { execSync } from 'child_process'
  *
  * @param databaseUrl Connection URL to database. Inferred from \`process.env.DATABASE_URL\` if not provided
  */
-export const resetDatabase = (databaseUrl?: string) => {
+export function resetDatabase (databaseUrl?: string){
   const url = databaseUrl || process.env.DATABASE_URL
   if (!url) {
     throw new Error('Cannot reset database - connection string could not be inferred.')
@@ -87,6 +87,7 @@ export const resetDatabase = (databaseUrl?: string) => {
 const prismaDemoComponent = `<script lang="ts" setup>
 const { data: examples } = useFetch('/api/examples')
 </script>
+
 <template>
   ${generateModuleHTMLComponent(
     "Prisma ORM",

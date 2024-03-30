@@ -4,6 +4,7 @@ import type { PackageConfig } from "../index"
 const naiveDemoComponent = `<script setup lang="ts">
 const showModal = ref(false)
 </script>
+
 <template>
   ${generateModuleHTMLComponent(
     "NaiveUI",

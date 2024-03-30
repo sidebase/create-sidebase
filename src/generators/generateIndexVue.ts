@@ -45,6 +45,7 @@ export const generateIndexVue = (selectedModules: Packages[]) => {
     </div>
   </div>
 </template>
+
 <style>
   * {
     margin: 0;

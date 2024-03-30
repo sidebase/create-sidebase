@@ -57,6 +57,7 @@ export default NuxtAuthHandler({
 const authDemoComponent = `<script lang="ts" setup>
 const { status, data, signIn, signOut } = useAuth()
 </script>
+
 <template>
   ${generateModuleHTMLComponent(
     "Authentication",

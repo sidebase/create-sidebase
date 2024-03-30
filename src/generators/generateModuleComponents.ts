@@ -5,6 +5,8 @@ export function generateModuleHTMLComponent (
   demo: string,
   actions: string
 ): {html: string} {
+  const htmlActions = actions ? `
+  ${actions}` : ""
   const html = `<div class="layout">
     <div class="group">
       <h1 class="heading">
@@ -19,8 +21,7 @@ export function generateModuleHTMLComponent (
       <div class="actions">
         <WelcomeButtonLink href="${documentationLink}" :blank="true">
           Documentation
-        </WelcomeButtonLink>
-        ${actions}
+        </WelcomeButtonLink>${htmlActions}
       </div>
     </div>
   </div>`
@@ -43,11 +44,11 @@ defineProps({
   blank: {
     type: Boolean,
     required: false,
-    default: false
+    default: false,
   },
   href: {
     type: String,
-    default: ''
+    default: '',
   },
 })
 </script>
