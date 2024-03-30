@@ -10,7 +10,7 @@ import { cliOptions } from './parseCliOptions'
  * No identifiably information (such as project name, IP, user-agent) is transmitted in the process. You can opt out by passing `--nocounting` to the CLI on invocation.
  */
 let alreadyCounted = false
-export async function count(preferences: Preferences) {
+export async function logTelemetry(preferences: Preferences) {
   if (alreadyCounted || process.env.NODE_ENV === 'development' || cliOptions.nocounting) {
     return
   }

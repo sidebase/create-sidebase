@@ -1,40 +1,23 @@
-import type { NuxtConfig } from '@nuxt/schema'
-import type { Dependency, Script } from '../utils/addPackageDependency'
-import prisma from './prisma'
-import auth from './auth'
-import trpc from './trpc'
+import type { Config, ModuleConfig } from '../types'
 import tailwind from './tailwind'
 import naiveui from './naiveui'
-import lint from './lint'
+import prisma from './prisma'
+import trpc from './trpc'
+import sidebaseAuth from './sidebase-auth'
+import eslint from './eslint'
+import githubActions from './github-actions'
 
-export declare interface File {
-  path: string
-  content: string
+export type Modules = 'prisma' | 'sidebase-auth' | 'trpc' | 'tailwind' | 'naiveui'
+export const modules: Record<Modules, ModuleConfig> = {
+  'tailwind': tailwind,
+  'naiveui': naiveui,
+  'prisma': prisma,
+  'trpc': trpc,
+  'sidebase-auth': sidebaseAuth
 }
 
-export declare interface PackageConfig {
-  type: 'module' | 'template'
-  humanReadableName: string
-  description: string
-  dependencies: Dependency[]
-  scripts: Script[]
-  nuxtConfig: NuxtConfig
-  files: File[]
-  tasksPostInstall: string[]
-  indexVue?: {
-    html: string
-    css?: string
-    js?: string
-  }
-}
-
-// Package options
-export type Packages = 'prisma' | 'auth' | 'trpc' | 'tailwind' | 'naiveui' | 'lint'
-export const packageConfigs: Record<Packages, PackageConfig> = {
-  prisma,
-  auth,
-  trpc,
-  tailwind,
-  naiveui,
-  lint
+export type Configs = 'eslint' | 'github-actions'
+export const configs: Record<Configs, Config> = {
+  'eslint': eslint,
+  'github-actions': githubActions
 }

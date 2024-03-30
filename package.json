@@ -4,7 +4,7 @@
   "version": "0.5.0",
   "description": "The productive way to build fullstack Nuxt 3 applications, like create-t3-app but for Nuxt.",
   "scripts": {
-    "dev": "vite-node src/",
+    "dev": "vite-node src/ -- --nocounting",
     "dev:ci": "vite-node src/ -- --ci",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
     "typecheck": "tsc --noEmit",
@@ -51,6 +51,7 @@
     "@nuxt/schema": "^3.0.0",
     "chalk": "^5.2.0",
     "commander": "^9.4.1",
+    "consola": "^3.2.3",
     "defu": "^6.1.1",
     "execa": "^6.1.0",
     "giget": "^1.0.0",

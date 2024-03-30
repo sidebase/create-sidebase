@@ -1,4 +1,4 @@
-import type { PackageConfig } from '../index'
+import type { Config } from '../types'
 
 const eslintConfig = `import antfu from '@antfu/eslint-config'
 
@@ -43,10 +43,7 @@ export default antfu({
 })
 `
 
-const lint: PackageConfig = {
-  type: 'template',
-  humanReadableName: 'ESLint',
-  description: 'Lint your code.',
+const eslint: Config = {
   scripts: [{
     name: 'lint',
     command: 'eslint .'
@@ -68,7 +65,6 @@ const lint: PackageConfig = {
     path: 'eslint.config.js',
     content: eslintConfig
   }],
-  tasksPostInstall: [],
 }
 
-export default lint
+export default eslint

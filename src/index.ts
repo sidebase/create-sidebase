@@ -1,35 +1,35 @@
 #!/usr/bin/env node
-import { addCi, addModules, addReadme, downloadTemplate, initGit, npmInstall } from './steps'
-import { sayGoodbye, sayQuickWelcome, saySetupIsRunning, sayWelcome } from './messages'
+import { errorMessage, sayGoodbye, sayQuickWelcome, saySetupIsRunning, sayWelcome, wrapInSpinner } from './messages'
+import type { Preferences } from './types'
 import { getUserPreferences } from './prompts'
-import { wrapInSpinner } from './utils/spinner'
-import { getUserPkgManager } from './utils/getUserPkgManager'
+import { logTelemetry } from './utils/logTelemetry'
 import { cliOptions } from './utils/parseCliOptions'
-import { count } from './utils/count'
+import { addReadMe, buildNuxtConfig, buildPackage, downloadTemplate, getConfigs, initGit, install, writeFiles } from './steps'
+import { getUserPkgManager } from './utils/getUserPkgManager'
 
 async function main() {
   const { quick, ci } = cliOptions
+
+  // Welcome the User
   if (!quick) {
     await sayWelcome()
   }
   else {
-    sayQuickWelcome()
+    await sayQuickWelcome()
   }
 
-  let preferences
+  // Collect User preferences
+  let preferences: Preferences = {
+    setProjectName: 'my-sidebase-app',
+    setStack: 'merino',
+    addModules: ['prisma', 'sidebase-auth', 'trpc', 'tailwind', 'naiveui'],
+    runGitInit: true,
+    addCi: 'github',
+    runInstall: true
+  }
   if (!ci) {
     preferences = await getUserPreferences()
-    count(preferences)
-  }
-  else {
-    preferences = {
-      setProjectName: 'my-sidebase-app',
-      setStack: 'merino',
-      addModules: ['prisma', 'auth', 'trpc', 'tailwind', 'naiveui'],
-      runGitInit: true,
-      addCi: 'github',
-      runInstall: true
-    }
+    logTelemetry(preferences)
   }
 
   if (!quick) {
@@ -39,42 +39,35 @@ async function main() {
   // 1. Download the Nuxt 3 template
   const template = await wrapInSpinner(`Adding Nuxt 3 ${preferences.setStack}-template`, downloadTemplate, preferences)
 
-  // 2. Add modules
-  if (preferences.setStack === 'merino') {
-    await wrapInSpinner('Adding Nuxt modules', addModules, preferences, template.dir)
-  }
+  // 2. Get Configs and modules
+  const { configs, modules } = getConfigs(preferences)
 
-  // 4. Initialize git
+  // 3. Build `package.json`
+  await wrapInSpinner('Building `package.json`', buildPackage, template.dir, configs, modules)
+
+  // 4. Build `nuxt.config.ts`
+  await wrapInSpinner('Building `nuxt.config.ts`', buildNuxtConfig, template.dir, configs, modules)
+
+  // 5. Write files
+  await wrapInSpinner('Writing files', writeFiles, template.dir, configs, modules)
+
+  // 6. Initialize git
   if (preferences.runGitInit) {
     await wrapInSpinner('Running `git init`', initGit, template.dir)
   }
 
-  // 5. Add CI
-  if (preferences.addCi === 'github') {
-    await wrapInSpinner('Adding CI template', addCi, preferences, template.dir)
-  }
-
-  // 6. Run install
+  // 7. Run install
   if (preferences.runInstall) {
-    await wrapInSpinner(`Running \`${getUserPkgManager()} install\``, npmInstall, template.dir)
+    await wrapInSpinner(`Running \`${getUserPkgManager()} install\``, install, template.dir)
   }
 
-  // 7. Write readme
-  await wrapInSpinner('Adding README', addReadme, preferences, template.dir)
+  // 8. Write readme
+  await wrapInSpinner('Adding README', addReadMe, preferences, template.dir)
 
   sayGoodbye(preferences)
 }
 
 main().catch((err) => {
-  console.error('Aborting installation...')
-  if (err instanceof Error) {
-    console.error(err)
-  }
-  else {
-    console.error(
-      'An unknown error has occurred. Please open an issue on github with the below:',
-    )
-    console.log(err)
-  }
+  errorMessage(err)
   process.exit(1)
 })

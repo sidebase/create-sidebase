@@ -1,5 +1,5 @@
-import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from '../../generators/generateModuleComponents'
-import type { PackageConfig } from '../index'
+import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from '../generators/generateModuleComponents'
+import type { ModuleConfig } from '../types'
 
 const naiveDemoComponent = `<script setup lang="ts">
 const showModal = ref(false)
@@ -27,8 +27,7 @@ const showModal = ref(false)
 </template>
 `
 
-const naiveui: PackageConfig = {
-  type: 'module',
+const naiveui: ModuleConfig = {
   humanReadableName: 'Naive UI',
   description: 'A Vue 3 Component Library. Complete, Customizable, Uses TypeScript, Fast. See more: https://www.naiveui.com/',
   scripts: [],

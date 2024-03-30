@@ -1,5 +1,5 @@
-import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from '../../generators/generateModuleComponents'
-import type { PackageConfig } from '../index'
+import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from '../generators/generateModuleComponents'
+import type { ModuleConfig } from '../types'
 
 const tailwindDemoComponent = `<template>
   ${generateModuleHTMLComponent(
@@ -14,8 +14,7 @@ const tailwindDemoComponent = `<template>
 </template>
 `
 
-const tailwind: PackageConfig = {
-  type: 'module',
+const tailwind: ModuleConfig = {
   humanReadableName: 'Tailwind CSS',
   description: 'A utility-first CSS framework packed with classes that can be composed to build any design, directly in your markup. See more: https://tailwindcss.com/',
   scripts: [],

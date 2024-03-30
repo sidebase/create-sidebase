@@ -1,11 +1,16 @@
 import prompts from 'prompts'
 import type { PromptObject, PromptType } from 'prompts'
 import { say } from './messages'
-import { packageConfigs } from './configs/index'
 import { getUserPkgManager } from './utils/getUserPkgManager'
 import { getRandomProjectNoun } from './utils/getRandomProjectNoun'
+import type { Preferences, Stack } from './types'
+import { modules } from './configs'
 
-const skipIfCheviotWasChosen = (typeIfNotMerino: PromptType) => (_: unknown, preferences: Record<string, string>) => preferences.setStack === 'cheviot' ? null : typeIfNotMerino
+function skipIf(stacksToSkip: Stack[], promptType: PromptType) {
+  return (_: unknown, preferences: Record<string, string>) => {
+    return stacksToSkip.includes(preferences.setStack as Stack) ? null : promptType
+  }
+}
 
 const PROMPT_QUESTIONS: PromptObject[] = [
   {
@@ -25,10 +30,11 @@ const PROMPT_QUESTIONS: PromptObject[] = [
     initial: 0
   },
   {
-    type: skipIfCheviotWasChosen('multiselect'),
+    type: skipIf(['cheviot'], 'multiselect'),
     name: 'addModules',
     message: 'Which modules would you like to use?',
-    choices: Object.entries(packageConfigs).filter(([, { type }]) => type === 'module').map(([key, { humanReadableName, description }]) => ({ title: humanReadableName, description, value: key }))
+    choices: Object.entries(modules).map((
+      [key, { humanReadableName, description }]) => ({ title: humanReadableName, description, value: key }))
   },
   {
     type: 'confirm',
@@ -37,7 +43,7 @@ const PROMPT_QUESTIONS: PromptObject[] = [
     initial: true,
   },
   {
-    type: skipIfCheviotWasChosen('select'),
+    type: skipIf(['cheviot'], 'select'),
     name: 'addCi',
     message: 'Initialize a default CI pipeline?',
     choices: [
@@ -62,5 +68,4 @@ function onCancel() {
   process.exit()
 }
 
-export const getUserPreferences = () => prompts(PROMPT_QUESTIONS, { onCancel })
-export type Preferences = Awaited<ReturnType<typeof getUserPreferences>>
+export const getUserPreferences = () => prompts(PROMPT_QUESTIONS, { onCancel }) as Promise<Preferences>
