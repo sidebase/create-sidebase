@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import type { Preferences } from '../prompts'
+import type { Preferences } from '../types'
 import { cliOptions } from './parseCliOptions'
 
 /**

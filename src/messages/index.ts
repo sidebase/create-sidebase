@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 import { consola } from 'consola'
-import type { Preferences } from '../../srcOLD/prompts'
+import type { Preferences } from '../types'
 
 export { sayWelcome, sayQuickWelcome } from './welcome'
 export { sayGoodbye } from './goodbye'
