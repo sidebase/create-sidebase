@@ -27,11 +27,11 @@ export default async function (templateDir: string, configs: Config[], modules: 
 
   // 3. Write app.vue to ensure that sub-example-pages of different modules will work
   const nuxtAppVue = `<template>
-    <div>
-      <NuxtPage />
-    </div>
-  </template>
-  `
+  <div>
+    <NuxtPage />
+  </div>
+</template>
+`
   await writeFile(resolver('app.vue'), nuxtAppVue)
 
   // 4. Write index.vue with a nice welcome message as well as links to sub-pages
