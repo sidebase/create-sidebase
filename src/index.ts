@@ -42,9 +42,9 @@ async function main() {
   // 2. Get Configs and modules
   const { configs, modules } = getConfigs(preferences)
 
-  /*
-  await wrapInSpinner('Building `package.json`', buildPackage, template.dir, configs, modules)
-  */
+  // 3. Build `package.json`
+  await wrapInSpinner('Building `package.json`', buildPackage, preferences, configs, modules)
+
   // 4. Build `nuxt.config.ts`
   await wrapInSpinner('Building `nuxt.config.ts`', buildNuxtConfig, template.dir, configs, modules)
 

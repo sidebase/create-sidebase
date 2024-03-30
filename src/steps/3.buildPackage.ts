@@ -1,8 +1,8 @@
-import type { Config, Dependency, ModuleConfig, Script } from '../types'
+import type { Config, Dependency, ModuleConfig, Preferences, Script } from '../types'
 import { addPackageDependencies } from '../utils/package/addPackageDependency'
 import { addPackageScripts } from '../utils/package/addPackageScript'
 
-export default async function (templateDir: string, configs: Config[], modules: ModuleConfig[]) {
+export default async function (preferences: Preferences, configs: Config[], modules: ModuleConfig[]) {
   // If no configs or modules were passed, skip.
   if (configs.length === 0 && modules.length === 0) {
     return
@@ -23,13 +23,13 @@ export default async function (templateDir: string, configs: Config[], modules: 
 
   // 2. Add the dependencies to the `package.json`
   await addPackageDependencies({
-    projectDir: templateDir,
+    projectDir: preferences.setProjectName,
     dependencies: dependenciesToAdd
   })
 
   // 3. Add the scripts to the `package.json`
   await addPackageScripts({
-    projectDir: templateDir,
+    projectDir: preferences.setProjectName,
     scripts: scriptsToAdd
   })
 }
