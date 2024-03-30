@@ -6,7 +6,10 @@ export function generateModuleHTMLComponent (
   actions: string
 ): {html: string} {
   const htmlActions = actions ? `
-  ${actions}` : ""
+      ${actions}` : ""
+
+  const htmlDemo = demo ? `
+    ${demo}` : ""
   const html = `<div class="layout">
     <div class="group">
       <h1 class="heading">
@@ -16,8 +19,7 @@ export function generateModuleHTMLComponent (
         ${description}
       </p>
     </div>
-    <div class="group">
-      ${demo}
+    <div class="group">${htmlDemo}
       <div class="actions">
         <WelcomeButtonLink href="${documentationLink}" :blank="true">
           Documentation

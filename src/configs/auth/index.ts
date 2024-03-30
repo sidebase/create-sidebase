@@ -68,8 +68,7 @@ const { status, data, signIn, signOut } = useAuth()
       </p>
       <p v-else>
         Not logged in.
-      </p>
-    `,
+      </p>`,
     `<WelcomeButtonLink v-if="status !== 'authenticated'" @click="signIn">
           Sign in
         </WelcomeButtonLink>

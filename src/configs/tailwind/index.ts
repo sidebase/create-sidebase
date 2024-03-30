@@ -7,7 +7,7 @@ const tailwindDemoComponent = `<template>
     "Rapidly build modern websites without ever leaving your HTML.",
     "https://sidebase.io/sidebase/components/tailwindcss",
     "",
-    `<WelcomeButtonLink  href="/_tailwind/" :blank="true">
+    `<WelcomeButtonLink href="/_tailwind/" :blank="true">
         Tailwind viewer
       </WelcomeButtonLink>`,
   ).html}
