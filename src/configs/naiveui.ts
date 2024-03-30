@@ -28,9 +28,9 @@ const showModal = ref(false)
 `
 
 const nuxtAppVueWithNaiveConfig = `<template>
-<naive-config>
-  <NuxtPage />
-</naive-config>
+  <naive-config>
+    <NuxtPage />
+  </naive-config>
 </template>
 `
 
