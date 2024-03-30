@@ -1,23 +1,23 @@
 {
   "name": "create-sidebase",
+  "type": "module",
   "version": "0.5.0",
   "description": "The productive way to build fullstack Nuxt 3 applications, like create-t3-app but for Nuxt.",
   "scripts": {
     "dev": "vite-node src/",
     "dev:ci": "vite-node src/ -- --ci",
-    "start": "npx",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
     "typecheck": "tsc --noEmit",
     "build": "rm -rf dist && tsup src/ --format esm",
+    "start": "npx",
     "prepack": "npm run build"
   },
-  "type": "module",
   "files": [
     "dist"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sidebase/sidebase"
+    "url": "git+https://github.com/sidebase/create-sidebase"
   },
   "bin": {
     "create-sidebase": "./dist/index.js"
@@ -35,9 +35,9 @@
   "author": "sidestream-tech <sidebase@sidestream.tech>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sidebase/sidebase/issues/new/choose"
+    "url": "https://github.com/sidebase/create-sidebase/issues/new/choose"
   },
-  "homepage": "https://github.com/sidebase/sidebase",
+  "homepage": "https://sidebase.io",
   "devDependencies": {
     "@antfu/eslint-config": "^2.11.5",
     "@types/node": "^18.11.16",
