@@ -14,8 +14,9 @@ export default function (preferences: Preferences) {
     setConfigs.push(configs['github-actions'])
   }
 
-  // 3. Add Eslint configs
+  // 3. Add required base configs
   setConfigs.push(configs.eslint)
+  setConfigs.push(configs.scripts)
 
   // 4. Get Modules
   const setModules = preferences.addModules?.map(key => modules[key]) ?? []
