@@ -8,7 +8,15 @@ const scripts: Config = {
     name: 'start',
     command: 'NODE_ENV=production node .output/server/index.mjs'
   }],
-  dependencies: [],
+  dependencies: [{
+    name: 'vue-tsc',
+    version: '^2.0.7',
+    isDev: true
+  }, {
+    name: 'typescript',
+    version: '^5.4.3',
+    isDev: true,
+  }],
   files: [],
   nuxtConfig: {}
 }

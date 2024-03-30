@@ -16,7 +16,7 @@ export default function (preferences: Preferences) {
 
   // 3. Add required base configs
   setConfigs.push(configs.eslint)
-  setConfigs.push(configs.scripts)
+  setConfigs.push(configs.typescript)
 
   // 4. Get Modules
   const setModules = preferences.addModules?.map(key => modules[key]) ?? []
