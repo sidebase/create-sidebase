@@ -69,7 +69,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - run: pnpm install
-      - run: pnpm run dev -- -- --ci
+      - run: pnpm dev:ci
 
       # This is what the user would do, minus actually starting the application
       - run: cd my-sidebase-app && npx prisma db push

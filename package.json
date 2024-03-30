@@ -4,6 +4,7 @@
   "description": "The productive way to build fullstack Nuxt 3 applications, like create-t3-app but for Nuxt.",
   "scripts": {
     "dev": "vite-node src/",
+    "dev:ci": "vite-node src/ -- --ci",
     "start": "npx",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
     "typecheck": "tsc --noEmit",
