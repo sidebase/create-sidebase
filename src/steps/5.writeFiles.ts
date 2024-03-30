@@ -12,9 +12,18 @@ export default async function (templateDir: string, configs: Config[], modules: 
   }
 
   const resolver = getResolver(templateDir)
-  const filesToAdd: File[] = []
+
+  // 1. Write app.vue to remove default Nuxt welcome
+  const nuxtAppVue = `<template>
+  <div>
+    <NuxtPage />
+  </div>
+</template>
+`
+  await writeFile(resolver('app.vue'), nuxtAppVue)
 
   // 1. Collect all Files
+  const filesToAdd: File[] = []
   configs.forEach(({ files }) => filesToAdd.push(...files))
   modules.forEach(({ files }) => filesToAdd.push(...files))
 
@@ -25,21 +34,12 @@ export default async function (templateDir: string, configs: Config[], modules: 
     await writeFile(resolver(file.path), file.content)
   }
 
-  // 3. Write app.vue to ensure that sub-example-pages of different modules will work
-  const nuxtAppVue = `<template>
-  <div>
-    <NuxtPage />
-  </div>
-</template>
-`
-  await writeFile(resolver('app.vue'), nuxtAppVue)
-
-  // 4. Write index.vue with a nice welcome message as well as links to sub-pages
+  // 3. Write index.vue with a nice welcome message as well as links to sub-pages
   const nuxtPagesIndexVue = generateIndexVue(modules)
   await mkdir(resolver('pages'), { recursive: true })
   await writeFile(resolver('pages/index.vue'), nuxtPagesIndexVue)
 
-  // 5. Write ButtonLink.vue for the module components
+  // 4. Write ButtonLink.vue for the module components
   if (modules.length > 0) {
     await mkdir(resolver('components/Welcome'), { recursive: true })
     await writeFile(resolver('components/Welcome/ButtonLink.vue'), buttonLink)

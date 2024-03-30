@@ -1,5 +1,6 @@
 import type { Config, Preferences } from '../types'
 import { configs, modules } from '../configs'
+import { getUserPkgManager } from '../utils/getUserPkgManager'
 
 export default function (preferences: Preferences) {
   const setConfigs: Config[] = []
@@ -18,7 +19,12 @@ export default function (preferences: Preferences) {
   setConfigs.push(configs.eslint)
   setConfigs.push(configs.typescript)
 
-  // 4. Get Modules
+  // 4. If pnpm is used, add `.npmrc`
+  if (getUserPkgManager() === 'pnpm') {
+    setConfigs.push(configs.pnpm)
+  }
+
+  // 5. Get Modules
   const setModules = preferences.addModules?.map(key => modules[key]) ?? []
 
   return { configs: setConfigs, modules: setModules }

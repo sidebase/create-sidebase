@@ -27,6 +27,13 @@ const showModal = ref(false)
 </template>
 `
 
+const nuxtAppVueWithNaiveConfig = `<template>
+<naive-config>
+  <NuxtPage />
+</naive-config>
+</template>
+`
+
 const naiveui: ModuleConfig = {
   humanReadableName: 'Naive UI',
   description: 'A Vue 3 Component Library. Complete, Customizable, Uses TypeScript, Fast. See more: https://www.naiveui.com/',
@@ -42,6 +49,9 @@ const naiveui: ModuleConfig = {
   files: [{
     path: 'components/Welcome/NaiveDemo.vue',
     content: naiveDemoComponent
+  }, {
+    path: 'app.vue',
+    content: nuxtAppVueWithNaiveConfig
   }],
   tasksPostInstall: [],
   indexVue: generateModuleHTMLSnippet('WelcomeNaiveDemo'),
