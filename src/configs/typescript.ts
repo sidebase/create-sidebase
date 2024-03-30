@@ -16,6 +16,10 @@ const scripts: Config = {
     name: 'typescript',
     version: '^5.4.3',
     isDev: true,
+  }, {
+    name: '@types/node',
+    version: '^20.11.30',
+    isDev: true,
   }],
   files: [],
   nuxtConfig: {}

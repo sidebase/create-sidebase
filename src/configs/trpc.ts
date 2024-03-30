@@ -131,15 +131,15 @@ const trpc: ModuleConfig = {
   scripts: [],
   dependencies: [{
     name: '@trpc/server',
-    version: '^10.45.0',
+    version: '^10.45.2',
     isDev: false
   }, {
     name: '@trpc/client',
-    version: '^10.45.0',
+    version: '^10.45.2',
     isDev: false
   }, {
     name: 'trpc-nuxt',
-    version: '^0.10.15',
+    version: '^0.10.21',
     isDev: false
   }, {
     name: 'zod',

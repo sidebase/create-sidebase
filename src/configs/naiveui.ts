@@ -33,7 +33,7 @@ const naiveui: ModuleConfig = {
   scripts: [],
   dependencies: [{
     name: '@bg-dev/nuxt-naiveui',
-    version: '^1.8.1',
+    version: '^1.11.0',
     isDev: true
   }],
   nuxtConfig: {

@@ -20,7 +20,7 @@ const tailwind: ModuleConfig = {
   scripts: [],
   dependencies: [{
     name: '@nuxtjs/tailwindcss',
-    version: '^6.10.4',
+    version: '^6.11.4',
     isDev: true
   }],
   nuxtConfig: {

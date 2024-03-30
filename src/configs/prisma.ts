@@ -108,12 +108,12 @@ const prisma: ModuleConfig = {
   dependencies: [
     {
       name: 'prisma',
-      version: '^5.7.1',
+      version: '^5.11.0',
       isDev: true
     },
     {
       name: '@prisma/client',
-      version: '^5.7.1',
+      version: '^5.11.0',
       isDev: false
     }
   ],
