@@ -65,7 +65,7 @@ const lint: PackageConfig = {
   }],
   nuxtConfig: {},
   files: [{
-    path: "eslint.config.mjs",
+    path: "eslint.config.js",
     content: eslintConfig
   }],
   tasksPostInstall: [],
