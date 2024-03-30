@@ -46,7 +46,7 @@ export default antfu({
 const eslint: Config = {
   scripts: [{
     name: 'lint',
-    command: 'eslint .'
+    command: 'oxlint --deny-warnings -D correctness -D suspicious -D perf && eslint --max-warnings 0 .'
   }, {
     name: 'lint:fix',
     command: 'eslint . --fix',
@@ -58,6 +58,10 @@ const eslint: Config = {
   }, {
     name: '@antfu/eslint-config',
     version: '^2.11.5',
+    isDev: true
+  }, {
+    name: 'oxlint',
+    version: '^0.2.15',
     isDev: true
   }],
   nuxtConfig: {},
