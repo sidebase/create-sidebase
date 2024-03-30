@@ -34,7 +34,6 @@ export default async (preferences: Preferences) => {
   const dependencies = packages.flatMap(({ dependencies }) => dependencies)
   const scripts = packages.flatMap(({ scripts }) => scripts)
 
-  console.log(dependencies)
   await addPackageDependencies({
     projectDir: preferences.setProjectName,
     dependencies
