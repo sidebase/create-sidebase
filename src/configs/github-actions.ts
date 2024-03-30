@@ -11,16 +11,13 @@ on:
 
 jobs:
   lint:
-
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Use Node.js 16.14.2
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - name: Use Node.js 20.6.1
+        uses: actions/setup-node@v4
         with:
-          node-version: 16.14.2
+          node-version: 20.6.1
 
       - name: Setup
         run: npm i -g @antfu/ni
@@ -32,16 +29,13 @@ jobs:
         run: nr lint
 
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Use Node.js 16.14.2
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - name: Use Node.js 20.6.1
+        uses: actions/setup-node@v4
         with:
-          node-version: 16.14.2
+          node-version: 20.6.1
 
       - name: Setup
         run: npm i -g @antfu/ni
