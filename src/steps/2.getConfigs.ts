@@ -18,6 +18,7 @@ export default function (preferences: Preferences) {
   // 3. Add required base configs
   setConfigs.push(configs.eslint)
   setConfigs.push(configs.typescript)
+  setConfigs.push(configs.vscode)
 
   // 4. If pnpm is used, add `.npmrc`
   if (getUserPkgManager() === 'pnpm') {

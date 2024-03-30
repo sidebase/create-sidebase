@@ -7,7 +7,8 @@ import sidebaseAuth from './sidebase-auth'
 import eslint from './eslint'
 import githubActions from './github-actions'
 import typescript from './typescript'
-import pnpm from './pnpm '
+import pnpm from './pnpm'
+import vscode from './vscode'
 
 export type Modules = 'prisma' | 'sidebase-auth' | 'trpc' | 'tailwind' | 'naiveui'
 export const modules: Record<Modules, ModuleConfig> = {
@@ -18,10 +19,11 @@ export const modules: Record<Modules, ModuleConfig> = {
   'sidebase-auth': sidebaseAuth
 }
 
-export type Configs = 'eslint' | 'github-actions' | 'typescript' | 'pnpm'
+export type Configs = 'eslint' | 'github-actions' | 'typescript' | 'pnpm' | 'vscode'
 export const configs: Record<Configs, Config> = {
   'eslint': eslint,
   'github-actions': githubActions,
   'typescript': typescript,
-  'pnpm': pnpm
+  'pnpm': pnpm,
+  'vscode': vscode
 }
