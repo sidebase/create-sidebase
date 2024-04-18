@@ -1,7 +1,6 @@
-import ora from "ora"
+import ora from 'ora'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const wrapInSpinner = async <T extends (...a: any) => any>(text: string, func: T, ...args: any[]) => {
+export async function wrapInSpinner<T extends (...a: any) => any>(text: string, func: T, ...args: any[]) {
   const spinner = ora(text).start()
   const timeoutALittleWhile = setTimeout(() => {
     spinner.text = `${text} (still running)`

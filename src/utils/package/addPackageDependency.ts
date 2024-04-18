@@ -1,18 +1,12 @@
-import { resolve } from "node:path"
-import { readPackageJSON, writePackageJSON } from "pkg-types"
-import { defu } from "defu"
+import { resolve } from 'node:path'
+import { readPackageJSON, writePackageJSON } from 'pkg-types'
+import { defu } from 'defu'
+import type { Dependency } from '../../types'
 
-export interface Dependency {
-  name: string
-  version: string
-  isDev: boolean
-  isPeer?: boolean
-}
-
-export const addPackageDependencies = async (opts: {
-  dependencies: Dependency[];
-  projectDir: string;
-}) => {
+export async function addPackageDependencies(opts: {
+  dependencies: Dependency[]
+  projectDir: string
+}) {
   const { projectDir, dependencies } = opts
 
   const pathToPackageJson = resolve(`./${projectDir}/package.json`)
@@ -23,11 +17,13 @@ export const addPackageDependencies = async (opts: {
       packageJson.devDependencies = defu(packageJson.devDependencies, {
         [name]: version
       })
-    } else if (isPeer) {
+    }
+    else if (isPeer) {
       packageJson.peerDependencies = defu(packageJson.peerDependencies, {
         [name]: version
       })
-    } else {
+    }
+    else {
       packageJson.dependencies = defu(packageJson.dependencies, {
         [name]: version
       })
@@ -35,5 +31,4 @@ export const addPackageDependencies = async (opts: {
   }
 
   await writePackageJSON(pathToPackageJson, packageJson)
-
 }

@@ -1,20 +1,11 @@
-import { downloadTemplate } from "giget"
-import { getResolver } from "../getResolver"
-import { Preferences } from "../prompts"
-import { getUserPkgManager } from "../utils/getUserPkgManager"
-import { writeFile } from "node:fs/promises"
-import { say } from "../messages"
+import { downloadTemplate } from 'giget'
+import { say } from '../messages'
+import type { Preferences } from '../types'
 
 const KNOWN_TEMPLATES = {
-  "merino": "github:sidebase/merino#v3",
-  "cheviot": "community/sidebase"
+  merino: 'github:nuxt/starter#v3',
+  cheviot: 'community/sidebase'
 }
-
-// nuxt 3 + pnpm needs to shamefully hoist + we want to auto-install required peer dependencies (last one taken from: https://github.com/antfu/vitesse/blob/main/.npmrc)
-const npmrc = `
-shamefully-hoist=true
-strict-peer-dependencies=false
-`
 
 export default async (preferences: Preferences) => {
   const templateName = KNOWN_TEMPLATES[preferences.setStack as keyof typeof KNOWN_TEMPLATES]
@@ -24,20 +15,14 @@ export default async (preferences: Preferences) => {
   try {
     template = await downloadTemplate(templateName, {
       dir: preferences.setProjectName,
-      registry: "https://raw.githubusercontent.com/nuxt/starter/templates/templates"
+      registry: 'https://raw.githubusercontent.com/nuxt/starter/templates/templates'
     })
-  } catch (error) {
+  }
+  catch (error) {
     console.log()
-    say("Failed to initialize project folder - does a folder with the same name already exist? Aborting mission. Here is the full error:")
+    say('Failed to initialize project folder - does a folder with the same name already exist? Aborting mission. Here is the full error:')
     console.error(error)
     process.exit()
-  }
-
-  const resolver = getResolver(template.dir)
-
-  const usingPnpm = getUserPkgManager() == "pnpm"
-  if (usingPnpm) {
-    await writeFile(resolver(".npmrc"), npmrc)
   }
 
   return template

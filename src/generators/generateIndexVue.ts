@@ -1,11 +1,11 @@
-import { moduleConfigs, Modules } from "./moduleConfigs"
+import type { ModuleConfig } from '../types'
 
-const getModulesSnippet = (selectedModules: Modules[], key: "html" | "css" | "js") => {
-  const moduleIndexSnippets = selectedModules.map((module) => moduleConfigs[module].indexVue?.[key]).filter(snippet => typeof snippet !== "undefined")
-  return moduleIndexSnippets.length > 0 ? "\n    " + moduleIndexSnippets.join("\n    ") : ""
+function getModulesSnippet(selectedModules: ModuleConfig[], key: 'html' | 'css' | 'js') {
+  const moduleIndexSnippets = selectedModules.map(module => module.indexVue?.[key]).filter(snippet => typeof snippet !== 'undefined')
+  return moduleIndexSnippets.length > 0 ? `\n    ${moduleIndexSnippets.join('\n    ')}` : ''
 }
-export const generateIndexVue = (selectedModules: Modules[]) => {
-  const html = getModulesSnippet(selectedModules, "html")
+export function generateIndexVue(selectedModules: ModuleConfig[]) {
+  const html = getModulesSnippet(selectedModules, 'html')
 
   return `<template>
   <div class="wrapper">
@@ -16,7 +16,7 @@ export const generateIndexVue = (selectedModules: Modules[]) => {
         </h1>
         <p class="description">
           Read our documentation <a class="hover-underline-animation" href="https://sidebase.io/sidebase/welcome" target="_blank">here</a>.
-          ${selectedModules.length > 0 ? "Get started in no time with the following amazing modules:" : "Add some of our amazing modules <a href='https://sidebase.io' target='_blank'>here</a>."}
+          ${selectedModules.length > 0 ? 'Get started in no time with the following amazing modules:' : 'Add some of our amazing modules <a href="https://sidebase.io" target="_blank">here</a>.'}
         </p>
       </div>
 
@@ -45,6 +45,7 @@ export const generateIndexVue = (selectedModules: Modules[]) => {
     </div>
   </div>
 </template>
+
 <style>
   * {
     margin: 0;

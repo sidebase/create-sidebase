@@ -1,22 +1,23 @@
 {
   "name": "create-sidebase",
+  "type": "module",
   "version": "0.5.0",
   "description": "The productive way to build fullstack Nuxt 3 applications, like create-t3-app but for Nuxt.",
   "scripts": {
-    "dev": "vite-node src/",
-    "start": "npx",
+    "dev": "vite-node src/ -- --nocounting",
+    "dev:ci": "vite-node src/ -- --ci",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
     "typecheck": "tsc --noEmit",
     "build": "rm -rf dist && tsup src/ --format esm",
+    "start": "npx",
     "prepack": "npm run build"
   },
-  "type": "module",
   "files": [
     "dist"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sidebase/sidebase"
+    "url": "git+https://github.com/sidebase/create-sidebase"
   },
   "bin": {
     "create-sidebase": "./dist/index.js"
@@ -34,15 +35,14 @@
   "author": "sidestream-tech <sidebase@sidestream.tech>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sidebase/sidebase/issues/new/choose"
+    "url": "https://github.com/sidebase/create-sidebase/issues/new/choose"
   },
-  "homepage": "https://github.com/sidebase/sidebase",
+  "homepage": "https://sidebase.io",
   "devDependencies": {
+    "@antfu/eslint-config": "^2.11.5",
     "@types/node": "^18.11.16",
     "@types/prompts": "^2.4.2",
-    "@typescript-eslint/eslint-plugin": "^5.36.2",
-    "@typescript-eslint/parser": "^5.36.2",
-    "eslint": "^8.23.0",
+    "eslint": "^8.57.0",
     "tsup": "^6.2.3",
     "typescript": "^4.8.2",
     "vite-node": "^0.25.8"
@@ -51,6 +51,7 @@
     "@nuxt/schema": "^3.0.0",
     "chalk": "^5.2.0",
     "commander": "^9.4.1",
+    "consola": "^3.2.3",
     "defu": "^6.1.1",
     "execa": "^6.1.0",
     "giget": "^1.0.0",

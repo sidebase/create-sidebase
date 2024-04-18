@@ -1,4 +1,6 @@
-{
+import type { Config } from '../types'
+
+const VSCODE_SETTINGS = `{
   // Enable the ESlint flat config support
   "eslint.experimental.useFlatConfig": true,
 
@@ -43,3 +45,28 @@
     "graphql"
   ]
 }
+`
+
+const VSCODE_EXTENSIONS = `{
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "vue.volar"
+  ]
+}
+`
+
+const vscode: Config = {
+  scripts: [],
+  dependencies: [],
+  nuxtConfig: {},
+  files: [{
+    path: '.vscode/settings.json',
+    content: VSCODE_SETTINGS
+  }, {
+    path: '.vscode/extensions.json',
+    content: VSCODE_EXTENSIONS
+  }],
+}
+
+export default vscode

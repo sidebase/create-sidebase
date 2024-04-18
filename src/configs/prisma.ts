@@ -1,5 +1,5 @@
-import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from "../generateModuleComponents"
-import type { ModuleConfig } from "../moduleConfigs"
+import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from '../generators/generateModuleComponents'
+import type { ModuleConfig } from '../types'
 
 const prismaFile = `// This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
@@ -59,7 +59,7 @@ export default eventHandler((event) => {
 })
 `
 
-const prismaUtils = `import { execSync } from 'child_process'
+const prismaUtils = `import { execSync } from 'node:child_process'
 
 /**
  * Helper to reset the database via a programmatic prisma invocation. Helpful to add to \`beforeEach\` or \`beforeAll\` of your testing setup.
@@ -70,7 +70,7 @@ const prismaUtils = `import { execSync } from 'child_process'
  *
  * @param databaseUrl Connection URL to database. Inferred from \`process.env.DATABASE_URL\` if not provided
  */
-export const resetDatabase = (databaseUrl?: string) => {
+export function resetDatabase(databaseUrl?: string) {
   const url = databaseUrl || process.env.DATABASE_URL
   if (!url) {
     throw new Error('Cannot reset database - connection string could not be inferred.')
@@ -87,59 +87,61 @@ export const resetDatabase = (databaseUrl?: string) => {
 const prismaDemoComponent = `<script lang="ts" setup>
 const { data: examples } = useFetch('/api/examples')
 </script>
+
 <template>
   ${generateModuleHTMLComponent(
-    "Prisma ORM",
-    "Prisma unlocks a new level of developer experience when working with databases thanks to its intuitive data model, automated migrations, type-safety & auto-completion.",
-    "https://sidebase.io/sidebase/components/prisma",
+    'Prisma ORM',
+    'Prisma unlocks a new level of developer experience when working with databases thanks to its intuitive data model, automated migrations, type-safety & auto-completion.',
+    'https://sidebase.io/sidebase/components/prisma',
     `<p>
         Prisma ORM Data from the database, received {{ examples?.length || 0 }} records!
       </p>`,
-    "",
+    '',
   ).html}
 </template>
 `
 
 const prisma: ModuleConfig = {
-  humanReadableName: "Prisma ORM",
-  description: "Next-generation Node.js and TypeScript ORM. See more: https://www.prisma.io/",
+  humanReadableName: 'Prisma ORM',
+  description: 'Next-generation Node.js and TypeScript ORM. See more: https://www.prisma.io/',
+  scripts: [],
   dependencies: [
     {
-      name: "prisma",
-      version: "^5.7.1",
+      name: 'prisma',
+      version: '^5.11.0',
       isDev: true
     },
     {
-      name: "@prisma/client",
-      version: "^5.7.1",
+      name: '@prisma/client',
+      version: '^5.11.0',
       isDev: false
     }
   ],
   nuxtConfig: {},
   files: [{
-    path: ".env",
+    path: '.env',
     content: prismaEnvFile
   }, {
-    path: "prisma/schema.prisma",
+    path: 'prisma/schema.prisma',
     content: prismaFile
   }, {
-    path: "server/api/examples.get.ts",
+    path: 'server/api/examples.get.ts',
     content: prismaExampleEndpoint
   }, {
-    path: "server/middleware/0.prisma.ts",
+    path: 'server/middleware/0.prisma.ts',
     content: prismaServerMiddleware
   }, {
-    path: "prisma/utils.ts",
+    path: 'prisma/utils.ts',
     content: prismaUtils
   }, {
-    path: "components/Welcome/PrismaDemo.vue",
+    path: 'components/Welcome/PrismaDemo.vue',
     content: prismaDemoComponent,
   }],
   tasksPostInstall: [
-    "- [ ] Prisma: Edit your `prisma/prisma.schema` to your liking",
-    "- [ ] Prisma: Run `npx prisma db push` to sync the schema to your database & generate the Prisma Client",
+    '- [ ] Prisma: Edit your `prisma/prisma.schema` to your liking',
+    '- [ ] Prisma: Run `npx prisma db push` to sync the schema to your database & generate the Prisma Client',
   ],
-  indexVue: generateModuleHTMLSnippet("WelcomePrismaDemo"),
+  indexVue: generateModuleHTMLSnippet('WelcomePrismaDemo'),
 }
 
 export default prisma

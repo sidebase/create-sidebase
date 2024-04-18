@@ -1,10 +1,19 @@
-export function generateModuleHTMLComponent (
+export function generateModuleHTMLComponent(
   title: string,
   description: string,
   documentationLink: string,
   demo: string,
   actions: string
-): {html: string} {
+): { html: string } {
+  const htmlActions = actions
+    ? `
+        ${actions}`
+    : ''
+
+  const htmlDemo = demo
+    ? `
+      ${demo}`
+    : ''
   const html = `<div class="layout">
     <div class="group">
       <h1 class="heading">
@@ -14,13 +23,11 @@ export function generateModuleHTMLComponent (
         ${description}
       </p>
     </div>
-    <div class="group">
-      ${demo}
+    <div class="group">${htmlDemo}
       <div class="actions">
         <WelcomeButtonLink href="${documentationLink}" :blank="true">
           Documentation
-        </WelcomeButtonLink>
-        ${actions}
+        </WelcomeButtonLink>${htmlActions}
       </div>
     </div>
   </div>`
@@ -29,7 +36,7 @@ export function generateModuleHTMLComponent (
   }
 }
 
-export function generateModuleHTMLSnippet (componentName: string) {
+export function generateModuleHTMLSnippet(componentName: string) {
   const html = `    <div class="card">
           <${componentName} />
         </div>`
@@ -43,11 +50,11 @@ defineProps({
   blank: {
     type: Boolean,
     required: false,
-    default: false
+    default: false,
   },
   href: {
     type: String,
-    default: ''
+    default: '',
   },
 })
 </script>

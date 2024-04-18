@@ -1,5 +1,5 @@
-import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from "../generateModuleComponents"
-import type { ModuleConfig } from "../moduleConfigs"
+import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from '../generators/generateModuleComponents'
+import type { ModuleConfig } from '../types'
 
 const nuxtTrpcRootConfig = `/**
  * This is your entry point to setup the root configuration for tRPC on the server.
@@ -12,7 +12,7 @@ const nuxtTrpcRootConfig = `/**
  */
 import { initTRPC } from '@trpc/server'
 import superjson from 'superjson'
-import { Context } from '~/server/trpc/context'
+import type { Context } from '~/server/trpc/context'
 
 const t = initTRPC.context<Context>().create({
   transformer: superjson
@@ -20,7 +20,7 @@ const t = initTRPC.context<Context>().create({
 
 /**
  * Unprotected procedure
- **/
+ */
 export const publicProcedure = t.procedure
 export const router = t.router
 export const middleware = t.middleware
@@ -48,14 +48,14 @@ export const appRouter = router({
 export type AppRouter = typeof appRouter
 `
 
-const nuxtTrpcContext = `import { inferAsyncReturnType } from '@trpc/server'
+const nuxtTrpcContext = `import type { inferAsyncReturnType } from '@trpc/server'
 import type { H3Event } from 'h3'
 
 /**
  * Creates context for an incoming request
  * @link https://trpc.io/docs/context
  */
-export function createContext (_event: H3Event) {
+export function createContext(_event: H3Event) {
   /**
    * Add any trpc-request context here. E.g., you could add \`prisma\` like this (if you've added it via sidebase):
    * \`\`\`ts
@@ -110,78 +110,79 @@ const { $client } = useNuxtApp()
 
 const hello = await $client.hello.useQuery({ text: 'client' })
 </script>
+
 <template>
   ${generateModuleHTMLComponent(
-    "tRPC",
-    "tRPC allows you to easily build & consume fully typesafe APIs without schemas or code generation.",
-    "https://sidebase.io/sidebase/components/trpc",
+    'tRPC',
+    'tRPC allows you to easily build & consume fully typesafe APIs without schemas or code generation.',
+    'https://sidebase.io/sidebase/components/trpc',
     `<p>
         <!-- As superjson is already pre-configured, we can use time as a Date object without further deserialization 🎉 -->
         tRPC Data: "{{ hello.data.value?.greeting }}" send at "{{ hello.data.value?.time.toLocaleDateString('en-EN') }}".
-      </p>
-    `,
-    "",
+      </p>`,
+    '',
   ).html}
 </template>
 `
 
 const trpc: ModuleConfig = {
-  humanReadableName: "tRPC 10",
-  description: "Build end-to-end typesafe APIs in Nuxt applications. See more: https://trpc.io/",
+  humanReadableName: 'tRPC 10',
+  description: 'Build end-to-end typesafe APIs in Nuxt applications. See more: https://trpc.io/',
+  scripts: [],
   dependencies: [{
-    name: "@trpc/server",
-    version: "^10.45.0",
+    name: '@trpc/server',
+    version: '^10.45.2',
     isDev: false
   }, {
-    name: "@trpc/client",
-    version: "^10.45.0",
+    name: '@trpc/client',
+    version: '^10.45.2',
     isDev: false
   }, {
-    name: "trpc-nuxt",
-    version: "^0.10.15",
+    name: 'trpc-nuxt',
+    version: '^0.10.21',
     isDev: false
   }, {
-    name: "zod",
-    version: "^3.22.4",
+    name: 'zod',
+    version: '^3.22.4',
     isDev: false
   }, {
-    name: "superjson",
-    version: "^2.2.1",
+    name: 'superjson',
+    version: '^2.2.1',
     isDev: false
   }],
   nuxtConfig: {
     build: {
-      transpile: ["trpc-nuxt"]
+      transpile: ['trpc-nuxt']
     }
   },
   files: [
     {
-      path: "server/trpc/trpc.ts",
+      path: 'server/trpc/trpc.ts',
       content: nuxtTrpcRootConfig
     },
     {
-      path: "server/trpc/routers/index.ts",
+      path: 'server/trpc/routers/index.ts',
       content: nuxtTrpcRoutersIndex
     },
     {
-      path: "server/trpc/context.ts",
+      path: 'server/trpc/context.ts',
       content: nuxtTrpcContext
     },
     {
-      path: "server/api/trpc/[trpc].ts",
+      path: 'server/api/trpc/[trpc].ts',
       content: nuxtTrpcApiHandler
     },
     {
-      path: "plugins/trpcClient.ts",
+      path: 'plugins/trpcClient.ts',
       content: nuxtTrpcPlugin
     },
     {
-      path: "components/Welcome/TRPCDemo.vue",
+      path: 'components/Welcome/TRPCDemo.vue',
       content: trpcDemoComponent,
     }
   ],
   tasksPostInstall: [],
-  indexVue: generateModuleHTMLSnippet("WelcomeTRPCDemo"),
+  indexVue: generateModuleHTMLSnippet('WelcomeTRPCDemo'),
 }
 
 export default trpc
