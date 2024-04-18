@@ -11,11 +11,11 @@ async function main() {
   const { quick, ci } = cliOptions
 
   // Welcome the User
-  if (!quick) {
-    await sayWelcome()
+  if (quick) {
+    await sayQuickWelcome()
   }
   else {
-    await sayQuickWelcome()
+    await sayWelcome()
   }
 
   // Collect User preferences
