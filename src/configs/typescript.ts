@@ -22,11 +22,7 @@ const scripts: Config = {
     isDev: true,
   }],
   files: [],
-  nuxtConfig: {
-    typescript: {
-      typeCheck: true
-    }
-  }
+  nuxtConfig: {}
 }
 
 export default scripts

@@ -61,7 +61,7 @@ const eslint: Config = {
     isDev: true
   }, {
     name: 'oxlint',
-    version: '^0.4.4',
+    version: '^0.2.15',
     isDev: true
   }],
   nuxtConfig: {},
