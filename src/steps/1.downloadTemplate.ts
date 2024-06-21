@@ -3,7 +3,7 @@ import { say } from '../messages'
 import type { Preferences } from '../types'
 
 const KNOWN_TEMPLATES = {
-  merino: 'github:sidebase/templates#nuxt-3.12.2',
+  merino: 'github:sidebase/templates#merino-0.6.1',
   cheviot: 'community/sidebase'
 }
 
