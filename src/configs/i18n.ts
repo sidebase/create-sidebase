@@ -27,19 +27,17 @@ export default defineI18nLocaleDetector((event, config) => {
 
 const englishLocaleFile = `{
     "title": "Nuxt i18n",
-    "description": "I18n (Internationalization) module for your Nuxt project powered by Vue I18n.",
+    "description": "I18n (Internationalization) module for your Nuxt project powered by Vue I18n."
 }
 `
 
 const i18nDemoComponent = `<template>
   ${generateModuleHTMLComponent(
-    `$t('title')`,
-    `$t('description')`,
+    `{{ $t('title') }}`,
+    `{{ $t('description') }}`,
     'https://i18n.nuxtjs.org/',
     '',
-    `<WelcomeButtonLink href="/_tailwind/" :blank="true">
-          Tailwind viewer
-        </WelcomeButtonLink>`,
+    '',
   ).html}
 </template>
 `
