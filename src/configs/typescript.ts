@@ -10,19 +10,23 @@ const scripts: Config = {
   }],
   dependencies: [{
     name: 'vue-tsc',
-    version: '^2.0.7',
+    version: '^2.0.21',
     isDev: true
   }, {
     name: 'typescript',
-    version: '^5.4.3',
+    version: '^5.5.2',
     isDev: true,
   }, {
     name: '@types/node',
-    version: '^20.11.30',
+    version: '^20.14.7',
     isDev: true,
   }],
   files: [],
-  nuxtConfig: {}
+  nuxtConfig: {
+    typescript: {
+      typeCheck: true
+    }
+  }
 }
 
 export default scripts
