@@ -40,7 +40,12 @@ const naiveui: ModuleConfig = {
   scripts: [],
   dependencies: [{
     name: '@bg-dev/nuxt-naiveui',
-    version: '^1.11.0',
+    /*
+     * Pinned to v1.0.0-edge.2 as naiveui was failing on typecheck.
+     * replace this with the offical release, once it is out.
+     * See: https://github.com/becem-gharbi/nuxt-naiveui/issues/76
+     */
+    version: '1.0.0-edge.2',
     isDev: true
   }],
   nuxtConfig: {
