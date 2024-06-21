@@ -53,11 +53,11 @@ const eslint: Config = {
   }],
   dependencies: [{
     name: 'eslint',
-    version: '^9.5.0',
+    version: '^8.57.0',
     isDev: true
   }, {
     name: '@antfu/eslint-config',
-    version: '^2.21.1',
+    version: '^2.11.5',
     isDev: true
   }, {
     name: 'oxlint',

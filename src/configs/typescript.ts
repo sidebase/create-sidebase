@@ -10,15 +10,15 @@ const scripts: Config = {
   }],
   dependencies: [{
     name: 'vue-tsc',
-    version: '^2.0.21',
+    version: '^2.0.7',
     isDev: true
   }, {
     name: 'typescript',
-    version: '^5.5.2',
+    version: '^5.4.3',
     isDev: true,
   }, {
     name: '@types/node',
-    version: '^20.14.7',
+    version: '^20.11.30',
     isDev: true,
   }],
   files: [],
