@@ -1,11 +1,12 @@
 import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from '../generators/generateModuleComponents'
 import type { ModuleConfig } from '../types'
 
-const prismaFile = `// This is your Prisma schema file,
+const prismaRootSchema = `// This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["prismaSchemaFolder"]
 }
 
 datasource db {
@@ -15,8 +16,9 @@ datasource db {
   // This value is read from the .env file.
   url      = env("DATABASE_URL")
 }
+`
 
-model Example {
+const prismaExampleSchema = `model Example {
   id          String @id @default(uuid())
   details     String
 }
@@ -108,12 +110,12 @@ const prisma: ModuleConfig = {
   dependencies: [
     {
       name: 'prisma',
-      version: '^5.11.0',
+      version: '^5.15.1',
       isDev: true
     },
     {
       name: '@prisma/client',
-      version: '^5.11.0',
+      version: '^5.15.1',
       isDev: false
     }
   ],
@@ -122,8 +124,11 @@ const prisma: ModuleConfig = {
     path: '.env',
     content: prismaEnvFile
   }, {
-    path: 'prisma/schema.prisma',
-    content: prismaFile
+    path: 'prisma/schema/schema.prisma',
+    content: prismaRootSchema
+  }, {
+    path: 'prisma/schema/example.prisma',
+    content: prismaExampleSchema
   }, {
     path: 'server/api/examples.get.ts',
     content: prismaExampleEndpoint
