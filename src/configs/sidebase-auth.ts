@@ -86,7 +86,7 @@ const sidebaseAuth: ModuleConfig = {
   dependencies: [
     {
       name: '@sidebase/nuxt-auth',
-      version: '^0.7.0',
+      version: '^0.7.2',
       isDev: true
     },
     {
