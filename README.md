@@ -10,7 +10,7 @@
   Get started with the <a target="_blank" href="https://sidebase.io/sidebase">sidebase</a> fully typed Nuxt 3 starter by running <code>npm create sidebase@latest</code>
 </p>
 
-<img src="./.github/create-sidebase.png" alt="sidebase preview" width="500"/>
+<img src="./.github/create-sidebase.png" alt="sidebase preview" width="750" align="center" />
 
 ## create-sidebase
 
