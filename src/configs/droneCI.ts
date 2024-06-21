@@ -16,12 +16,6 @@ steps:
       - nci
       - nr lint
       - nr typecheck
-  - name: test
-    image: node:20.9.0-slim
-    commands:
-      - npm i -g @antfu/ni
-      - nci
-      - nr test
   - name: build
     image: node:20.9.0-slim
     commands:
