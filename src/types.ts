@@ -7,7 +7,7 @@ export interface Preferences {
   setStack: Stack
   addModules?: Modules[]
   runGitInit: boolean
-  addCi?: 'github'
+  addCi?: 'github' | 'drone'
   runInstall: boolean
 }
 

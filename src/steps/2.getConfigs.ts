@@ -10,9 +10,12 @@ export default function (preferences: Preferences) {
     return { configs: [], modules: [] }
   }
 
-  // 2. Add Github Actions CI, if enabled
+  // 2. Add Prebuilt CI pipeline
   if (preferences.addCi === 'github') {
     setConfigs.push(configs['github-actions'])
+  }
+  if (preferences.addCi === 'drone') {
+    setConfigs.push(configs.droneCI)
   }
 
   // 3. Add required base configs
