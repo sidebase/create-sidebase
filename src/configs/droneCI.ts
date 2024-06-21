@@ -22,6 +22,8 @@ steps:
       - npm i -g @antfu/ni
       - nci
       - nr build
+
+# TODO: Add more steps here, like "nr test" as you add the tooling for it
 `
 
 const droneCI: Config = {
