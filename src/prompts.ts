@@ -48,7 +48,8 @@ const PROMPT_QUESTIONS: PromptObject[] = [
     message: 'Initialize a default CI pipeline?',
     choices: [
       { title: 'No CI', description: 'Scaffold a project without any CI pipeline', value: 'none' },
-      { title: 'GitHub Actions', description: 'Run your CI with GitHub actions.', value: 'github' },
+      { title: 'GitHub Actions', description: 'Run your CI with GitHub actions', value: 'github' },
+      { title: 'DroneCI', description: 'Run your CI with Drone', value: 'drone' },
     ],
     initial: 0,
   },
