@@ -10,14 +10,16 @@ import typescript from './typescript'
 import pnpm from './pnpm'
 import vscode from './vscode'
 import droneCI from './droneCI'
+import i18n from './i18n'
 
-export type Modules = 'prisma' | 'sidebase-auth' | 'trpc' | 'tailwind' | 'naiveui'
+export type Modules = 'prisma' | 'sidebase-auth' | 'trpc' | 'tailwind' | 'naiveui' | 'i18n'
 export const modules: Record<Modules, ModuleConfig> = {
   'tailwind': tailwind,
   'naiveui': naiveui,
   'prisma': prisma,
   'trpc': trpc,
-  'sidebase-auth': sidebaseAuth
+  'sidebase-auth': sidebaseAuth,
+  'i18n': i18n
 }
 
 export type Configs = 'eslint' | 'github-actions' | 'typescript' | 'pnpm' | 'vscode' | 'droneCI'
