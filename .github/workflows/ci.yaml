@@ -6,83 +6,76 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  NODE_VER: 22.5
+
 jobs:
   testCodebase:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js 20.6.1
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+
+      - name: Use Node.js ${{ env.NODE_VER }}
         uses: actions/setup-node@v4
         with:
-          node-version: 20.6.1
+          node-version: ${{ env.NODE_VER }}
+          cache: 'pnpm'
 
-      - uses: pnpm/action-setup@v3
-        name: Install pnpm
-        id: pnpm-install
-        with:
-          version: 8
+      - name: Install deps
+        run: pnpm i
 
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+      - name: Check linting
+        run: pnpm lint
 
-      - uses: actions/cache@v4
-        name: Setup pnpm cache
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - run: pnpm install
-
-      - run: pnpm run lint
-      - run: pnpm run typecheck
+      - name: Check typecheck
+        run: pnpm typecheck
 
   testCli:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js 20.6.1
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+
+      - name: Use Node.js ${{ env.NODE_VER }}
         uses: actions/setup-node@v4
         with:
-          node-version: 20.6.1
+          node-version: ${{ env.NODE_VER }}
+          cache: 'pnpm'
 
-      - uses: pnpm/action-setup@v3
-        name: Install pnpm
-        id: pnpm-install
-        with:
-          version: 8
+      - name: Install deps
+        run: pnpm i
 
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+      - name: Run the CI with default options
+        run: pnpm dev:ci
 
-      - uses: actions/cache@v4
-        name: Setup pnpm cache
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - run: pnpm install
-      - run: pnpm dev:ci
-
-      # This is what the user would do, minus actually starting the application
-      - run: cd my-sidebase-app && npx prisma db push
+      # setup the database inside the generated app
+      - name: app:init the database
+        run: cd my-sidebase-app && npx prisma db push
 
       # code should be 100% correct at the start
-      - run: cd my-sidebase-app && pnpm lint
-      - run: cd my-sidebase-app && npm exec nuxi prepare && pnpm run typecheck
+      - name: app:check linting
+        run: cd my-sidebase-app && pnpm lint
+
+      - name: app:check typing
+        run: cd my-sidebase-app && npm exec nuxi prepare && pnpm run typecheck
 
       # start dev-app, all of the following adapted from https://stackoverflow.com/a/60996259
-      - run: "cd my-sidebase-app && timeout 30 npm run dev || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
+      - name: app:run in dev
+        run: "cd my-sidebase-app && timeout 30 npm run dev || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
 
       # start prod-app
-      - run: "export AUTH_ORIGIN=http://localhost:3000 && export AUTH_SECRET=test123 && cd my-sidebase-app && npm run build && timeout 30 npm run preview || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
+      - name: app:run in prod
+        run: "export AUTH_ORIGIN=http://localhost:3000 && export AUTH_SECRET=test123 && cd my-sidebase-app && npm run build && timeout 30 npm run preview || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
 
       # start dev-app and curl from it
-      - run: "cd my-sidebase-app && timeout 30 npm run dev & (sleep 20 && curl --fail localhost:3000) || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
+      - name: app:test in prod
+        run: "cd my-sidebase-app && timeout 30 npm run dev & (sleep 20 && curl --fail localhost:3000) || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"

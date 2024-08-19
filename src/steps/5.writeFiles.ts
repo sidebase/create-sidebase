@@ -28,11 +28,11 @@ export default async function (templateDir: string, configs: Config[], modules: 
   modules.forEach(({ files }) => filesToAdd.push(...files))
 
   // 2. Write files
-  for (const file of filesToAdd) {
+  await Promise.all(filesToAdd.map(async (file) => {
     const folder = path.dirname(file.path)
     await mkdir(resolver(folder), { recursive: true })
     await writeFile(resolver(file.path), file.content)
-  }
+  }))
 
   // 3. Write index.vue with a nice welcome message as well as links to sub-pages
   const nuxtPagesIndexVue = generateIndexVue(modules)
