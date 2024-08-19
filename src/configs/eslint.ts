@@ -57,11 +57,11 @@ const eslint: Config = {
     isDev: true
   }, {
     name: '@antfu/eslint-config',
-    version: '^2.11.5',
+    version: '^2.26.0',
     isDev: true
   }, {
     name: 'oxlint',
-    version: '^0.2.15',
+    version: '^0.7.2',
     isDev: true
   }],
   nuxtConfig: {},
