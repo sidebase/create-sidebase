@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite-node src/ -- --nocounting",
     "dev:ci": "vite-node src/ -- --ci",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
+    "lint": "oxlint --deny-warnings -D correctness -D suspicious -D perf && eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
+    "lint:fix": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0 --fix",
     "typecheck": "tsc --noEmit",
     "build": "rm -rf dist && tsup src/ --format esm",
     "start": "npx",
@@ -43,6 +44,7 @@
     "@types/node": "^18.11.16",
     "@types/prompts": "^2.4.2",
     "eslint": "^8.57.0",
+    "oxlint": "^0.7.2",
     "tsup": "^6.2.3",
     "typescript": "^4.8.2",
     "vite-node": "^0.25.8"
@@ -59,5 +61,6 @@
     "ora": "^6.1.2",
     "pkg-types": "^1.0.1",
     "prompts": "^2.4.2"
-  }
+  },
+  "packageManager": "pnpm@9.6.0+sha512.38dc6fba8dba35b39340b9700112c2fe1e12f10b17134715a4aa98ccf7bb035e76fd981cf0bb384dfa98f8d6af5481c2bef2f4266a24bfa20c34eb7147ce0b5e"
 }
