@@ -23,7 +23,8 @@ export default defineI18nLocaleDetector((event, config) => {
 
   // fallback to default locale
   return config.defaultLocale
-})`
+})
+`
 
 const englishLocaleFile = `{
     "title": "Nuxt i18n",
