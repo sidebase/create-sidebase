@@ -12,6 +12,7 @@ export async function getVersion() {
     response = await fetch('https://registry.npmjs.org/create-sidebase/latest').then(response => response.json() as unknown as { version: string })
   }
   catch (error) {
+    console.error(error)
     response = { version: '0.0.0' }
   }
 
