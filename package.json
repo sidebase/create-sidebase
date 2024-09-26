@@ -50,7 +50,7 @@
     "vite-node": "^0.25.8"
   },
   "dependencies": {
-    "@nuxt/schema": "^3.0.0",
+    "@nuxt/schema": "^3.12.4",
     "chalk": "^5.2.0",
     "commander": "^9.4.1",
     "consola": "^3.2.3",
