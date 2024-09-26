@@ -50,7 +50,6 @@
     "vite-node": "^0.25.8"
   },
   "dependencies": {
-    "@formkit/tempo": "^0.1.2",
     "@nuxt/schema": "^3.12.4",
     "chalk": "^5.2.0",
     "commander": "^9.4.1",

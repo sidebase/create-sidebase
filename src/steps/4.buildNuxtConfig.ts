@@ -2,7 +2,6 @@ import { writeFile } from 'node:fs/promises'
 import { inspect } from 'node:util'
 import type { NuxtConfig } from '@nuxt/schema'
 import defu from 'defu'
-import { format } from '@formkit/tempo'
 import type { Config, ModuleConfig } from '../types'
 import { getResolver } from '../getResolver'
 
@@ -21,12 +20,13 @@ export default async function (templateDir: string, configs: Config[], modules: 
 
   // 2. Build base Nuxt Config
   let nuxtConfig = {
-    compatibilityDate: format(new Date(), 'YYYY-MM-DD'),
+    compatibilityDate: '2024-08-19',
     devtools: { enabled: true },
     typescript: {
       shim: false,
     },
-  }
+  } as NuxtConfig
+
   for (const nuxtConfigExtension of nuxtConfigExtensions) {
     nuxtConfig = defu(nuxtConfig, nuxtConfigExtension)
   }
