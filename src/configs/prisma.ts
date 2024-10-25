@@ -150,7 +150,7 @@ const server = net.createServer(async (socket) => {
   })
 
   socket.on('end', () => {
-    logger.info('Client disconnected')
+    console.info('Client disconnected')
   })
 })
 
@@ -159,7 +159,7 @@ server.listen(5432, () => {
     writeFileSync(HEALTH_FILE_NAME, '')
   }
 
-  logger.info('Server listening on port 5432')
+  console.info('Server listening on port 5432')
 })
 
 server.on('close', () => {
