@@ -30,6 +30,7 @@ export function sayGoodbye(preferences: Preferences) {
   }
 
   if (preferences.addModules?.includes('prisma') || preferences.setStack === 'cheviot') {
+    sayCommand(`${packageManager} run db`, 'Start the local postgres database in a new window')
     sayCommand('npx prisma db push', 'Initialize the database & Prisma client')
   }
 
