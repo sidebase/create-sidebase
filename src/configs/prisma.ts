@@ -29,7 +29,8 @@ const prismaExampleSchema = `model Example {
 `
 
 const prismaEnvFile = `# Prisma
-DATABASE_URL=file:./db.sqlite
+DATABASE_URL="postgres://postgres@localhost:5432/postgres?pgbouncer=true&connection_limit=1"
+DIRECT_DATABASE_URL="postgres://postgres@localhost:5432/postgres?connection_limit=1"
 `
 
 const prismaExampleEndpoint = `/**
