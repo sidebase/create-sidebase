@@ -13,8 +13,9 @@ generator client {
 datasource db {
   provider = "postgres"
 
-  // These \`env(..)\` value will be read from the \`.env\` file or from the environment.
   url = env("DATABASE_URL")
+
+  // This environment variable can be the same as \`DATABASE_URL\` for non-pglite environments
   directUrl = env("DIRECT_DATABASE_URL")
 
   // This is required for development only.
