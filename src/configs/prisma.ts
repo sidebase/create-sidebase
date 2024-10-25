@@ -99,8 +99,6 @@ const pglite = `/**
  * that prisma uses for certain commands, such as \`pnpm prisma migrate dev\`: https://www.prisma.io/docs/orm/prisma-migrate/understanding-prisma-migrate/shadow-database.
  *
  * To make use of the shadow-database add \`/prisma-shadow\` to the DSN you provide. This script will then spin up a second, in-memory-only database and connect you to it.
- *
- * This whole script approach is novel to us (before we used sqlite locally). Here is the PR that brought it all together: https://github.com/sidestream-tech/hanselmann-os/pull/3356
  */
 import net from 'node:net'
 import { unlinkSync, writeFileSync } from 'node:fs'
