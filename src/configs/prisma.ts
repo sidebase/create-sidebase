@@ -252,6 +252,7 @@ const prisma: ModuleConfig = {
     '- [ ] Prisma: Edit your `prisma/prisma.schema` to your liking',
     `- [ ] Prisma: Start your local postgres database using \`${getUserPkgManager()} run db\``,
     '- [ ] Prisma: Run `npx prisma db push` to sync the schema to your database & generate the Prisma Client',
+    '- [ ] Prisma: Add `**/*/pglite-data` and `pgliteHealthz` to your `.gitignore` file'
   ],
   indexVue: generateModuleHTMLSnippet('WelcomePrismaDemo'),
 }
