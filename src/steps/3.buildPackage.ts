@@ -1,5 +1,6 @@
 import type { Config, Dependency, ModuleConfig, Preferences, Script } from '../types'
 import { addPackageDependencies } from '../utils/package/addPackageDependency'
+import { addPackageMetaData } from '../utils/package/addPackageMetaData'
 import { addPackageScripts } from '../utils/package/addPackageScript'
 
 export default async function (preferences: Preferences, configs: Config[], modules: ModuleConfig[]) {
@@ -31,5 +32,11 @@ export default async function (preferences: Preferences, configs: Config[], modu
   await addPackageScripts({
     projectDir: preferences.setProjectName,
     scripts: scriptsToAdd
+  })
+
+  // 4. Add meta data to the `package.json`
+  await addPackageMetaData({
+    projectDir: preferences.setProjectName,
+    name: preferences.setProjectName
   })
 }

@@ -20,10 +20,13 @@ export default async function (templateDir: string, configs: Config[], modules: 
 
   // 2. Build base Nuxt Config
   let nuxtConfig = {
+    compatibilityDate: '2024-08-19',
+    devtools: { enabled: true },
     typescript: {
       shim: false,
     },
-  }
+  } as NuxtConfig
+
   for (const nuxtConfigExtension of nuxtConfigExtensions) {
     nuxtConfig = defu(nuxtConfig, nuxtConfigExtension)
   }

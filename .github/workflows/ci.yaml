@@ -37,6 +37,23 @@ jobs:
 
   testCli:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: 'postgresql://postgres:postgres@localhost:5432'
+      DIRECT_DATABASE_URL: 'postgresql://postgres:postgres@localhost:5432'
+      AUTH_ORIGIN: http://localhost:3000
+      AUTH_SECRET: test123
     steps:
       - uses: actions/checkout@v4
 
@@ -74,7 +91,7 @@ jobs:
 
       # start prod-app
       - name: app:run in prod
-        run: "export AUTH_ORIGIN=http://localhost:3000 && export AUTH_SECRET=test123 && cd my-sidebase-app && npm run build && timeout 30 npm run preview || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
+        run: "cd my-sidebase-app && npm run build && timeout 30 npm run preview || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
 
       # start dev-app and curl from it
       - name: app:test in prod
