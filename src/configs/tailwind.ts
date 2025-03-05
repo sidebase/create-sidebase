@@ -18,18 +18,22 @@ const tailwind: ModuleConfig = {
   humanReadableName: 'Tailwind CSS',
   description: 'A utility-first CSS framework packed with classes that can be composed to build any design, directly in your markup. See more: https://tailwindcss.com/',
   scripts: [],
-  dependencies: [{
-    name: '@nuxtjs/tailwindcss',
-    version: '^6.11.4',
-    isDev: true
-  }],
+  dependencies: [
+    {
+      name: '@nuxtjs/tailwindcss',
+      version: '^6.13.1',
+      isDev: true
+    }
+  ],
   nuxtConfig: {
     modules: ['@nuxtjs/tailwindcss']
   },
-  files: [{
-    path: 'components/Welcome/TailwindDemo.vue',
-    content: tailwindDemoComponent,
-  }],
+  files: [
+    {
+      path: 'components/Welcome/TailwindDemo.vue',
+      content: tailwindDemoComponent,
+    }
+  ],
   tasksPostInstall: [],
   indexVue: generateModuleHTMLSnippet('WelcomeTailwindDemo'),
 }

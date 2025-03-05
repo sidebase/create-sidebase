@@ -129,27 +129,33 @@ const trpc: ModuleConfig = {
   humanReadableName: 'tRPC 10',
   description: 'Build end-to-end typesafe APIs in Nuxt applications. See more: https://trpc.io/',
   scripts: [],
-  dependencies: [{
-    name: '@trpc/server',
-    version: '^10.45.2',
-    isDev: false
-  }, {
-    name: '@trpc/client',
-    version: '^10.45.2',
-    isDev: false
-  }, {
-    name: 'trpc-nuxt',
-    version: '^0.10.21',
-    isDev: false
-  }, {
-    name: 'zod',
-    version: '^3.22.4',
-    isDev: false
-  }, {
-    name: 'superjson',
-    version: '^2.2.1',
-    isDev: false
-  }],
+  dependencies: [
+    {
+      name: '@trpc/server',
+      version: '^10.45.2',
+      isDev: false
+    },
+    {
+      name: '@trpc/client',
+      version: '^10.45.2',
+      isDev: false
+    },
+    {
+      name: 'trpc-nuxt',
+      version: '^0.10.21',
+      isDev: false
+    },
+    {
+      name: 'zod',
+      version: '^3.23.8',
+      isDev: false
+    },
+    {
+      name: 'superjson',
+      version: '^2.2.1',
+      isDev: false
+    }
+  ],
   nuxtConfig: {
     build: {
       transpile: ['trpc-nuxt']

@@ -53,10 +53,12 @@ const githubActions: Config = {
   scripts: [],
   dependencies: [],
   nuxtConfig: {},
-  files: [{
-    path: '.github/workflows/ci.yaml',
-    content: GITHUB_ACTIONS_TEMPLATE
-  }],
+  files: [
+    {
+      path: '.github/workflows/ci.yaml',
+      content: GITHUB_ACTIONS_TEMPLATE
+    }
+  ],
 }
 
 export default githubActions

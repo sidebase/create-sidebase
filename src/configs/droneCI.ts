@@ -30,10 +30,12 @@ const droneCI: Config = {
   scripts: [],
   dependencies: [],
   nuxtConfig: {},
-  files: [{
-    path: '.drone.yml',
-    content: DRONE_TEMPLATE
-  }],
+  files: [
+    {
+      path: '.drone.yml',
+      content: DRONE_TEMPLATE
+    }
+  ],
 }
 
 export default droneCI

@@ -47,37 +47,44 @@ const i18n: ModuleConfig = {
   humanReadableName: 'i18n',
   description: 'I18n (Internationalization) module for your Nuxt project powered by Vue I18n. See more: https://i18n.nuxtjs.org/',
   scripts: [],
-  dependencies: [{
-    name: '@nuxtjs/i18n',
-    version: '^8.4.0',
-    isDev: true
-  }],
+  dependencies: [
+    {
+      name: '@nuxtjs/i18n',
+      version: '^9.2.1',
+      isDev: true
+    }
+  ],
   nuxtConfig: {
     modules: ['@nuxtjs/i18n'],
     // @ts-expect-error i18n is not set in default Nuxt Config, as the package is not installed
     i18n: {
-      strategy: 'prefix_except_default',
-      lazy: true,
-      langDir: 'locales',
       defaultLocale: 'en',
       locales: [
         { name: 'English', code: 'en', file: 'en.json' },
       ],
+      strategy: 'prefix_except_default',
+      detectBrowserLanguage: false,
+      lazy: true,
       experimental: {
-        localeDetector: './localeDetector.ts'
+        autoImportTranslationFunctions: true,
+        localeDetector: 'localeDetector.ts'
       }
     }
   },
-  files: [{
-    path: 'localeDetector.ts',
-    content: localeDetector
-  }, {
-    path: 'locales/en.json',
-    content: englishLocaleFile
-  }, {
-    path: 'components/Welcome/I18nDemo.vue',
-    content: i18nDemoComponent
-  }],
+  files: [
+    {
+      path: 'i18n/localeDetector.ts',
+      content: localeDetector
+    },
+    {
+      path: 'i18n/locales/en.json',
+      content: englishLocaleFile
+    },
+    {
+      path: 'components/Welcome/I18nDemo.vue',
+      content: i18nDemoComponent
+    }
+  ],
   tasksPostInstall: [],
   indexVue: generateModuleHTMLSnippet('WelcomeI18nDemo'),
 }

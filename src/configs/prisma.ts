@@ -67,31 +67,6 @@ export default eventHandler((event) => {
 })
 `
 
-const prismaUtils = `import { execSync } from 'node:child_process'
-
-/**
- * Helper to reset the database via a programmatic prisma invocation. Helpful to add to \`beforeEach\` or \`beforeAll\` of your testing setup.
- *
- * WARNING: Never run this in production.
- *
- * Taken from https://github.com/prisma/prisma/issues/13549#issuecomment-1144883246
- *
- * @param databaseUrl Connection URL to database. Inferred from \`process.env.DATABASE_URL\` if not provided
- */
-export function resetDatabase(databaseUrl?: string) {
-  const url = databaseUrl || process.env.DATABASE_URL
-  if (!url) {
-    throw new Error('Cannot reset database - connection string could not be inferred.')
-  }
-
-  if (process.env.NODE_ENV === 'production') {
-    throw new Error('This utility should not be called in production. It is meant for testing and development')
-  }
-
-  execSync(\`cd \${process.cwd()} && DATABASE_URL=\${url} npx prisma db push --force-reset\`, { stdio: 'inherit' })
-}
-`
-
 const pglite = `/**
  * Script that starts a postgres database using pg-gateway (https://github.com/supabase-community/pg-gateway) and pglite (https://github.com/electric-sql/pglite).
  *
@@ -197,17 +172,17 @@ const prisma: ModuleConfig = {
   dependencies: [
     {
       name: 'prisma',
-      version: '^5.18.0',
+      version: '^5.22.0',
       isDev: true
     },
     {
       name: '@prisma/client',
-      version: '^5.18.0',
+      version: '^5.22.0',
       isDev: false
     },
     {
       name: '@electric-sql/pglite',
-      version: '^0.2.9',
+      version: '0.2.13',
       isDev: true,
     },
     {
@@ -217,36 +192,41 @@ const prisma: ModuleConfig = {
     },
     {
       name: 'vite-node',
-      version: '^2.1.1',
+      version: '^2.1.5',
       isDev: true,
     }
   ],
   nuxtConfig: {},
-  files: [{
-    path: '.env',
-    content: prismaEnvFile
-  }, {
-    path: 'prisma/schema/schema.prisma',
-    content: prismaRootSchema
-  }, {
-    path: 'prisma/schema/example.prisma',
-    content: prismaExampleSchema
-  }, {
-    path: 'server/api/examples.get.ts',
-    content: prismaExampleEndpoint
-  }, {
-    path: 'server/middleware/0.prisma.ts',
-    content: prismaServerMiddleware
-  }, {
-    path: 'prisma/utils.ts',
-    content: prismaUtils
-  }, {
-    path: 'components/Welcome/PrismaDemo.vue',
-    content: prismaDemoComponent,
-  }, {
-    path: 'prisma/pglite.ts',
-    content: pglite,
-  }],
+  files: [
+    {
+      path: '.env',
+      content: prismaEnvFile
+    },
+    {
+      path: 'prisma/schema/schema.prisma',
+      content: prismaRootSchema
+    },
+    {
+      path: 'prisma/schema/example.prisma',
+      content: prismaExampleSchema
+    },
+    {
+      path: 'server/api/examples.get.ts',
+      content: prismaExampleEndpoint
+    },
+    {
+      path: 'server/middleware/0.prisma.ts',
+      content: prismaServerMiddleware
+    },
+    {
+      path: 'components/Welcome/PrismaDemo.vue',
+      content: prismaDemoComponent,
+    },
+    {
+      path: 'prisma/pglite.ts',
+      content: pglite,
+    }
+  ],
   tasksPostInstall: [
     '- [ ] Prisma: Edit your `prisma/prisma.schema` to your liking',
     `- [ ] Prisma: Start your local postgres database using \`${getUserPkgManager()} run db\``,
