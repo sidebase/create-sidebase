@@ -75,11 +75,11 @@ const pglite = `/**
  *
  * To make use of the shadow-database add \`/prisma-shadow\` to the DSN you provide. This script will then spin up a second, in-memory-only database and connect you to it.
  */
-import net from 'node:net'
 import { unlinkSync, writeFileSync } from 'node:fs'
+import net from 'node:net'
 import { PGlite } from '@electric-sql/pglite'
-import { fromNodeSocket } from 'pg-gateway/node'
 import { join } from 'pathe'
+import { fromNodeSocket } from 'pg-gateway/node'
 
 // If env var is set, we write a file to disk once the server is done starting up. This file can then be used by other processes to check whether the database is ready
 const doWriteHealthFile = process.env.WRITE_HEALTH_FILE === 'true'

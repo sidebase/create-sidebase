@@ -2,8 +2,8 @@ import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from '../gener
 import type { ModuleConfig } from '../types'
 
 const nuxtAuthServerFile = `import CredentialsProvider from 'next-auth/providers/credentials'
-import GithubProvider from 'next-auth/providers/github'
 import { NuxtAuthHandler } from '#auth'
+import GithubProvider from 'next-auth/providers/github'
 
 export default NuxtAuthHandler({
   // TODO: SET A STRONG SECRET, SEE https://sidebase.io/nuxt-auth/configuration/nuxt-auth-handler#secret
