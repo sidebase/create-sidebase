@@ -98,6 +98,13 @@ const sidebaseAuth: ModuleConfig = {
   ],
   nuxtConfig: {
     modules: ['@sidebase/nuxt-auth'],
+    // @ts-expect-error auth is not set in default Nuxt Config, as the package is not installed
+    auth: {
+      baseURL: '/api/auth',
+      provider: {
+        type: 'authjs'
+      }
+    }
   },
   files: [
     {
