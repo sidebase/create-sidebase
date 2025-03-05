@@ -28,9 +28,10 @@ const showModal = ref(false)
 `
 
 const nuxtAppVueWithNaiveConfig = `<template>
-  <naive-config>
+  <NaiveConfig>
+    <NuxtRouteAnnouncer />
     <NuxtPage />
-  </naive-config>
+  </NaiveConfig>
 </template>
 `
 
@@ -38,26 +39,26 @@ const naiveui: ModuleConfig = {
   humanReadableName: 'Naive UI',
   description: 'A Vue 3 Component Library. Complete, Customizable, Uses TypeScript, Fast. See more: https://www.naiveui.com/',
   scripts: [],
-  dependencies: [{
-    name: '@bg-dev/nuxt-naiveui',
-    /*
-     * Pinned to v1.0.0-edge.2 as naiveui was failing on typecheck.
-     * replace this with the offical release, once it is out.
-     * See: https://github.com/becem-gharbi/nuxt-naiveui/issues/76
-     */
-    version: '1.0.0-edge.2',
-    isDev: true
-  }],
+  dependencies: [
+    {
+      name: '@bg-dev/nuxt-naiveui',
+      version: '2.0.0-rc.4',
+      isDev: true
+    }
+  ],
   nuxtConfig: {
     modules: ['@bg-dev/nuxt-naiveui'],
   },
-  files: [{
-    path: 'components/Welcome/NaiveDemo.vue',
-    content: naiveDemoComponent
-  }, {
-    path: 'app.vue',
-    content: nuxtAppVueWithNaiveConfig
-  }],
+  files: [
+    {
+      path: 'components/Welcome/NaiveDemo.vue',
+      content: naiveDemoComponent
+    },
+    {
+      path: 'app.vue',
+      content: nuxtAppVueWithNaiveConfig
+    }
+  ],
   tasksPostInstall: [],
   indexVue: generateModuleHTMLSnippet('WelcomeNaiveDemo'),
 }

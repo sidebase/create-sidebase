@@ -60,13 +60,16 @@ const vscode: Config = {
   scripts: [],
   dependencies: [],
   nuxtConfig: {},
-  files: [{
-    path: '.vscode/settings.json',
-    content: VSCODE_SETTINGS
-  }, {
-    path: '.vscode/extensions.json',
-    content: VSCODE_EXTENSIONS
-  }],
+  files: [
+    {
+      path: '.vscode/settings.json',
+      content: VSCODE_SETTINGS
+    },
+    {
+      path: '.vscode/extensions.json',
+      content: VSCODE_EXTENSIONS
+    }
+  ],
 }
 
 export default vscode
