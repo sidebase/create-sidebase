@@ -10,8 +10,8 @@ const nuxtTrpcRootConfig = `/**
  * @see https://trpc.io/docs/v10/router
  * @see https://trpc.io/docs/v10/procedures
  */
-import { initTRPC } from '@trpc/server'
 import type { Context } from '~/server/trpc/context'
+import { initTRPC } from '@trpc/server'
 import superjson from 'superjson'
 
 const t = initTRPC.context<Context>().create({

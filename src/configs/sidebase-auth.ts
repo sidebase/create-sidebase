@@ -1,8 +1,8 @@
 import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from '../generators/generateModuleComponents'
 import type { ModuleConfig } from '../types'
 
-const nuxtAuthServerFile = `import CredentialsProvider from 'next-auth/providers/credentials'
-import { NuxtAuthHandler } from '#auth'
+const nuxtAuthServerFile = `import { NuxtAuthHandler } from '#auth'
+import CredentialsProvider from 'next-auth/providers/credentials'
 import GithubProvider from 'next-auth/providers/github'
 
 export default NuxtAuthHandler({
