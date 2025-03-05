@@ -96,5 +96,3 @@ jobs:
       # start dev-app and curl from it
       - name: app:test in prod
         run: "cd my-sidebase-app && timeout 30 npm run dev & (sleep 20 && curl --fail localhost:3000) || ( [[ $? -eq 124 ]] && echo \"app started and did not exit within first 30 seconds, thats good\" )"
-        env:
-          NUXT_AUTH_ORIGIN: "http://localhost:3000/api/auth"
