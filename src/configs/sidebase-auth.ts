@@ -100,7 +100,7 @@ const sidebaseAuth: ModuleConfig = {
     modules: ['@sidebase/nuxt-auth'],
     runtimeConfig: {
       auth: {
-        origin: 'localhost:3000/api/auth'
+        origin: 'http://localhost:3000/api/auth'
       }
     },
     // @ts-expect-error auth is not set in default Nuxt Config, as the package is not installed
