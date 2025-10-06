@@ -10,7 +10,7 @@ const nuxtTrpcRootConfig = `/**
  * @see https://trpc.io/docs/v10/router
  * @see https://trpc.io/docs/v10/procedures
  */
-import type { Context } from '~/server/trpc/context'
+import type { Context } from '~~/server/trpc/context'
 import { initTRPC } from '@trpc/server'
 import superjson from 'superjson'
 
@@ -69,8 +69,8 @@ export type Context = inferAsyncReturnType<typeof createContext>
 `
 
 const nuxtTrpcApiHandler = `import { createNuxtApiHandler } from 'trpc-nuxt'
-import { createContext } from '~/server/trpc/context'
-import { appRouter } from '~/server/trpc/routers'
+import { createContext } from '~~/server/trpc/context'
+import { appRouter } from '~~/server/trpc/routers'
 
 // export API handler
 export default createNuxtApiHandler({
@@ -79,7 +79,7 @@ export default createNuxtApiHandler({
 })
 `
 
-const nuxtTrpcPlugin = `import type { AppRouter } from '~/server/trpc/routers'
+const nuxtTrpcPlugin = `import type { AppRouter } from '~~/server/trpc/routers'
 import superjson from 'superjson'
 import { createTRPCNuxtClient, httpBatchLink } from 'trpc-nuxt/client'
 
