@@ -5,33 +5,14 @@ import { getUserPkgManager } from '../utils/getUserPkgManager'
 import { modules } from '../configs'
 
 function makeReadme(preferences: Preferences) {
-  const { setProjectName = 'sidebase', setStack = undefined, addModules = [], addCi = 'none' } = preferences
+  const { setProjectName = 'sidebase', addModules = [], addCi = 'none' } = preferences
 
   let selectedFeatures = []
-  if (setStack === 'merino') {
-    selectedFeatures = addModules.map((module: keyof typeof modules) => `- ${modules[module].humanReadableName}`)
-    if (addCi === 'github') {
-      selectedFeatures.push('- GitHub Actions based CI')
-    }
-    selectedFeatures.push('- Linting via ESLint and @antfu/eslint-config')
+  selectedFeatures = addModules.map((module: keyof typeof modules) => `- ${modules[module].humanReadableName}`)
+  if (addCi === 'github') {
+    selectedFeatures.push('- GitHub Actions based CI')
   }
-  else {
-    selectedFeatures = [
-      '- Database models, migrations, queries and easy DB-switching via Prisma',
-      '- Deep Prisma integration: Use the client in your endpoints via nuxt-prisma, Prisma client is auto-generated for npm run dev and other commands and more',
-      '- Frontend- and Backend data-transformation via nuxt-parse and zod',
-      '- In-memory development SQL-database via sqlite3',
-      '- Linting via eslint',
-      '- Test management, Test UI, component snapshotting via vitest',
-      '- Component tests via test-library/vue',
-      '- Nuxt 3 native API testing via @nuxt/test-utils',
-      '- Code coverage via c8',
-      '- CSS utilities via TailwindCSS',
-      '- CSS components via Naive UI',
-      '- Type checking in script and template via Volar / vue-tsc',
-      '- Code editor configuration via .editorconfig files and a portable .settings/ folder whith best-practice VS Code settings and extensions for Vue 3 / Nuxt 3 development',
-    ]
-  }
+  selectedFeatures.push('- Linting via ESLint and @antfu/eslint-config')
 
   const tasksPostInstall = addModules.map(module => modules[module].tasksPostInstall).flat()
   const packageManager = getUserPkgManager()
