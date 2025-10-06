@@ -50,7 +50,7 @@ const i18n: ModuleConfig = {
   dependencies: [
     {
       name: '@nuxtjs/i18n',
-      version: '^9.2.1',
+      version: '^10.1.0',
       isDev: true
     }
   ],
@@ -64,9 +64,7 @@ const i18n: ModuleConfig = {
       ],
       strategy: 'prefix_except_default',
       detectBrowserLanguage: false,
-      lazy: true,
       experimental: {
-        autoImportTranslationFunctions: true,
         localeDetector: 'localeDetector.ts'
       }
     }
@@ -81,7 +79,7 @@ const i18n: ModuleConfig = {
       content: englishLocaleFile
     },
     {
-      path: 'components/Welcome/I18nDemo.vue',
+      path: 'app/components/Welcome/I18nDemo.vue',
       content: i18nDemoComponent
     }
   ],

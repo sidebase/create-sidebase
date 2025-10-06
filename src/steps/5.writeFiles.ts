@@ -20,7 +20,7 @@ export default async function (templateDir: string, configs: Config[], modules: 
   </div>
 </template>
 `
-  await writeFile(resolver('app.vue'), nuxtAppVue)
+  await writeFile(resolver('app/app.vue'), nuxtAppVue)
 
   // 1. Collect all Files
   const filesToAdd: File[] = []
@@ -36,12 +36,12 @@ export default async function (templateDir: string, configs: Config[], modules: 
 
   // 3. Write index.vue with a nice welcome message as well as links to sub-pages
   const nuxtPagesIndexVue = generateIndexVue(modules)
-  await mkdir(resolver('pages'), { recursive: true })
-  await writeFile(resolver('pages/index.vue'), nuxtPagesIndexVue)
+  await mkdir(resolver('app/pages'), { recursive: true })
+  await writeFile(resolver('app/pages/index.vue'), nuxtPagesIndexVue)
 
   // 4. Write ButtonLink.vue for the module components
   if (modules.length > 0) {
-    await mkdir(resolver('components/Welcome'), { recursive: true })
-    await writeFile(resolver('components/Welcome/ButtonLink.vue'), buttonLink)
+    await mkdir(resolver('app/components/Welcome'), { recursive: true })
+    await writeFile(resolver('app/components/Welcome/ButtonLink.vue'), buttonLink)
   }
 }

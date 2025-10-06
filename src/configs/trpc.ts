@@ -179,11 +179,11 @@ const trpc: ModuleConfig = {
       content: nuxtTrpcApiHandler
     },
     {
-      path: 'plugins/trpcClient.ts',
+      path: 'app/plugins/trpcClient.ts',
       content: nuxtTrpcPlugin
     },
     {
-      path: 'components/Welcome/TRPCDemo.vue',
+      path: 'app/components/Welcome/TRPCDemo.vue',
       content: trpcDemoComponent,
     }
   ],

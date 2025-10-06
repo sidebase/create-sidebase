@@ -6,8 +6,10 @@ const prismaRootSchema = `// This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
-  previewFeatures = ["prismaSchemaFolder"]
+  provider = "prisma-client"
+  output   = "./client"
+
+  engineType = "library"
 }
 
 datasource db {
@@ -49,7 +51,8 @@ const prismaExampleEndpoint = `/**
 export default defineEventHandler(event => event.context.prisma.example.findMany())
 `
 
-const prismaServerMiddleware = `import { PrismaClient } from '@prisma/client'
+const prismaServerMiddleware = `import { PrismaPg } from '@prisma/adapter-pg'
+import { PrismaClient } from '@prisma/client'
 
 let prisma: PrismaClient
 
@@ -61,7 +64,8 @@ declare module 'h3' {
 
 export default eventHandler((event) => {
   if (!prisma) {
-    prisma = new PrismaClient()
+    const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
+    prisma = new PrismaClient({ adapter })
   }
   event.context.prisma = prisma
 })
@@ -166,19 +170,24 @@ const prisma: ModuleConfig = {
   scripts: [
     {
       name: 'db',
-      command: 'vite-node prisma/pglite.ts',
+      command: 'node prisma/pglite.ts',
     }
   ],
   dependencies: [
     {
       name: 'prisma',
-      version: '^5.22.0',
+      version: '^6.16.3',
       isDev: true
     },
     {
       name: '@prisma/client',
-      version: '^5.22.0',
+      version: '^6.16.3',
       isDev: false
+    },
+    {
+      name: '@prisma/adapter-pg',
+      version: '^6.16.3',
+      isDev: false,
     },
     {
       name: '@electric-sql/pglite',
@@ -187,12 +196,7 @@ const prisma: ModuleConfig = {
     },
     {
       name: 'pg-gateway',
-      version: '0.3.0-beta.3',
-      isDev: true,
-    },
-    {
-      name: 'vite-node',
-      version: '^2.1.5',
+      version: '0.3.0-beta.4',
       isDev: true,
     }
   ],
@@ -219,7 +223,7 @@ const prisma: ModuleConfig = {
       content: prismaServerMiddleware
     },
     {
-      path: 'components/Welcome/PrismaDemo.vue',
+      path: 'app/components/Welcome/PrismaDemo.vue',
       content: prismaDemoComponent,
     },
     {

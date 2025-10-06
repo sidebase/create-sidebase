@@ -2,7 +2,7 @@ import { downloadTemplate } from 'giget'
 import { say } from '../messages'
 import type { Preferences } from '../types'
 
-const TEMPLATE_NAME = 'github:sidebase/templates#nuxt-3.15.4'
+const TEMPLATE_NAME = 'github:sidebase/templates#nuxt-4.1.2'
 
 export default async (preferences: Preferences) => {
   // 1. Download template

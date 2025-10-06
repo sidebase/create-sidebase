@@ -21,7 +21,7 @@ const tailwind: ModuleConfig = {
   dependencies: [
     {
       name: '@nuxtjs/tailwindcss',
-      version: '^6.13.1',
+      version: '^6.14.0',
       isDev: true
     }
   ],
@@ -30,7 +30,7 @@ const tailwind: ModuleConfig = {
   },
   files: [
     {
-      path: 'components/Welcome/TailwindDemo.vue',
+      path: 'app/components/Welcome/TailwindDemo.vue',
       content: tailwindDemoComponent,
     }
   ],

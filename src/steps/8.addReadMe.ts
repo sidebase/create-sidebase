@@ -19,7 +19,7 @@ function makeReadme(preferences: Preferences) {
 
   return `# ${setProjectName}-app
 
-This is a [sidebase ${setStack}](https://sidebase.io/) app created by running \`${packageManager} create sidebase@latest\`. This project uses the following technologies for a great developer- and user-experience:
+This is a [sidebase](https://sidebase.io/) app created by running \`${packageManager} create sidebase@latest\`. This project uses the following technologies for a great developer- and user-experience:
 - [TypeScript](https://www.typescriptlang.org/)
 - [Nuxt 3](https://nuxt.com)
 ${selectedFeatures.join('\n')}
