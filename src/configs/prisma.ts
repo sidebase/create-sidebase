@@ -23,9 +23,8 @@ datasource db {
   // This is required for development only.
   shadowDatabaseUrl = "postgres://postgres@localhost/prisma-shadow?pgbouncer=true&connection_limit=1"
 }
-`
 
-const prismaExampleSchema = `model Example {
+model Example {
   id          String @id @default(uuid())
   details     String
 }
@@ -207,12 +206,8 @@ const prisma: ModuleConfig = {
       content: prismaEnvFile
     },
     {
-      path: 'prisma/schema/schema.prisma',
+      path: 'prisma/schema.prisma',
       content: prismaRootSchema
-    },
-    {
-      path: 'prisma/schema/example.prisma',
-      content: prismaExampleSchema
     },
     {
       path: 'server/api/examples.get.ts',
