@@ -29,7 +29,7 @@ export function sayGoodbye(preferences: Preferences) {
     sayCommand(`${packageManager} install`, 'Install project dependencies')
   }
 
-  if (preferences.addModules?.includes('prisma') || preferences.setStack === 'cheviot') {
+  if (preferences.addModules?.includes('prisma')) {
     sayCommand(`${packageManager} run db`, 'Start the local postgres database in a new window')
     sayCommand('npx prisma db push', 'Initialize the database & Prisma client')
   }
