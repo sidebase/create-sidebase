@@ -132,27 +132,27 @@ const trpc: ModuleConfig = {
   dependencies: [
     {
       name: '@trpc/server',
-      version: '^10.45.2',
+      version: '^11.6.0',
       isDev: false
     },
     {
       name: '@trpc/client',
-      version: '^10.45.2',
+      version: '^11.6.0',
       isDev: false
     },
     {
       name: 'trpc-nuxt',
-      version: '^0.10.21',
+      version: '^1.2.0',
       isDev: false
     },
     {
       name: 'zod',
-      version: '^3.23.8',
+      version: '^4.1.12',
       isDev: false
     },
     {
       name: 'superjson',
-      version: '^2.2.1',
+      version: '^2.2.2',
       isDev: false
     }
   ],
