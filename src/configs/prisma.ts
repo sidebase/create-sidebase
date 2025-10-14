@@ -177,17 +177,17 @@ const prisma: ModuleConfig = {
   dependencies: [
     {
       name: 'prisma',
-      version: '^6.16.3',
+      version: '^6.17.1',
       isDev: true
     },
     {
       name: '@prisma/client',
-      version: '^6.16.3',
+      version: '^6.17.1',
       isDev: false
     },
     {
       name: '@prisma/adapter-pg',
-      version: '^6.16.3',
+      version: '^6.17.1',
       isDev: false,
     },
     {
