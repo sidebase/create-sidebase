@@ -89,10 +89,10 @@ export default defineNuxtPlugin(() => {
    * built on top of \`useAsyncData\`.
    */
   const client = createTRPCNuxtClient<AppRouter>({
-    transformer: superjson,
     links: [
       httpBatchLink({
-        url: '/api/trpc'
+        url: '/api/trpc',
+        transformer: superjson
       })
     ]
   })
@@ -126,18 +126,18 @@ const hello = await $client.hello.useQuery({ text: 'client' })
 `
 
 const trpc: ModuleConfig = {
-  humanReadableName: 'tRPC 10',
+  humanReadableName: 'tRPC',
   description: 'Build end-to-end typesafe APIs in Nuxt applications. See more: https://trpc.io/',
   scripts: [],
   dependencies: [
     {
       name: '@trpc/server',
-      version: '^11.5.1',
+      version: '^11.6.0',
       isDev: false
     },
     {
       name: '@trpc/client',
-      version: '^11.5.1',
+      version: '^11.6.0',
       isDev: false
     },
     {
