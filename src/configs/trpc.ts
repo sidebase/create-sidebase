@@ -132,12 +132,12 @@ const trpc: ModuleConfig = {
   dependencies: [
     {
       name: '@trpc/server',
-      version: '^11.6.0',
+      version: '^11.5.1',
       isDev: false
     },
     {
       name: '@trpc/client',
-      version: '^11.6.0',
+      version: '^11.5.1',
       isDev: false
     },
     {
