@@ -197,7 +197,7 @@ const prisma: ModuleConfig = {
     },
     {
       name: 'pg-gateway',
-      version: '0.3.0-beta.4',
+      version: '0.3.0-beta.3',
       isDev: true,
     }
   ],
