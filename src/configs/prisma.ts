@@ -9,6 +9,8 @@ generator client {
   provider = "prisma-client"
   output   = "./client"
 
+  // NOTE: \`library\` will be deprecated in Prisma 7 where \`client\`, which is officially stable ("Generally Available") since Prisma 6.16, will become the new default.
+  // Nevertheless, at this time, there seem to be substantial problems with the \`client\` engine, forcing us to revert to \`library\`
   engineType = "library"
 }
 
