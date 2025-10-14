@@ -10,14 +10,14 @@ trigger:
 
 steps:
   - name: lint-and-typecheck
-    image: node:24.9.0-slim
+    image: node:24.10.0-slim
     commands:
       - npm i -g @antfu/ni
       - nci
       - nr lint
       - nr typecheck
   - name: build
-    image: node:24.9.0-slim
+    image: node:24.10.0-slim
     commands:
       - npm i -g @antfu/ni
       - nci

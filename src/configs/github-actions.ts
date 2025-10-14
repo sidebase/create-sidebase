@@ -10,7 +10,7 @@ on:
     branches: [ main ]
 
 env:
-  NODE_VERSION: '24.9.0'
+  NODE_VERSION: '24.10.0'
 
 jobs:
   lint:
