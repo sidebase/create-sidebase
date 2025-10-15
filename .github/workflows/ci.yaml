@@ -8,7 +8,7 @@ on:
 
 env:
   NODE_VERSION: 24.10.0
-  PNPM_VERSION: '10'
+  PNPM_VERSION: 10.7.1
 
 jobs:
   testCodebase:
