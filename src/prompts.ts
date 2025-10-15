@@ -1,10 +1,10 @@
-import prompts from 'prompts'
 import type { PromptObject } from 'prompts'
-import { say } from './messages'
-import { getUserPkgManager } from './utils/getUserPkgManager'
-import { getRandomProjectNoun } from './utils/getRandomProjectNoun'
 import type { Preferences } from './types'
+import prompts from 'prompts'
 import { modules } from './configs'
+import { say } from './messages'
+import { getRandomProjectNoun } from './utils/getRandomProjectNoun'
+import { getUserPkgManager } from './utils/getUserPkgManager'
 
 const PROMPT_QUESTIONS: PromptObject[] = [
   {

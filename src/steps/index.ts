@@ -7,4 +7,4 @@ import initGit from './6.initGit'
 import install from './7.install'
 import addReadMe from './8.addReadMe'
 
-export { downloadTemplate, getConfigs, buildPackage, buildNuxtConfig, writeFiles, initGit, install, addReadMe }
+export { addReadMe, buildNuxtConfig, buildPackage, downloadTemplate, getConfigs, initGit, install, writeFiles }

@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import { consola } from 'consola'
-import { getVersion } from '../utils/getVersion'
 import { diamond, say } from '.'
+import { getVersion } from '../utils/getVersion'
 
 // Artist of sheep: Bob Allison, taken from https://ascii.co.uk/art/sheep on 17.12.2022
 function makeBanner(welcome: string) {

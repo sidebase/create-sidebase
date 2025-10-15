@@ -1,6 +1,6 @@
+import type { Preferences } from '../types'
 import { downloadTemplate } from 'giget'
 import { say } from '../messages'
-import type { Preferences } from '../types'
 
 const TEMPLATE_NAME = 'github:sidebase/templates#nuxt-4.1.2'
 

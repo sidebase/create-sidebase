@@ -1,14 +1,10 @@
 import antfu from '@antfu/eslint-config'
 
 const ignores = [
-  '.nuxt',
-  '**/.nuxt/**',
-  '.output',
-  '**/.output/**',
-  'node_modules',
-  '**/node_modules/**',
-  'public',
-  '**/public/**',
+  'node_modules/',
+  'dist/',
+  'my-sidebase-*/',
+  'coverage/',
 ]
 
 export default antfu({

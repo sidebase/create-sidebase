@@ -1,10 +1,10 @@
+import type { Preferences } from '../types'
 import chalk from 'chalk'
 import { consola } from 'consola'
-import type { Preferences } from '../types'
 
-export { sayWelcome, sayQuickWelcome } from './welcome'
 export { sayGoodbye } from './goodbye'
 export { wrapInSpinner } from './spinner'
+export { sayQuickWelcome, sayWelcome } from './welcome'
 
 // Diamond config
 export const diamond = chalk.bold.gray('🐑 Diamond:').padEnd(12, ' ') // Make `diamond` fixed sized -> emojis can habe surprising lengths
