@@ -14,8 +14,8 @@
     "lint": "oxlint --deny-warnings -D correctness -D suspicious -D perf && eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
     "lint:fix": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0 --fix",
     "typecheck": "tsc --noEmit",
-    "build": "rm -rf dist && tsdown src/ --format esm",
-    "start": "npx",
+    "build": "rm -rf dist && tsdown src/index.ts --format esm",
+    "start": "npx .",
     "prepack": "npm run build"
   },
   "files": [
