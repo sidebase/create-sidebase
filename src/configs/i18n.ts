@@ -1,5 +1,5 @@
-import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from '../generators/generateModuleComponents'
 import type { ModuleConfig } from '../types'
+import { generateModuleHTMLComponent, generateModuleHTMLSnippet } from '../generators/generateModuleComponents'
 
 const localeDetector = `// Detect language to enable server side translations https://i18n.nuxtjs.org/docs/guide/server-side-translations
 export default defineI18nLocaleDetector((event, config) => {

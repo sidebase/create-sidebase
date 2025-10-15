@@ -1,8 +1,8 @@
-import { writeFile } from 'node:fs/promises'
-import { getResolver } from '../getResolver'
 import type { Preferences } from '../types'
-import { getUserPkgManager } from '../utils/getUserPkgManager'
+import { writeFile } from 'node:fs/promises'
 import { modules } from '../configs'
+import { getResolver } from '../getResolver'
+import { getUserPkgManager } from '../utils/getUserPkgManager'
 
 function makeReadme(preferences: Preferences) {
   const { setProjectName = 'sidebase', addModules = [], addCi = 'none' } = preferences
@@ -14,7 +14,7 @@ function makeReadme(preferences: Preferences) {
   }
   selectedFeatures.push('- Linting via ESLint and @antfu/eslint-config')
 
-  const tasksPostInstall = addModules.map(module => modules[module].tasksPostInstall).flat()
+  const tasksPostInstall = addModules.flatMap(module => modules[module].tasksPostInstall)
   const packageManager = getUserPkgManager()
 
   return `# ${setProjectName}-app

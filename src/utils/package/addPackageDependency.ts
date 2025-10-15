@@ -1,7 +1,7 @@
-import { resolve } from 'node:path'
-import { readPackageJSON, writePackageJSON } from 'pkg-types'
-import { defu } from 'defu'
 import type { Dependency } from '../../types'
+import { resolve } from 'node:path'
+import { defu } from 'defu'
+import { readPackageJSON, writePackageJSON } from 'pkg-types'
 
 export async function addPackageDependencies(opts: {
   dependencies: Dependency[]

@@ -1,7 +1,7 @@
-import chalk from 'chalk'
 import type { Preferences } from '../types'
-import { getUserPkgManager } from '../utils/getUserPkgManager'
+import chalk from 'chalk'
 import { diamond } from '.'
+import { getUserPkgManager } from '../utils/getUserPkgManager'
 
 function sayCommand(command: string, comment = '') {
   const coloredCommand = chalk.blue(`> ${command}`)

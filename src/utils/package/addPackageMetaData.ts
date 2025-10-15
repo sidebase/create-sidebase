@@ -1,6 +1,6 @@
+import type { PackageManager } from '../getUserPkgManager'
 import { resolve } from 'node:path'
 import { readPackageJSON, writePackageJSON } from 'pkg-types'
-import type { PackageManager } from '../getUserPkgManager'
 import { getUserPkgManager } from '../getUserPkgManager'
 
 const NODE_VERSION = '>=18.0.0'

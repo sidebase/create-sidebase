@@ -1,8 +1,8 @@
+import type { NuxtConfig } from '@nuxt/schema'
+import type { Config, ModuleConfig } from '../types'
 import { writeFile } from 'node:fs/promises'
 import { inspect } from 'node:util'
-import type { NuxtConfig } from '@nuxt/schema'
 import defu from 'defu'
-import type { Config, ModuleConfig } from '../types'
 import { getResolver } from '../getResolver'
 
 export default async function (templateDir: string, configs: Config[], modules: ModuleConfig[]) {

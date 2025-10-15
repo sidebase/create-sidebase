@@ -1,9 +1,9 @@
+import type { Config, File, ModuleConfig } from '../types'
 import { mkdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
-import type { Config, File, ModuleConfig } from '../types'
-import { getResolver } from '../getResolver'
 import { generateIndexVue } from '../generators/generateIndexVue'
 import { buttonLink } from '../generators/generateModuleComponents'
+import { getResolver } from '../getResolver'
 
 export default async function (templateDir: string, configs: Config[], modules: ModuleConfig[]) {
   // If no configs or modules were passed, skip.
