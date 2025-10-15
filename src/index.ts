@@ -21,7 +21,6 @@ async function main() {
   // Collect User preferences
   let preferences: Preferences = {
     setProjectName: 'my-sidebase-app',
-    setStack: 'merino',
     addModules: ['prisma', 'sidebase-auth', 'trpc', 'tailwind', 'naiveui', 'i18n'],
     runGitInit: true,
     addCi: 'github',
@@ -37,7 +36,7 @@ async function main() {
   }
 
   // 1. Download the Nuxt 3 template
-  const template = await wrapInSpinner(`Adding Nuxt 3 ${preferences.setStack}-template`, downloadTemplate, preferences)
+  const template = await wrapInSpinner(`Adding Nuxt`, downloadTemplate, preferences)
 
   // 2. Get Configs and modules
   const { configs, modules } = getConfigs(preferences)

@@ -16,7 +16,7 @@ export async function logTelemetry(preferences: Preferences) {
   }
 
   // We do not want to know identifiable information, only pass: Stack + selected modules
-  const annonymizedPreferences = new URLSearchParams({ ref: preferences.setStack, utm_content: (preferences.addModules || []).join(',') || 'null' })
+  const annonymizedPreferences = new URLSearchParams({ ref: 'merino', utm_content: (preferences.addModules || []).join(',') || 'null' })
   const headers = { 'User-Agent': 'Mozilla/5.0', 'X-Forwarded-For': `2.175.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}` }
   return fetch('https://plausible.io/api/event', {
     method: 'POST',

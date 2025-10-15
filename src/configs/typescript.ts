@@ -11,12 +11,12 @@ const scripts: Config = {
   dependencies: [
     {
       name: 'vue-tsc',
-      version: '2.2.8',
+      version: '^3.1.1',
       isDev: true
     },
     {
       name: 'typescript',
-      version: '5.7.3',
+      version: '^5.9.3',
       isDev: true,
     }
   ],

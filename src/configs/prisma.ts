@@ -6,8 +6,12 @@ const prismaRootSchema = `// This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
-  previewFeatures = ["prismaSchemaFolder"]
+  provider = "prisma-client"
+  output   = "./client"
+
+  // NOTE: \`library\` will be deprecated in Prisma 7 where \`client\`, which is officially stable ("Generally Available") since Prisma 6.16, will become the new default.
+  // Nevertheless, at this time, there seem to be substantial problems with the \`client\` engine, forcing us to revert to \`library\`
+  engineType = "library"
 }
 
 datasource db {
@@ -21,9 +25,8 @@ datasource db {
   // This is required for development only.
   shadowDatabaseUrl = "postgres://postgres@localhost/prisma-shadow?pgbouncer=true&connection_limit=1"
 }
-`
 
-const prismaExampleSchema = `model Example {
+model Example {
   id          String @id @default(uuid())
   details     String
 }
@@ -49,7 +52,8 @@ const prismaExampleEndpoint = `/**
 export default defineEventHandler(event => event.context.prisma.example.findMany())
 `
 
-const prismaServerMiddleware = `import { PrismaClient } from '@prisma/client'
+const prismaServerMiddleware = `import { PrismaPg } from '@prisma/adapter-pg'
+import { PrismaClient } from '~~/prisma/client/client'
 
 let prisma: PrismaClient
 
@@ -61,7 +65,8 @@ declare module 'h3' {
 
 export default eventHandler((event) => {
   if (!prisma) {
-    prisma = new PrismaClient()
+    const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
+    prisma = new PrismaClient({ adapter })
   }
   event.context.prisma = prisma
 })
@@ -166,19 +171,24 @@ const prisma: ModuleConfig = {
   scripts: [
     {
       name: 'db',
-      command: 'vite-node prisma/pglite.ts',
+      command: 'node prisma/pglite.ts',
     }
   ],
   dependencies: [
     {
       name: 'prisma',
-      version: '^5.22.0',
+      version: '^6.17.1',
       isDev: true
     },
     {
       name: '@prisma/client',
-      version: '^5.22.0',
+      version: '^6.17.1',
       isDev: false
+    },
+    {
+      name: '@prisma/adapter-pg',
+      version: '^6.17.1',
+      isDev: false,
     },
     {
       name: '@electric-sql/pglite',
@@ -189,11 +199,6 @@ const prisma: ModuleConfig = {
       name: 'pg-gateway',
       version: '0.3.0-beta.3',
       isDev: true,
-    },
-    {
-      name: 'vite-node',
-      version: '^2.1.5',
-      isDev: true,
     }
   ],
   nuxtConfig: {},
@@ -203,12 +208,8 @@ const prisma: ModuleConfig = {
       content: prismaEnvFile
     },
     {
-      path: 'prisma/schema/schema.prisma',
+      path: 'prisma/schema.prisma',
       content: prismaRootSchema
-    },
-    {
-      path: 'prisma/schema/example.prisma',
-      content: prismaExampleSchema
     },
     {
       path: 'server/api/examples.get.ts',
@@ -219,7 +220,7 @@ const prisma: ModuleConfig = {
       content: prismaServerMiddleware
     },
     {
-      path: 'components/Welcome/PrismaDemo.vue',
+      path: 'app/components/Welcome/PrismaDemo.vue',
       content: prismaDemoComponent,
     },
     {

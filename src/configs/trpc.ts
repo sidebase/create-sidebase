@@ -10,7 +10,7 @@ const nuxtTrpcRootConfig = `/**
  * @see https://trpc.io/docs/v10/router
  * @see https://trpc.io/docs/v10/procedures
  */
-import type { Context } from '~/server/trpc/context'
+import type { Context } from '~~/server/trpc/context'
 import { initTRPC } from '@trpc/server'
 import superjson from 'superjson'
 
@@ -69,8 +69,8 @@ export type Context = inferAsyncReturnType<typeof createContext>
 `
 
 const nuxtTrpcApiHandler = `import { createNuxtApiHandler } from 'trpc-nuxt'
-import { createContext } from '~/server/trpc/context'
-import { appRouter } from '~/server/trpc/routers'
+import { createContext } from '~~/server/trpc/context'
+import { appRouter } from '~~/server/trpc/routers'
 
 // export API handler
 export default createNuxtApiHandler({
@@ -79,7 +79,7 @@ export default createNuxtApiHandler({
 })
 `
 
-const nuxtTrpcPlugin = `import type { AppRouter } from '~/server/trpc/routers'
+const nuxtTrpcPlugin = `import type { AppRouter } from '~~/server/trpc/routers'
 import superjson from 'superjson'
 import { createTRPCNuxtClient, httpBatchLink } from 'trpc-nuxt/client'
 
@@ -89,10 +89,10 @@ export default defineNuxtPlugin(() => {
    * built on top of \`useAsyncData\`.
    */
   const client = createTRPCNuxtClient<AppRouter>({
-    transformer: superjson,
     links: [
       httpBatchLink({
-        url: '/api/trpc'
+        url: '/api/trpc',
+        transformer: superjson
       })
     ]
   })
@@ -126,33 +126,33 @@ const hello = await $client.hello.useQuery({ text: 'client' })
 `
 
 const trpc: ModuleConfig = {
-  humanReadableName: 'tRPC 10',
+  humanReadableName: 'tRPC',
   description: 'Build end-to-end typesafe APIs in Nuxt applications. See more: https://trpc.io/',
   scripts: [],
   dependencies: [
     {
       name: '@trpc/server',
-      version: '^10.45.2',
+      version: '^11.6.0',
       isDev: false
     },
     {
       name: '@trpc/client',
-      version: '^10.45.2',
+      version: '^11.6.0',
       isDev: false
     },
     {
       name: 'trpc-nuxt',
-      version: '^0.10.21',
+      version: '^1.2.0',
       isDev: false
     },
     {
       name: 'zod',
-      version: '^3.23.8',
+      version: '^4.1.12',
       isDev: false
     },
     {
       name: 'superjson',
-      version: '^2.2.1',
+      version: '^2.2.2',
       isDev: false
     }
   ],
@@ -179,11 +179,11 @@ const trpc: ModuleConfig = {
       content: nuxtTrpcApiHandler
     },
     {
-      path: 'plugins/trpcClient.ts',
+      path: 'app/plugins/trpcClient.ts',
       content: nuxtTrpcPlugin
     },
     {
-      path: 'components/Welcome/TRPCDemo.vue',
+      path: 'app/components/Welcome/TRPCDemo.vue',
       content: trpcDemoComponent,
     }
   ],

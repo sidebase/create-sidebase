@@ -2,18 +2,13 @@ import { downloadTemplate } from 'giget'
 import { say } from '../messages'
 import type { Preferences } from '../types'
 
-const KNOWN_TEMPLATES = {
-  merino: 'github:sidebase/templates#nuxt-3.15.4',
-  cheviot: 'community/sidebase'
-}
+const TEMPLATE_NAME = 'github:sidebase/templates#nuxt-4.1.2'
 
 export default async (preferences: Preferences) => {
-  const templateName = KNOWN_TEMPLATES[preferences.setStack as keyof typeof KNOWN_TEMPLATES]
-
   // 1. Download template
   let template
   try {
-    template = await downloadTemplate(templateName, {
+    template = await downloadTemplate(TEMPLATE_NAME, {
       dir: preferences.setProjectName,
       registry: 'https://raw.githubusercontent.com/nuxt/starter/templates/templates'
     })

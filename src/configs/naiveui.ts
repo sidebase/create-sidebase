@@ -42,7 +42,7 @@ const naiveui: ModuleConfig = {
   dependencies: [
     {
       name: '@bg-dev/nuxt-naiveui',
-      version: '2.0.0-rc.4',
+      version: '2.0.0',
       isDev: true
     }
   ],
@@ -51,11 +51,11 @@ const naiveui: ModuleConfig = {
   },
   files: [
     {
-      path: 'components/Welcome/NaiveDemo.vue',
+      path: 'app/components/Welcome/NaiveDemo.vue',
       content: naiveDemoComponent
     },
     {
-      path: 'app.vue',
+      path: 'app/app.vue',
       content: nuxtAppVueWithNaiveConfig
     }
   ],

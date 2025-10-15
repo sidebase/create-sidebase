@@ -86,7 +86,7 @@ const sidebaseAuth: ModuleConfig = {
   dependencies: [
     {
       name: '@sidebase/nuxt-auth',
-      version: '^0.9.4',
+      version: '^1.1.0',
       isDev: true
     },
     {
@@ -105,7 +105,7 @@ const sidebaseAuth: ModuleConfig = {
       content: nuxtAuthServerFile
     },
     {
-      path: 'components/Welcome/AuthDemo.vue',
+      path: 'app/components/Welcome/AuthDemo.vue',
       content: authDemoComponent
     }
   ],

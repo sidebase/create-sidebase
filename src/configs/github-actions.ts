@@ -9,15 +9,18 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  NODE_VERSION: '24.10.0'
+
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js 20.6.1
+      - name: Use Node.js $/{{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
-          node-version: 20.6.1
+          node-version: $/{{ env.NODE_VERSION }}
 
       - name: Setup
         run: npm i -g @antfu/ni
@@ -32,10 +35,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js 20.6.1
+      - name: Use Node.js $/{{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
-          node-version: 20.6.1
+          node-version: $/{{ env.NODE_VERSION }}
 
       - name: Setup
         run: npm i -g @antfu/ni

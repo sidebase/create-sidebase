@@ -48,17 +48,17 @@ const eslint: Config = {
   dependencies: [
     {
       name: 'eslint',
-      version: '^9.18.0',
+      version: '^9.37.0',
       isDev: true
     },
     {
       name: '@antfu/eslint-config',
-      version: '^3.15.0',
+      version: '^5.4.1',
       isDev: true
     },
     {
       name: 'oxlint',
-      version: '^0.15.7',
+      version: '^1.20.0',
       isDev: true
     }
   ],
